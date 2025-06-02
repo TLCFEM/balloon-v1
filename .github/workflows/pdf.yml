@@ -1,0 +1,32 @@
+name: PDF
+on: [push, pull_request]
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Compile
+        uses: xu-cheng/texlive-action@v2
+        with:
+          scheme: full
+          run: |
+            mkdir tmp
+            latexmk -pdf PICCOLLECTION.tex
+            latexmk -pdf BALLOON.tex
+      - name: Release
+        if: github.event_name == 'push'
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: BALLOON.pdf
+          asset_name: BALLOON.pdf
+          tag: latest
+          overwrite: true
