@@ -1,4 +1,3 @@
-from math import sqrt
 import os
 import subprocess
 import numpy as np
@@ -6,12 +5,6 @@ import matplotlib.pyplot as plt
 
 plt.rcParams.update({"font.size": 6})
 
-
-def F(q):
-    return 232 + 70 * (1 - np.exp(-q * 30))
-
-def H(q):
-    return 209 + 63 * (1 - np.exp(-q * 30))
 
 def new_fig():
     fig = plt.figure(figsize=(6, 2.5), tight_layout=True)
@@ -40,14 +33,7 @@ def plot():
     ax.plot(
         strain[:, 1] * 1e3, stress[:, 1], color="#d73027", marker="x", markevery=149
     )
-    ax.plot(
-        strain[:, 1] * 1e3,
-        hist[:, 6] * F(hist[:, 2]),
-        color="#4575b4",
-        marker="+",
-        markevery=151,
-    )
-    ax.legend(["$\\sigma$", "$Fd$"], loc="upper left")
+    ax.legend(["$\\sigma$"], loc="upper left")
     ax.set_xlabel("strain ($1/1000$)")
     ax.set_ylabel("stress (MPa)")
     ax.set_xbound(0, max(strain[:, 1] * 1e3))
@@ -64,41 +50,7 @@ def plot():
     ax.set_xbound(0, max(strain[:, 1] * 1e3))
     ax.set_ybound(0, 1.1)
 
-    ax = ax.twinx()
-    ax.plot(strain[:, 1] * 1e3, hist[:, 6], color="#4575b4", marker="+", markevery=151)
-    ax.legend(["$d$"], loc="upper right")
-    ax.set_ylabel("similarity vector $d$")
-    ax.set_xbound(0, max(strain[:, 1] * 1e3))
-    ax.set_ybound(0, 1.1)
-
     fig.savefig("cyclic.ratio.total.pdf")
-
-    fig, ax = new_fig()
-
-    ax.plot(hist[:, 2] * 1e3, hist[:, 3], color="#d73027", marker="x", markevery=149)
-    ax.legend(["$z$"], loc="upper left")
-    ax.set_xlabel("accumulated plastic strain $q$ ($1/1000$)")
-    ax.set_ylabel("normal yield ratio $z$")
-    ax.set_xbound(0, max(hist[:, 2] * 1e3))
-    ax.set_ybound(0, 1.1)
-
-    ax = ax.twinx()
-    ax.plot(
-        hist[:, 2] * 1e3,
-        0.7 - 0.7 * np.exp(-143 * sqrt(1.5) * hist[:, 2]),
-        color="#4575b4",
-        marker="+",
-        markevery=347,
-        linestyle="dashed",
-        linewidth=1,
-    )
-    ax.plot(hist[:, 2] * 1e3, hist[:, 6], color="#4575b4", marker="+", markevery=151)
-    ax.legend(["monotonic bound $d$", "$d$"], loc="upper right")
-    ax.set_ylabel("similarity vector $d$")
-    ax.set_xbound(0, max(hist[:, 2] * 1e3))
-    ax.set_ybound(0, 1.1)
-
-    fig.savefig("cyclic.ratio.plastic.pdf")
 
 
 if __name__ == "__main__":
