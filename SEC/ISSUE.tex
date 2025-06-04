@@ -1,0 +1,50 @@
+\section{Background}
+\subsection{The Basic Framework}
+\subsubsection{Constitutive Law}
+Based on the additive decomposition of deformation, the conventional elasticity applies.
+That is, the stress tensor $\bsigma$ can be expressed as the product of the elasticity tensor $\mb{D}_e$ and the elastic strain tensor $\bvarepsilon^e$,
+\begin{gather}
+    \bsigma=\mb{D}_e:\bvarepsilon^e=\mb{D}_e:\left(\bvarepsilon-\bvarepsilon^p\right),
+\end{gather}
+where $\bvarepsilon$ is the total strain tensor and $\bvarepsilon^p$ is the plastic strain tensor.
+\subsubsection{Subloading Surface}
+The subloading surface differs from the conventional yield surface by an additional scalar field $z$, which is named as the normal yield ratio in the existing literature.
+Adopting the von Mises yield criterion, the equivalent subloading surface \citep{Chang2025} can be expressed as
+\begin{gather}
+    f_s=\norm{\beeta}-z\sqrt{\dfrac{2}{3}}\sigma^y,
+\end{gather}
+where $\beeta=\dev{\bsigma}-a^y\balpha+\left(z-1\right)\sigma^y\bd$ is the shifted stress tensor,
+$\balpha$ is the conventional back stress tensor, $\bd$ is the similarity tensor, both are internal history fields that would evolve in the stress space. The scalars $a^y$ and $\sigma^y$ are the magnitudes that may also evolve with the development of plasticity.
+\subsubsection{Flow Rule}
+Assuming associated plasticity, the flow rule possesses the widely known form,
+\begin{gather}
+    \dot{\bvarepsilon^p}=\gamma{}\bn,
+\end{gather}
+where $\gamma$ is the plastic multiplier, and $\bn$ is the unit gradient of $f_s$, that is,
+\begin{gather}
+    \bn=\pdfrac{f_s}{\bsigma}/\norm{\pdfrac{f_s}{\bsigma}}.
+\end{gather}
+\subsubsection{Evolution Rules}
+The scalar fields are driven by the accumulated plastic strain $q$, its rate form is defined as
+\begin{gather}
+    \dot{q}=\sqrt{\dfrac{2}{3}}\gamma.
+\end{gather}
+With the above, the following evolution rule is introduced for $z$,
+\begin{gather}
+    \dot{z}=U\dot{q},
+\end{gather}
+where $U=U\left(z\right)$ is a function of $z$.
+Furthermore,
+\begin{gather}
+    \sigma^y=\sigma^i+k_\text{iso}q+\sigma^s_\text{iso}\left(1-e^{-m^s_\text{iso}q}\right),\\
+    a^y=a^i+k_\text{kin}q+a^s_\text{kin}\left(1-e^{-m^s_\text{kin}q}\right).
+\end{gather}
+The internal history fields (tensors) adopt the following evolution rules,
+\begin{gather}
+    \dot{\balpha}=b\left(\sqrt{\dfrac{2}{3}}\bn-\balpha\right)\gamma,\qquad
+    \dot{\bd}=c_e\left(\sqrt{\dfrac{2}{3}}z_e\bn-\bd\right)\gamma.
+\end{gather}
+All unmentioned symbols/parameters are material constants.
+\section{Limitations}
+The most distinctive feature of the subloading surface model is that the normal yield ratio $z$ gradually approaches unity from zero during the loading process.
+Thus, there is no elastic region during this process, as $z$ is driven by $q$, which accumulates with the plastic deformation.
