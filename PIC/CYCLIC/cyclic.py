@@ -1,5 +1,7 @@
 import os
 import subprocess
+from matplotlib.collections import LineCollection
+from matplotlib.colors import Normalize
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -11,6 +13,47 @@ def new_fig():
     ax1 = fig.add_subplot(111)
     ax1.grid(True)
     return fig, ax1
+
+
+def plot_gradient_line(
+    x,
+    y,
+    cmap="viridis",
+    linewidth=2,
+    marker: str | None = "x",
+    markevery=149,
+):
+    x = np.asarray(x)
+    y = np.asarray(y)
+    z = np.arange(len(x))
+
+    points = np.array([x, y]).T.reshape(-1, 1, 2)
+
+    lc = LineCollection(
+        np.concatenate([points[:-1], points[1:]], axis=1),
+        cmap=cmap,
+        norm=Normalize(z.min(), z.max()),
+    )
+    lc.set_array(z)
+    lc.set_linewidth(linewidth)
+
+    # Plot
+    fig, ax = new_fig()
+    ax.add_collection(lc)
+    ax.set_xlim(x.min(), x.max())
+    ax.set_ylim(y.min(), y.max())
+
+    # Add optional markers
+    if marker:
+        ax.plot(
+            x[::markevery],
+            y[::markevery],
+            linestyle="None",
+            marker=marker,
+            color="black",
+        )
+
+    return fig, ax
 
 
 def plot():
@@ -36,10 +79,17 @@ def plot():
     ax.legend(["$\\sigma$"], loc="upper left")
     ax.set_xlabel("strain ($1/1000$)")
     ax.set_ylabel("stress (MPa)")
-    ax.set_xbound(0, max(strain[:, 1] * 1e3))
+    ax.set_xbound(min(strain[:, 1] * 1e3), max(strain[:, 1] * 1e3))
     ax.set_ybound(1.1 * min(stress[:, 1]), 1.1 * max(stress[:, 1]))
 
     fig.savefig("cyclic.total.pdf")
+
+    fig, ax = plot_gradient_line(
+        strain[:, 1] * 1e3, stress[:, 1], marker=None, cmap="rainbow"
+    )
+    ax.set_xlabel("strain ($1/1000$)")
+    ax.set_ylabel("stress (MPa)")
+    fig.savefig("cyclic.gradient.pdf")
 
     fig, ax = new_fig()
 
@@ -47,7 +97,7 @@ def plot():
     ax.legend(["$z$"], loc="upper left")
     ax.set_xlabel("strain ($1/1000$)")
     ax.set_ylabel("normal yield ratio $z$")
-    ax.set_xbound(0, max(strain[:, 1] * 1e3))
+    ax.set_xbound(min(strain[:, 1] * 1e3), max(strain[:, 1] * 1e3))
     ax.set_ybound(0, 1.1)
 
     fig.savefig("cyclic.ratio.total.pdf")
