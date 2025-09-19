@@ -2,9 +2,9 @@ node 1 0 0
 node 2 1 0
 
 material Subloading1D 1 2E5 \
-200 1E2 0 0 \
+200 2E4 0 0 \
 0 0 0 0 \
-2E3 0 100 0.7
+5E3 0 100 0.7
 
 element T2D2 1 1 2 1 1
 
@@ -15,12 +15,16 @@ plainrecorder 3 Element E 1
 fix2 1 1 1
 fix2 2 2 1 2
 
+expression SimpleScalar 1 t 0.5-0.5*cos(6.28318530718*t)
+
 amplitude Tabular 1 cyclic
 
 amplitude Sine 2 1 1
 
-# cload 1 1 50 1 2
-disp 1 2 4e-3 1 2
+amplitude Custom 3 1
+
+cload 1 2 200 1 2
+# disp 1 2 2e-3 1 2
 
 step static 1 200
 set fixed_step_size 1

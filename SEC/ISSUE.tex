@@ -15,25 +15,23 @@ Adopting the von Mises yield criterion, the equivalent subloading surface \citep
 \end{gather}
 where $\beeta=\dev{\bsigma}-a^y\balpha+\left(z-1\right)\sigma^y\bd$ is the shifted stress tensor,
 $\balpha$ is the conventional back stress tensor, $\bd$ is the similarity tensor, both are internal history fields that would evolve in the stress space. The scalars $a^y$ and $\sigma^y$ are the magnitudes that may also evolve with the development of plasticity.
-\subsubsection{Flow Rule}
+\subsubsection{Flow and Evolution Rules}
 Assuming associated plasticity, the flow rule possesses the widely known form,
 \begin{gather}
     \dot{\bvarepsilon^p}=\gamma{}\bn,
 \end{gather}
-where $\gamma$ is the plastic multiplier, and $\bn$ is the unit gradient of $f_s$, that is,
-\begin{gather}
-    \bn=\pdfrac{f_s}{\bsigma}/\norm{\pdfrac{f_s}{\bsigma}}.
-\end{gather}
-\subsubsection{Evolution Rules}
+where $\gamma$ is the plastic multiplier, and $\bn$ is the unit gradient of $f_s$, that is, $\bn=\pdfrac{f_s}{\bsigma}/\norm{\pdfrac{f_s}{\bsigma}}$.
+
 The scalar fields are driven by the accumulated plastic strain $q$, its rate form is defined as
 \begin{gather}
-    \dot{q}=\sqrt{\dfrac{2}{3}}\gamma.
+    \dot{q}=\sqrt{\dfrac{2}{3}}\norm{\dot{\bvarepsilon^p}}=\sqrt{\dfrac{2}{3}}\gamma.
 \end{gather}
 With the above, the following evolution rule is introduced for $z$,
 \begin{gather}
     \dot{z}=U\dot{q},
 \end{gather}
 where $U=U\left(z\right)$ is a function of $z$.
+It's specific form is not relevant to the current discussion, readers are referred to the previous work \citep{Chang2025} for details.
 Furthermore,
 \begin{gather}
     \sigma^y=\sigma^i+k_\text{iso}q+\sigma^s_\text{iso}\left(1-e^{-m^s_\text{iso}q}\right),\\
