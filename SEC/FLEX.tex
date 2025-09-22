@@ -9,9 +9,14 @@ When it increases, the subloading surface expands, indicating a loading process.
 When it decreases, the subloading surface contracts, indicating an unloading process.
 Thus, with the introduction of $z$, local reversals can be detected with ease by checking whether $z$ ever decreases during the given (sub)step.
 
-Let the normal yield ratio at each load reversal be denoted as $z_r^j$ with $j=1,2,3,\cdots$ standing for the $j$-th reversal.
+For a material (point) that has experienced up to $N$ local reversals, let the normal yield ratio at each load reversal be denoted as $z_r^j$ with $j=1,2,3,\cdots,N$ standing for the $j$-th reversal.
 The initial value is $z_r^0=0$.
-We use $z_r$ to denote the collection of all $z_r^j$, thus,
+We use $z_r$ to denote some measure of the collection of all $z_r^j$, thus,
 \begin{gather}
-    z_r=\{z_r^j\}.
+    z_r=P\left(\left\{z_r^j\right\}_{j=0}^N\right)=P\left(z_r^0,z_r^1,z_r^2,\cdots,z_r^N\right).
 \end{gather}
+In the above, $P\left(\cdot\right)$ is a function that maps the collection $\left\{z_r^j\right\}_{j=0}^N$ to a single scalar $z_r$.
+Depending on the specific choice of function $P$, $z_r$ embodies different memory effects.
+For example, $z_r$ can take the maximum value of the most recent $M$ values.
+When $M=1$, $z_r$ is the most recent value $z_r^N$.
+When $M\geqslant{}N$, $z_r$ is simply the maximum value of all $z_r^j$.
