@@ -1,4 +1,12 @@
 \section{Background}
+The two-surface formulation, including the bounding surface theory, has been exercised in various materials, including metals \citep{Mahan2011}.
+A careful examination reveals that, although different nomenclatures are used, the subloading surface theory bears some resemblance to the bounding surface theory: both employ exactly two surfaces in the stress space, one (outer) being a bound for the other (inner).
+Both surfaces are allowed to evolve in terms of both size (isotropic hardening) and location (kinematic hardening).
+
+If one compares their formulations and implementations \citep{Mahan2011,Chang2025}, the subloading surface theory appears to be more straightforward and easier to implement.
+As already discussed by \citet[see][\S~8.2.3]{Hashiguchi2017}, when transitioning from elastic to plastic, the existence of a non-shrinking elastic region makes it impossible to obtain a smooth stiffness in the bounding surface theory.
+Furthermore, due to the exact same reason, one--sided small loading cycles cannot produce any hysteresis.
+In contrast, the subloading surface theory indeed does not have these issues.
 \subsection{The Basic Framework}
 \subsubsection{Constitutive Law}
 Based on the additive decomposition of deformation, the conventional elasticity applies.
