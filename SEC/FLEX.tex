@@ -5,6 +5,7 @@ A common criterion for detecting reversal is the double contraction $\beeta:\dot
 For example, in the multi-surface theory \citep{Semenov2022}, the exact criterion is used to identify the initiation of a load reversal, which further controls the activation of a new surface.
 
 The normal yield ratio $z$ effectively represents the current `loading level' at any given moment.
+By definition, this loading level is normalized between \num{0} and \num{1} thus does not depend on the current size of the subloading surface.
 When it increases, the subloading surface expands, indicating a loading process.
 When it decreases, the subloading surface contracts, indicating an unloading process.
 Thus, with the introduction of $z$, local reversals can be detected with ease by checking whether $z$ ever decreases during the given (sub)step.
@@ -20,3 +21,18 @@ Depending on the specific choice of function $P$, $z_r$ embodies different memor
 For example, $z_r$ can take the maximum value of the most recent $M$ values.
 When $M=1$, $z_r$ is the most recent value $z_r^N$.
 When $M\geqslant{}N$, $z_r$ is simply the maximum value of all $z_r^j$.
+\subsection{Split of Accumulated Plastic Strain}
+It is possible to split the accumulated plastic strain $q$ into two parts,
+\begin{gather}
+    q=q_m+q_r,
+\end{gather}
+with $q_m$ being the monotonic part and $q_r$ being the ratcheting part.
+The rationale behind this split is simple: the original/conventional definition \eqsref{eq:q_original} only tracks the total amount of plastic deformation, although it is non-decreasing, there is no way to infer the corresponding loading process.
+
+It is reasonable to assume that the total amount of plastic strain increment $\sqrt{\dfrac{2}{3}}\norm{\dot{\bvarepsilon^p}}$ within a given (sub)step would be distributed to two parts according to some certain rule, which may depend on $z_r$.
+One can thus define
+\begin{gather}
+    \dot{q_m}=Q\left(z,z_r\right)\sqrt{\dfrac{2}{3}}\norm{\dot{\bvarepsilon^p}},\qquad
+    \dot{q_r}=\left(1-Q\left(z,z_r\right)\right)\sqrt{\dfrac{2}{3}}\norm{\dot{\bvarepsilon^p}},
+\end{gather}
+where $Q\left(z,z_r\right)$ is a function of both $z$ and $z_r$ yields a split ratio between \num{0} and \num{1}.
