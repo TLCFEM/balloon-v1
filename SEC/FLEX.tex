@@ -31,8 +31,14 @@ The rationale behind this split is simple: the original/conventional definition 
 
 It is reasonable to assume that the total amount of plastic strain increment $\dot{q}$ within a given (sub)step would be distributed to two parts according to some certain rule, which may depend on $z_r$.
 One can thus define
-\begin{gather}
-    \dot{q_m}=Q\left(z,z_r\right)\dot{q},\qquad
-    \dot{q_r}=\left(1-Q\left(z,z_r\right)\right)\dot{q},
+\begin{gather}\label{eq:split_q}
+    \dot{q_m}=Q\dot{q},\qquad
+    \dot{q_r}=\dot{q}-\dot{q_m}=\left(1-Q\right)\dot{q},
 \end{gather}
-where $Q\left(z,z_r\right)$ is a function of both $z$ and $z_r$ yields a split ratio between \num{0} and \num{1}.
+where $Q=Q\left(z,z_r\right)$ is a function of both $z$ and $z_r$ (or equivalently, $\left\{z_r^j\right\}_{j=0}^N$) yields a split ratio between \num{0} and \num{1}.
+It is possible to further generalise the above two--component split to multiple components,
+\begin{gather}
+    \dot{q_i}=Q_i\dot{q}\qquad\text{with}\qquad\sum{}Q_i=1
+\end{gather}
+where $Q_i=Q_i\left(z,z_r\right)$ is the split ratio for the $i$-th component.
+For brevity, we will only consider the simpler case \eqsref{eq:split_q} in this work.
