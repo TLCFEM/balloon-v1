@@ -29,10 +29,10 @@ It is possible to split the accumulated plastic strain $q$ into two parts,
 with $q_m$ being the monotonic part and $q_r$ being the ratcheting part.
 The rationale behind this split is simple: the original/conventional definition \eqsref{eq:q_original} only tracks the total amount of plastic deformation, although it is non-decreasing, there is no way to infer the corresponding loading process.
 
-It is reasonable to assume that the total amount of plastic strain increment $\sqrt{\dfrac{2}{3}}\norm{\dot{\bvarepsilon^p}}$ within a given (sub)step would be distributed to two parts according to some certain rule, which may depend on $z_r$.
+It is reasonable to assume that the total amount of plastic strain increment $\dot{q}$ within a given (sub)step would be distributed to two parts according to some certain rule, which may depend on $z_r$.
 One can thus define
 \begin{gather}
-    \dot{q_m}=Q\left(z,z_r\right)\sqrt{\dfrac{2}{3}}\norm{\dot{\bvarepsilon^p}},\qquad
-    \dot{q_r}=\left(1-Q\left(z,z_r\right)\right)\sqrt{\dfrac{2}{3}}\norm{\dot{\bvarepsilon^p}},
+    \dot{q_m}=Q\left(z,z_r\right)\dot{q},\qquad
+    \dot{q_r}=\left(1-Q\left(z,z_r\right)\right)\dot{q},
 \end{gather}
 where $Q\left(z,z_r\right)$ is a function of both $z$ and $z_r$ yields a split ratio between \num{0} and \num{1}.
