@@ -21,7 +21,7 @@ Depending on the specific choice of function $P$, $z_r$ embodies different memor
 For example, $z_r$ can take the maximum value of the most recent $M$ values.
 When $M=1$, $z_r$ is the most recent value $z_r^N$.
 When $M\geqslant{}N$, $z_r$ is simply the maximum value of all $z_r^j$.
-\subsection{Split of Accumulated Plastic Strain}
+\subsection{Multiplicative Isotropic Hardening}
 It is possible to split the accumulated plastic strain $q$ into two parts,
 \begin{gather}
     q=q_m+q_r,
@@ -36,9 +36,22 @@ One can thus define
     \dot{q_r}=\dot{q}-\dot{q_m}=\left(1-Q\right)\dot{q},
 \end{gather}
 where $Q=Q\left(z,z_r\right)$ is a function of both $z$ and $z_r$ (or equivalently, $\left\{z_r^j\right\}_{j=0}^N$) yields a split ratio between \num{0} and \num{1}.
+
+Then the isotropic bound $\sigma^y$ can be accordingly defined as the sum of two parts,
+\begin{gather}\label{eq:multiplicative_isotropic}
+    \sigma^y=\sigma^y_m+\sigma^y_r,
+\end{gather}
+in which $\sigma^y_m=\sigma^y_m\left(q_m\right)$ and $\sigma^y_r=\sigma^y_r\left(q_r\right)$ are functions of $q_m$ and $q_r$, respectively.
+\subsubsection{A Further Generalisation}
 It is possible to further generalise the above two--component split to multiple components,
 \begin{gather}
-    \dot{q_i}=Q_i\dot{q}\qquad\text{with}\qquad\sum{}Q_i=1
+    \dot{q_j}=Q_j\dot{q}\qquad\text{with}\qquad\sum{}Q_j=1
 \end{gather}
-where $Q_i=Q_i\left(z,z_r\right)$ is the split ratio for the $i$-th component.
-For brevity, we will only consider the simpler case \eqsref{eq:split_q} in this work.
+where $Q_j=Q_j\left(z,z_r\right)$ is the split ratio for the $j$-th component.
+As a result,
+\begin{gather}\label{eq:multiplicative_isotropic_general}
+    \sigma^y=\sum\sigma^y_j\qquad\text{with}\qquad\sigma^y_j=\sigma^y_j\left(q_j\right).
+\end{gather}
+It must be pointed that \eqsref{eq:multiplicative_isotropic_general} is an extension of the multiplicative rule by \citet{Chaboche2008}.
+When $\sigma^y_j$ are \textit{linear} functions of $q_j$, \eqsref{eq:multiplicative_isotropic_general} simplifies to the conventional additive rule, which is conceptually equivalent to the formulation proposed by \citet{Chaboche2008}.
+For brevity, we will only consider the simpler case \eqsref{eq:split_q} and \eqsref{eq:multiplicative_isotropic} in this work.
