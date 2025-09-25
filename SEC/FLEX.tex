@@ -58,19 +58,19 @@ For brevity, we will only consider the simpler case \eqsref{eq:split_q} and \eqs
 
 \begin{table}[htb]
     \centering\footnotesize
-    \caption{Summary of the subloading surface model}\label{tab:summary}
+    \caption{Summary of the proposed formulation}\label{tab:summary}
     \begin{tabular}{rl}
         \toprule
         Constitutive Law   & $\bsigma=\mb{D}_e:\left(\bvarepsilon-\bvarepsilon^p\right)$                                                  \\[2mm]
         Subloading Surface & $f_s=\norm{\dev{\bsigma}-a^y\balpha+\left(z-1\right)\sigma^y\bd}-z\sqrt{\frac{2}{3}}\sigma^y$                \\[2mm]
-                           & $\sigma^y=\sigma^y_m+\sigma^y_r$                                                                             \\[2mm]
         Flow Rule          & $\dot{\bvarepsilon^p}=\gamma{}\bn$                                                                           \\[2mm]
         Evolution Rules    & $\dot{q}=\sqrt{\frac{2}{3}}\gamma$                                                                           \\[2mm]
                            & $\dot{z}=U\dot{q}$                                                                                           \\[2mm]
                            & $\dot{\balpha}=b\left(\sqrt{\frac{2}{3}}\bn-\balpha\right)\gamma$                                            \\[2mm]
                            & $\dot{\bd}=c_e\left(\sqrt{\frac{2}{3}}z_e\bn-\bd\right)\gamma$                                               \\[2mm]
-                           & $\sigma^y_m=\sigma^i_m+k_{m,\text{iso}}q_m+\sigma^s_{m,\text{iso}}\left(1-e^{-m^s_{m,\text{iso}}q_m}\right)$ \\[2mm]
-                           & $\sigma^y_r=\sigma^i_r+k_{r,\text{iso}}q_r+\sigma^s_{r,\text{iso}}\left(1-e^{-m^s_{r,\text{iso}}q_r}\right)$ \\[2mm]
-                           & $a^y=a^i+k_\text{kin}q+a^s_\text{kin}\left(1-e^{-m^s_\text{kin}q}\right)$                                    \\\bottomrule
+                           & $a^y=a^i+k_\text{kin}q+a^s_\text{kin}\left(1-e^{-m^s_\text{kin}q}\right)$                                    \\\midrule
+                           New Proposal\faLightbulb     & $\sigma^y=\sigma^y_m+\sigma^y_r$                                                                             \\[2mm]
+                           New Proposal\faLightbulb & $\sigma^y_m=\sigma^i_m+k_{m,\text{iso}}q_m+\sigma^s_{m,\text{iso}}\left(1-e^{-m^s_{m,\text{iso}}q_m}\right)$ with $\dot{q_m}=Q\dot{q}$\\[2mm]
+                           New Proposal\faLightbulb       & $\sigma^y_r=\sigma^i_r+k_{r,\text{iso}}q_r+\sigma^s_{r,\text{iso}}\left(1-e^{-m^s_{r,\text{iso}}q_r}\right)$ with $\dot{q_r}=\left(1-Q\right)\dot{q}$\\\bottomrule
     \end{tabular}
 \end{table}
