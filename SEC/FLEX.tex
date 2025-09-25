@@ -55,3 +55,22 @@ As a result,
 It must be pointed that \eqsref{eq:multiplicative_isotropic_general} is an extension of the multiplicative rule by \citet{Chaboche2008}.
 When $\sigma^y_j$ are \textit{linear} functions of $q_j$, \eqsref{eq:multiplicative_isotropic_general} simplifies to the conventional additive rule, which is conceptually equivalent to the formulation proposed by \citet{Chaboche2008}.
 For brevity, we will only consider the simpler case \eqsref{eq:split_q} and \eqsref{eq:multiplicative_isotropic} in this work.
+
+\begin{table}[htb]
+    \centering\footnotesize
+    \caption{Summary of the subloading surface model}\label{tab:summary}
+    \begin{tabular}{rl}
+        \toprule
+        Constitutive Law   & $\bsigma=\mb{D}_e:\left(\bvarepsilon-\bvarepsilon^p\right)$                                                  \\[2mm]
+        Subloading Surface & $f_s=\norm{\dev{\bsigma}-a^y\balpha+\left(z-1\right)\sigma^y\bd}-z\sqrt{\frac{2}{3}}\sigma^y$                \\[2mm]
+                           & $\sigma^y=\sigma^y_m+\sigma^y_r$                                                                             \\[2mm]
+        Flow Rule          & $\dot{\bvarepsilon^p}=\gamma{}\bn$                                                                           \\[2mm]
+        Evolution Rules    & $\dot{q}=\sqrt{\frac{2}{3}}\gamma$                                                                           \\[2mm]
+                           & $\dot{z}=U\dot{q}$                                                                                           \\[2mm]
+                           & $\dot{\balpha}=b\left(\sqrt{\frac{2}{3}}\bn-\balpha\right)\gamma$                                            \\[2mm]
+                           & $\dot{\bd}=c_e\left(\sqrt{\frac{2}{3}}z_e\bn-\bd\right)\gamma$                                               \\[2mm]
+                           & $\sigma^y_m=\sigma^i_m+k_{m,\text{iso}}q_m+\sigma^s_{m,\text{iso}}\left(1-e^{-m^s_{m,\text{iso}}q_m}\right)$ \\[2mm]
+                           & $\sigma^y_r=\sigma^i_r+k_{r,\text{iso}}q_r+\sigma^s_{r,\text{iso}}\left(1-e^{-m^s_{r,\text{iso}}q_r}\right)$ \\[2mm]
+                           & $a^y=a^i+k_\text{kin}q+a^s_\text{kin}\left(1-e^{-m^s_\text{kin}q}\right)$                                    \\\bottomrule
+    \end{tabular}
+\end{table}
