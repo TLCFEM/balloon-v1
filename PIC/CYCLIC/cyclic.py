@@ -56,16 +56,22 @@ def plot_gradient_line(
     return fig, ax
 
 
+SUANPAN_EXE = (
+    ("C:\\Users\\Theodore\\Documents\\Repos\\suanPan\\MSVC\\Release\\suanPan.exe")
+    if os.name == "nt"
+    else "suanpan"
+)
+
+
 def plot():
-    if os.name != "posix":
-        print("This script only works on linux.")
-        return
+    global SUANPAN_EXE
+    if not SUANPAN_EXE:
+        if subprocess.run(["which", "suanpan"]).returncode != 0:
+            print("suanPan not found, please install it first.")
+            return
+        SUANPAN_EXE = "suanpan"
 
-    if subprocess.run(["which", "suanpan"]).returncode != 0:
-        print("suanPan not found, please install it first.")
-        return
-
-    subprocess.run(["suanpan", "-f", "cyclic.sp"], stdout=subprocess.DEVNULL)
+    subprocess.run([SUANPAN_EXE, "-f", "cyclic.sp"], stdout=subprocess.DEVNULL)
 
     strain = np.loadtxt("R3-E1.txt")
     stress = np.loadtxt("R2-S1.txt")
