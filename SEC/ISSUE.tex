@@ -9,26 +9,25 @@ Subloading surface theory avoids these drawbacks.
 In this section, we summarise the von Mises metal model developed within the subloading surface theory, primarily following the formulation of \citet{Chang2025}, which is more concise yet mathematically equivalent to the original \citep{Hashiguchi2023a}.
 \subsubsection{Constitutive Law}
 Based on the additive decomposition of deformation, the conventional elasticity applies.
-That is, the stress tensor $\bsigma$ can be expressed as the product of the elasticity tensor $\mb{D}_e$ and the elastic strain tensor $\bvarepsilon^e$,
+That is, the stress tensor $\bsigma$ can be expressed as the double contraction of the elasticity tensor $\mb{D}_e$ and the elastic strain tensor $\bvarepsilon^e$,
 \begin{gather}
     \bsigma=\mb{D}_e:\bvarepsilon^e=\mb{D}_e:\left(\bvarepsilon-\bvarepsilon^p\right),
 \end{gather}
 where $\bvarepsilon$ is the total strain tensor and $\bvarepsilon^p$ is the plastic strain tensor.
 \subsubsection{Subloading Surface}
 The subloading surface differs from the conventional yield surface by an additional scalar field $z$, which is named as the normal yield ratio in the existing literature.
-Adopting the von Mises yield criterion, the equivalent subloading surface \citep{Chang2025} can be expressed as
+Adopting the von Mises yield criterion, the corresponding subloading surface can be expressed as
 \begin{gather}
     f_s=\norm{\beeta}-z\sqrt{\dfrac{2}{3}}\sigma^y,
 \end{gather}
-where $\beeta=\bs-a^y\balpha+\left(z-1\right)\sigma^y\bd$ is the shifted stress tensor, $\bs=\dev{\bsigma}$ is the deviatoric stress tensor, $\balpha$ is the conventional back stress tensor, $\bd$ is the similarity tensor, both are internal history fields that would evolve in the stress space.
+where $\beeta=\bs-a^y\balpha+\left(z-1\right)\sigma^y\bd$ is the shifted stress tensor, $\bs=\dev{\bsigma}$ is the deviatoric stress tensor, $\balpha$ is the normalised conventional back stress tensor, $\bd$ is the similarity tensor defined by \citet{Chang2025}, both are internal history fields that would evolve in the stress space.
 The scalars $a^y$ and $\sigma^y$ are the magnitudes that may also evolve with the development of plasticity.
 \subsubsection{Flow and Evolution Rules}
-Assuming associated plasticity, the flow rule possesses the widely known form,
+Assuming associative plasticity, the flow rule possesses the widely known form,
 \begin{gather}
     \dot{\bvarepsilon^p}=\gamma{}\bn,
 \end{gather}
 where $\gamma$ is the plastic multiplier, and $\bn$ is the unit gradient of $f_s$, that is, $\bn=\pdfrac{f_s}{\bsigma}/\norm{\pdfrac{f_s}{\bsigma}}$.
-
 The scalar fields are driven by the accumulated plastic strain $q$, its rate form is defined as
 \begin{gather}\label{eq:q_original}
     \dot{q}=\sqrt{\dfrac{2}{3}}\norm{\dot{\bvarepsilon^p}}=\sqrt{\dfrac{2}{3}}\gamma.
