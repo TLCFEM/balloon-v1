@@ -125,6 +125,17 @@ def plot():
     )
     fig.savefig("cyclic.stress.total.pdf")
 
+    fig, ax = new_fig()
+    ax.fill_between(
+        hist[1:, 0],
+        hist[1:, 4] / hist[1:, 3],
+        color="#4575b4",
+        label="$\\alpha_{11}$",
+        step="mid",
+        alpha=0.7,
+    )
+    fig.savefig("cyclic.strain.total.pdf")
+
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
