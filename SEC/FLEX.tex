@@ -23,11 +23,13 @@ When $M=1$, $z_r$ is the most recent value $z_r^N$.
 When $M\geqslant{}N$, $z_r$ is simply the maximum value of all $z_r^j$.
 \subsection{Multiplicative Isotropic Hardening}
 It is possible to split the accumulated plastic strain $q$ into two parts,
-\begin{gather}
+\begin{gather}\label{eq:split_q}
     q=q_m+q_r,
 \end{gather}
 with $q_m$ being the monotonic part and $q_r$ being the ratcheting part.
 The rationale behind this split is simple: the original/conventional definition \eqsref{eq:q_original} only tracks the total amount of plastic deformation, although it is non-decreasing, there is no way to infer the corresponding loading process.
+The split \eqsref{eq:split_q} allows one to distinguish between the plastic strain accumulated during monotonic loading and that accumulated during load reversals.
+This makes it possible to account for various effects such as rearrangement of dislocations.
 
 It is reasonable to assume that the total amount of plastic strain increment $\dot{q}$ within a given (sub)step would be distributed to two parts according to some certain rule, which may depend on $z_r$.
 One can thus define
@@ -45,14 +47,14 @@ in which $\sigma^y_m=\sigma^y_m\left(q_m\right)$ and $\sigma^y_r=\sigma^y_r\left
 \subsubsection{A Further Generalisation}
 It is possible to further generalise the above two--component split to multiple components,
 \begin{gather}
-    \dot{q_j}=Q_j\dot{q}\qquad\text{with}\qquad\sum{}Q_j=1
+    \dot{q_j}=Q_j\dot{q}
 \end{gather}
-where $Q_j=Q_j\left(z,z_r\right)$ is the split ratio for the $j$-th component.
+with optional constraint $\sum{}Q_j=1$, in which $Q_j=Q_j\left(z,z_r\right)$ is the split ratio for the $j$-th component.
 As a result,
 \begin{gather}\label{eq:multiplicative_isotropic_general}
     \sigma^y=\sum\sigma^y_j\qquad\text{with}\qquad\sigma^y_j=\sigma^y_j\left(q_j\right).
 \end{gather}
-It must be pointed that \eqsref{eq:multiplicative_isotropic_general} is an extension of the multiplicative rule by \citet{Chaboche2008}.
+It must be pointed that \eqsref{eq:multiplicative_isotropic_general} can be deemed as a further extension of the multiplicative rule by \citet{Chaboche2008}.
 When $\sigma^y_j$ are \textit{linear} functions of $q_j$, \eqsref{eq:multiplicative_isotropic_general} simplifies to the conventional additive rule, which is conceptually equivalent to the formulation proposed by \citet{Chaboche2008}.
 For brevity, we will only consider the simpler case \eqsref{eq:split_q} and \eqsref{eq:multiplicative_isotropic} in this work.
 

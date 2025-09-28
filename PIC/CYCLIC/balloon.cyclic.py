@@ -120,7 +120,7 @@ def plot():
         range(len(turning_points)),
         turning_points,
         color="#d73027",
-        marker="x",
+        marker=".",
         linestyle="None",
     )
     fig.savefig("cyclic.stress.total.pdf")
