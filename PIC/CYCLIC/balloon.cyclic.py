@@ -99,7 +99,7 @@ def plot():
 
     fig, ax = new_fig()
 
-    ax.plot(strain[:, 1] * 1e3, hist[:, 6], color="#d73027", marker="x", markevery=149)
+    ax.plot(strain[:, 1] * 1e3, hist[:, 4], color="#d73027", marker="x", markevery=149)
     ax.legend(["$z$"], loc="upper left")
     ax.set_xlabel("strain ($1/1000$)")
     ax.set_ylabel("normal yield ratio $z$")
@@ -124,17 +124,6 @@ def plot():
         linestyle="None",
     )
     fig.savefig("cyclic.stress.total.pdf")
-
-    fig, ax = new_fig()
-    ax.fill_between(
-        hist[1:, 0],
-        hist[1:, 4] / hist[1:, 3],
-        color="#4575b4",
-        label="$\\alpha_{11}$",
-        step="mid",
-        alpha=0.7,
-    )
-    fig.savefig("cyclic.strain.total.pdf")
 
 
 if __name__ == "__main__":
