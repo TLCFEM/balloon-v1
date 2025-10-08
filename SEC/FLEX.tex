@@ -86,3 +86,14 @@ As a result, the isotropic bound $\sigma^y$ is function of not only $q$ but also
 One shall be aware of the fact that this approach would not work if kinematic hardening is not defined.
 Since the evolution of the back stress is eventually driven by the plastic strain, such an approach can be equivalently formulated in the strain space.
 \citet{Ohno1982,Chaboche2008,Hashiguchi2023a} all adopt a strain space formulation.
+\subsection{Objective Transition}
+The evolution of $z$ defined in \eqsref{eq:z_evolution} assumes $U=U\left(z\right)$ is a function of $z$ only, thus it can be rearranged and integrated to obtain the change of $q$ due to the change of $z$, say, for example, from $z=0$ to $z=z^*<1$,
+\begin{gather}
+    \Delta{}q=\int_{0}^{z^*}\dfrac{1}{U}~\md{z}.
+\end{gather}
+Noting that regardless of the specific form of $U\left(z\right)$, the right-hand side is always a constant, meaning that loading from $z=0$ to $z=z^*$ always requires the same amount of plastic strain accumulation $\Delta{}q$.
+However, $z$ is only a measure of the relative loading level, inevitably, the loading curve tends to be steeper when the yield stress is large, and vice versa.
+To make this transition more objective, less dependent on material parameters, we propose the following enhancement.
+\begin{gather}\label{eq:z_evolution_revised}
+    \dot{z}=\dfrac{U}{H}\dot{q}.
+\end{gather}
