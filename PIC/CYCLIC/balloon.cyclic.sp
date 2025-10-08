@@ -2,9 +2,9 @@ node 1 0 0
 node 2 1 0
 
 material Balloon1D 1 \
-2E5 5E3 1E-3 1 \
+2E5 1E6 10 1 \
 200 2E3 0 0 \
-0 0 0 0 \
+0 0 0 1E1 \
 5E3 1. \
 0 0
 
@@ -22,7 +22,7 @@ expression SimpleScalar 1 t t<100?sin(6.28318530718*t):2sin(6.28318530718*t)
 
 amplitude Custom 3 1
 
-# cload 1 2 200 1 2
+# cload 1 3 200 1 2
 disp 1 3 2e-3 1 2
 
 step static 1 200

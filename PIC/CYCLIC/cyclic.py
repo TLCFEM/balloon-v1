@@ -71,7 +71,10 @@ def plot():
             return
         SUANPAN_EXE = "suanpan"
 
-    subprocess.run([SUANPAN_EXE, "-f", "cyclic.sp"], stdout=subprocess.DEVNULL)
+    result = subprocess.run(
+        [SUANPAN_EXE, "-f", "cyclic.sp"], capture_output=True, text=True
+    )
+    print(result.stdout)
 
     strain = np.loadtxt("R3-E1.txt")
     stress = np.loadtxt("R2-S1.txt")

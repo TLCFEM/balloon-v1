@@ -99,7 +99,7 @@ def plot():
 
     fig, ax = new_fig()
 
-    ax.plot(strain[:, 1] * 1e3, hist[:, 4], color="#d73027", marker="x", markevery=149)
+    ax.plot(strain[:, 1] * 1e3, hist[:, 5], color="#d73027", marker="x", markevery=149)
     ax.legend(["$z$"], loc="upper left")
     ax.set_xlabel("strain ($1/1000$)")
     ax.set_ylabel("normal yield ratio $z$")
