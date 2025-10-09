@@ -106,6 +106,8 @@ def plot():
     ax.set_xbound(min(strain[:, 1] * 1e3), max(strain[:, 1] * 1e3))
     ax.set_ybound(0, 1.1)
 
+    print(max(hist[:, 5]))
+
     fig.savefig("cyclic.ratio.total.pdf")
 
     turning_points = []

@@ -2,8 +2,8 @@ node 1 0 0
 node 2 1 0
 
 material Balloon1D 1 \
-2E5 1E6 10 1 \
-200 2E3 0 0 \
+2E5 1E6 20 1 \
+200 6E3 0 0 \
 0 0 0 1E1 \
 5E3 1. \
 0 0

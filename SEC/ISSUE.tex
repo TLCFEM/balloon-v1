@@ -6,49 +6,45 @@ Compared with bounding surface theory \citep{Mahan2011}, subloading surface theo
 As noted by \citet[][see \S~8.2.3]{Hashiguchi2017}, bounding surface theory cannot ensure smooth stiffness at the elastic--plastic transition because of its non-shrinking elastic region, which also prevents hysteresis under small one--sided cycles.
 Subloading surface theory avoids these drawbacks.
 \subsection{The Basic Framework}
-In this section, we summarise the von Mises metal model developed within the subloading surface theory, primarily following the formulation of \citet{Chang2025}, which is more concise yet mathematically equivalent to the original \citep{Hashiguchi2023a}.
+To lay a foundation for subsequent discussions, in this section, we briefly summarise the general framework of the subloading surface theory, primarily following the formulation of \citet{Chang2025}, which is more concise yet mathematically equivalent to the original \citep{Hashiguchi2023a}.
 \subsubsection{Constitutive Law}
-Based on the additive decomposition of deformation, the conventional elasticity applies.
+Based on the additive decomposition of deformation, conventional elasticity applies.
 That is, the stress tensor $\bsigma$ can be expressed as the double contraction of the elasticity tensor $\mb{D}_e$ and the elastic strain tensor $\bvarepsilon^e$,
 \begin{gather}
     \bsigma=\mb{D}_e:\bvarepsilon^e=\mb{D}_e:\left(\bvarepsilon-\bvarepsilon^p\right),
 \end{gather}
 where $\bvarepsilon$ is the total strain tensor and $\bvarepsilon^p$ is the plastic strain tensor.
 \subsubsection{Subloading Surface}
-The subloading surface differs from the conventional yield surface by an additional scalar field $z$, which is named as the normal yield ratio in the existing literature.
-Adopting the von Mises yield criterion, the corresponding subloading surface can be expressed as
-\begin{gather}
-    f_s=\norm{\beeta}-z\sqrt{\dfrac{2}{3}}\sigma^y,
+The subloading surface differs from the conventional yield surface by an additional scalar field $z$, referred to as the normal yield ratio in the existing literature.
+It can be expressed as
+\begin{gather}\label{eq:fs_original}
+f_s=\norm{\beeta}-zF,
 \end{gather}
-where $\beeta=\bs-a^y\balpha+\left(z-1\right)\sigma^y\bd$ is the shifted stress tensor, $\bs=\dev{\bsigma}$ is the deviatoric stress tensor, $\balpha$ is the normalised conventional back stress tensor, $\bd$ is the similarity tensor defined by \citet{Chang2025}, both are internal history fields that would evolve in the stress space.
-The scalars $a^y$ and $\sigma^y$ are the magnitudes that may also evolve with the development of plasticity.
+where $\beeta=\bs-H\balpha+\left(z-1\right)F\bd$ is the shifted stress tensor, $\bs=\dev{\bsigma}$ is the deviatoric stress tensor, $\balpha$ is the normalised conventional back stress tensor, $\bd$ is the similarity tensor defined by \citet{Chang2025}, both are internal history fields that would evolve in the stress space, the magnitudes of which are bounded by some user defined constants.
+The scalars $H$ and $F$ are used to further scale $\balpha$ and $\bd$ respectively and they may also evolve with the development of plasticity.
+
 \subsubsection{Flow and Evolution Rules}
-Assuming associative plasticity, the flow rule possesses the widely known form,
+Assuming associative plasticity, the flow rule takes the well--known form,
 \begin{gather}
-    \dot{\bvarepsilon^p}=\gamma{}\bn,
+    \dot{\bvarepsilon^p}=\gamma{}\pdfrac{f_s}{\bsigma}=\gamma\dfrac{\beeta}{\norm{\beeta}}=\gamma{}\bn,
 \end{gather}
-where $\gamma$ is the plastic multiplier, and $\bn$ is the unit gradient of $f_s$, that is, $\bn=\pdfrac{f_s}{\bsigma}/\norm{\pdfrac{f_s}{\bsigma}}$.
-The scalar fields are driven by the accumulated plastic strain $q$, its rate form is defined as
+where $\gamma$ is the plastic multiplier, and $\bn=\dfrac{\beeta}{\norm{\beeta}}$ according to \eqsref{eq:fs_original}.
+The scalar fields are driven by the accumulated plastic strain $q$, whose rate form is defined as a function of the plastic strain rate $\dot{\bvarepsilon^p}$.
+A common choice is to track the magnitude of $\dot{\bvarepsilon^p}$, thus,
 \begin{gather}\label{eq:q_original}
-    \dot{q}=\sqrt{\dfrac{2}{3}}\norm{\dot{\bvarepsilon^p}}=\sqrt{\dfrac{2}{3}}\gamma.
+    \dot{q}=\norm{\dot{\bvarepsilon^p}}.
 \end{gather}
 With the above, the following evolution rule is introduced for $z$,
 \begin{gather}\label{eq:z_evolution}
     \dot{z}=U\dot{q},
 \end{gather}
 where $U=U\left(z\right)$ is a function of $z$.
-It's specific form is not relevant to the current discussion, readers are referred to the previous work \citep{Chang2025} for details.
-Furthermore,
-\begin{gather}
-    \sigma^y=\sigma^i+k_\text{iso}q+\sigma^s_\text{iso}\left(1-e^{-m^s_\text{iso}q}\right),\\
-    a^y=a^i+k_\text{kin}q+a^s_\text{kin}\left(1-e^{-m^s_\text{kin}q}\right).
-\end{gather}
-The internal history fields (tensors) adopt the following evolution rules,
-\begin{gather}
-    \dot{\balpha}=b\left(\sqrt{\dfrac{2}{3}}\bn-\balpha\right)\gamma,\qquad
-    \dot{\bd}=c_e\left(\sqrt{\dfrac{2}{3}}z_e\bn-\bd\right)\gamma.
-\end{gather}
-All unmentioned symbols/parameters are material constants.
+Furthermore, the scalar fields $F=F\left(q\right)$ and $H=H\left(q\right)$ are defined as functions of $q$,  while the tensor fields $\balpha$ and $\bd$ evolve according to Armstrong--Frederick type rules \citep{Frederick2007}.
 \section{Limitations}
 The most distinctive feature of the subloading surface model is that the normal yield ratio $z$ gradually approaches unity from zero during the loading process.
-Thus, there is no elastic region during this process, as $z$ is driven by $q$, which accumulates with the plastic deformation.
+Thus, there is no elastic region during this process, as $z$ is driven by $q$ as defined in \eqsref{eq:z_evolution}, which accumulates with plastic deformation.
+\eqsref{eq:z_evolution} can be rearranged and integrated to obtain the change of $q$ due to the change of $z$, say, for example, from $z=0$ to $z=z^*<1$,
+\begin{gather}
+    \Delta{}q=\int_{0}^{z^*}\dfrac{1}{U}~\md{z}.
+\end{gather}
+Noting that regardless of the specific form of $U\left(z\right)$, the right-hand side is always a constant, meaning that loading from $z=0$ to $z=z^*$ always requires the same amount of plastic strain accumulation $\Delta{}q$.
