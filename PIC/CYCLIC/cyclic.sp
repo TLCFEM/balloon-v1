@@ -15,7 +15,7 @@ plainrecorder 3 Element E 1
 fix2 1 1 1
 fix2 2 2 1 2
 
-expression SimpleScalar 1 t 0.5-0.5*cos(6.28318530718*t)
+expression SimpleScalar 1 t 0.5-0.5*cos(2pi*t)
 
 amplitude Custom 3 1
 

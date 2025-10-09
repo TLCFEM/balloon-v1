@@ -17,8 +17,8 @@ plainrecorder 3 Element E 1
 fix2 1 1 1
 fix2 2 2 1 2
 
-# expression SimpleScalar 1 t t<100?0.5-0.5*cos(6.28318530718*t):1-cos(6.28318530718*t)
-expression SimpleScalar 1 t t<100?sin(6.28318530718*t):2sin(6.28318530718*t)
+# expression SimpleScalar 1 t t<100?0.5-0.5*cos(2pi*t):1-cos(2pi*t)
+expression SimpleScalar 1 t t<100?sin(2pi*t):2sin(2pi*t)
 
 amplitude Custom 3 1
 
