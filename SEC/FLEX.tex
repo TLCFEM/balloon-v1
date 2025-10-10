@@ -88,12 +88,25 @@ To make this transition more objective and less dependent on material parameters
     \boxed{\dot{z}=\dfrac{U}{F}\dot{q}.}
 \end{gather}
 \subsection{Summary}
-Following the Armstrong-Frederick rule, one can define
+Following the Armstrong--Frederick rule, the evolution of $\balpha$ can be written as
+\begin{gather}
+    \dot{\balpha}=b_\alpha\left(\dot{\bvarepsilon}^p-\norm{\dot{\bvarepsilon}^p}\balpha\right)=b_\alpha\norm{\dot{\bvarepsilon}^p}\left(\bn-\balpha\right)=b_\alpha\left(\bn-\balpha\right)\gamma,
+\end{gather}
+where $b_\alpha$ is a material parameter that controls the rate of evolution of $\balpha$.
+Similarly, for $\bd$, one can define
+\begin{gather}
+    \dot{\bd}=b_d\left(\bn-\bd\right)\gamma,
+\end{gather}
+where $b_d$ is a material parameter that controls the rate of evolution of $\bd$.
+It is fully legitimate to assume that $\bbeta$ also follows such a rule, thus,
 \begin{gather}
     \dot{\bbeta}=b_\beta\left(\dot{\bvarepsilon}^p_c-\norm{\dot{\bvarepsilon}^p_c}\bbeta\right)=b_\beta\norm{\dot{\bvarepsilon}^p_c}\left(\bn-\bbeta\right)=b_\beta{}K_c\left(\bn-\bbeta\right)\gamma.
 \end{gather}
 In the above, $b_\beta$ is a material parameter that controls the rate of evolution of $\bbeta$.
+One may notice that, the cyclic part $\dot{\bvarepsilon}^p_c$ effectively affects the rate of evolution of $\bbeta$ only, an alternative interpretation is that $\bbeta$ is driven by the total plastic strain $\dot{\bvarepsilon}^p$, just like $\balpha$, but its rate of evolution is controlled by $K_c$.
+If $K_c$ is a constant, it can be absorbed into $b_\beta$ as a single material parameter.
 
+The proposed formulation is summarised in \tabref{tab:summary}.
 \begin{table}[htb]
     \centering\footnotesize
     \caption{Summary of the proposed formulation}\label{tab:summary}
