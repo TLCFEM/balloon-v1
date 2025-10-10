@@ -19,10 +19,12 @@ where $\bvarepsilon$ is the total strain tensor and $\bvarepsilon^p$ is the plas
 The subloading surface differs from the conventional yield surface by an additional scalar field $z$, referred to as the normal yield ratio in the existing literature.
 It can be expressed as
 \begin{gather}\label{eq:fs_original}
-f_s=\norm{\beeta}-zF=\norm{\bs-H_\alpha\balpha+\left(z-1\right)F\bd}-zF,
+f_s=\norm{\beeta}-zF=\norm{\bs-H_\alpha\balpha+\left(z-1\right)H_d\bd}-zF,
 \end{gather}
-where $\beeta$ is the shifted stress tensor, $\bs=\dev{\bsigma}$ is the deviatoric stress tensor, $\balpha$ is the normalised conventional back stress tensor, $\bd$ is the similarity tensor \citep{Chang2025}, both are internal history fields that would evolve in the stress space, the magnitudes of which are bounded by some user defined constants.
-Those two tensors are further scaled by the scalar fields $H_\alpha$ and $F$ respectively, which may also evolve with the development of plasticity.
+where $\beeta$ is the shifted stress tensor, $\bs = \dev{\bsigma}$ is the deviatoric stress tensor, $\balpha$ is the back stress tensor normalised by $H_\alpha$, and $\bd$ is the similarity tensor \citep{Chang2025}.
+Both $\balpha$ and $\bd$ are internal history variables that evolve in stress space, with their magnitudes bounded by unity.
+Those two tensors are further scaled by the scalar fields $H_\alpha$ and $H_d$ respectively, which may also evolve with the development of plasticity.
+For simplicity, $H_\alpha$ and $H_d$ can be taken as constant fractions of $F$, which characterises the size of the subloading surface and may be interpreted as the yield stress.
 \subsubsection{Flow and Evolution Rules}
 Assuming associative plasticity, the flow rule takes the well--known form,
 \begin{gather}
@@ -39,7 +41,8 @@ With the above, the following evolution rule is introduced for $z$,
     \dot{z}=U\dot{q},
 \end{gather}
 where $U=U\left(z\right)$ is a function of $z$.
-Furthermore, the scalar fields $F=F\left(q\right)$ and $H_\alpha=H_\alpha\left(q\right)$ are defined as functions of $q$.
+Furthermore, the scalar bounds $H_\alpha=H_\alpha\left(q\right)$, $H_d=H_d\left(q\right)$ and $F=F\left(q\right)$ are defined as functions of $q$.
+It is further required that $H_d<F$ under all circumstances, which ensures that the subloading surface is always inside the yield surface.
 The tensor fields $\balpha$ and $\bd$ evolve according to Armstrong--Frederick type rules \citep{Frederick2007}.
 Their general rate forms can be written as $\dot{\balpha}=\dot{\balpha}\left(\dot{\bvarepsilon}^p,\balpha\right)$ and $\dot{\bd}=\dot{\bd}\left(\dot{\bvarepsilon}^p,\bd\right)$.
 \section{Limitations}

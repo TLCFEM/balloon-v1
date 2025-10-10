@@ -67,7 +67,7 @@ While for monotonic loading when $z>z^r$, isotropic hardening is fully activated
 \subsection{Cyclic Hardening}
 We introduce an additional term $\bbeta$ and its corresponding bound $H_\beta$, similar to the back stress $\balpha$, to capture the cyclic hardening effect.
 The shifted stress shall be revised as
-\begin{gather}
+\begin{gather}\label{eq:eta_revised}
     \boxed{\beeta=\bs-H_\alpha\balpha-H_\beta\bbeta+\left(z-1\right)F\bd.}
 \end{gather}
 Unlike $\balpha$, which is driven by $\dot{\bvarepsilon}^p$, here $\bbeta$ is assumed to be driven by $\dot{\bvarepsilon}^{p,c}$, its rate form can be expressed as
@@ -79,19 +79,14 @@ In terms of the bound $H_\beta$, we assume that it is driven by the same measure
     H_\beta=H_\beta\left(q_m\right).
 \end{gather}
 
-Following the Armstrong-Frederick rule, one can define
-\begin{gather}
-    \dot{\bbeta}=b_\beta\left(\dot{\bvarepsilon}^{p,c}-\norm{\dot{\bvarepsilon}^{p,c}}\bbeta\right)=b_\beta\norm{\dot{\bvarepsilon}^{p,c}}\left(\bn-\bbeta\right)=b_\beta\left(1-K\right)\gamma\left(\bn-\bbeta\right).
-\end{gather}
-
-All three back stress like terms in $\beeta$ have different effects.
+All three back stress like terms in \eqsref{eq:eta_revised} have different effects.
 \begin{itemize}
     \item The first term $H_\alpha\balpha$ is identical to the conventional back stress term, both $\balpha$ and $H_\alpha$ evolve with $q$.
-          This term is primarily responsible for the Bauschinger effect.
+          This term transitions the center of the surface around in the stress space thus is primarily responsible for the Bauschinger effect.
     \item The second term $H_\beta\bbeta$ is quite novel, $\bbeta$ evolves with the cyclic plastic strain $\bvarepsilon^{p,c}$, while $H_\beta$ evolves with the monotonic part $\bvarepsilon^{p,m}$.
     Again, by adjusting $K$, it is possible to evolve either $H_\beta$ or $\bbeta$ under certain loading conditions.
     This term should be comparatively small, and is primarily responsible for cyclic hardening/softening and formation of hysteresis loops.
-    \item The third term $\left(z-1\right)F\bd$ has negligible influence during loading as $z$ approaches \num{1}.
+    \item The third term $\left(1-z\right)F\bd$ has negligible influence during loading as $z$ approaches \num{1}.
           However, during unloading when $z$ decreases, it further shifts the center of the subloading surface away from $H_\beta\bbeta$, thus effectively enhancing the Bauschinger effect.
 \end{itemize}
 \subsection{Objective Transition}
@@ -125,3 +120,9 @@ To make this transition more objective and less dependent on material parameters
 
 Compared to the previous formulation \citep{Chang2025}, we have revised the isotropic hardening rule by introducing a multiplicative split of the accumulated plastic strain.
 As a result, the isotropic bound $\sigma^y$ is function of not only $q$ but also $z$ and its history.
+\subsection{Discrete Expressions}
+
+Following the Armstrong-Frederick rule, one can define
+\begin{gather}
+    \dot{\bbeta}=b_\beta\left(\dot{\bvarepsilon}^{p,c}-\norm{\dot{\bvarepsilon}^{p,c}}\bbeta\right)=b_\beta\norm{\dot{\bvarepsilon}^{p,c}}\left(\bn-\bbeta\right)=b_\beta\left(1-K\right)\gamma\left(\bn-\bbeta\right).
+\end{gather}
