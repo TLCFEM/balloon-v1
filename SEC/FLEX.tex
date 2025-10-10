@@ -124,3 +124,30 @@ The proposed formulation is summarised in \tabref{tab:summary}.
                            & $\dot{\bd}=b_d\left(\bn-\bd\right)\gamma$                                \\ \bottomrule
     \end{tabular}
 \end{table}
+For the scalar bounds $H_\alpha=H_\alpha(q)$, $H_\beta=H_\beta(q_m)$, $H_d=H_d(q)$, and $F=F(q_m)$, any suitable univariate functions can be chosen, so we keep the expressions general.
+
+\begin{gather}
+    \begin{split}
+        \beeta & =\bs-H_\alpha\balpha-H_\beta\bbeta+\left(z-1\right)H_d\bd                                                                                                                                                                               \\
+               & =\bs^\text{trial}-\gamma2G\bn-H_\alpha\dfrac{\gamma{}b_\alpha\bn+\balpha_n}{1+\gamma{}b_\alpha}-H_\beta\dfrac{\gamma{}b_\beta{}K_c\bn+\bbeta_n}{1+\gamma{}b_\beta{}K_c}+\left(z-1\right)H_d\dfrac{\gamma{}b_d\bn+\bd_n}{1+\gamma{}b_d}.
+    \end{split}
+\end{gather}
+Rearranging the above yields
+\begin{multline}\label{eq:coaxial}
+    \left(\norm{\beeta}+\gamma2G+\dfrac{H_\alpha\gamma{}b_\alpha}{1+\gamma{}b_\alpha}+\dfrac{H_\beta\gamma{}b_\beta{}K_c}{1+\gamma{}b_\beta{}K_c}+\dfrac{\left(1-z\right)H_d\gamma{}b_d}{1+\gamma{}b_d}\right)\bn\\
+    =\bs^\text{trial}-\dfrac{H_\alpha}{1+\gamma{}b_\alpha}\balpha_n-\dfrac{H_\beta}{1+\gamma{}b_\beta{}K_c}\bbeta_n+\dfrac{\left(z-1\right)H_d}{1+\gamma{}b_d}\bd_n.
+\end{multline}
+By denoting the right hand side as
+\begin{gather}
+    \bzeta=\bs^\text{trial}-\dfrac{H_\alpha}{1+\gamma{}b_\alpha}\balpha_n-\dfrac{H_\beta}{1+\gamma{}b_\beta{}K_c}\bbeta_n+\dfrac{\left(z-1\right)H_d}{1+\gamma{}b_d}\bd_n,
+\end{gather}
+one could conclude that if the bracketed term on the left hand side is positive, then
+\begin{gather}
+    \norm{\bzeta}=\norm{\beeta}+\gamma2G+\dfrac{H_\alpha\gamma{}b_\alpha}{1+\gamma{}b_\alpha}+\dfrac{H_\beta\gamma{}b_\beta{}K_c}{1+\gamma{}b_\beta{}K_c}+\dfrac{\left(1-z\right)H_d\gamma{}b_d}{1+\gamma{}b_d}\qquad\text{and}\qquad{}\bn=\dfrac{\bzeta}{\norm{\bzeta}},
+\end{gather}
+if it is negative, then
+\begin{gather}
+    -\norm{\bzeta}=\norm{\beeta}+\gamma2G+\dfrac{H_\alpha\gamma{}b_\alpha}{1+\gamma{}b_\alpha}+\dfrac{H_\beta\gamma{}b_\beta{}K_c}{1+\gamma{}b_\beta{}K_c}+\dfrac{\left(1-z\right)H_d\gamma{}b_d}{1+\gamma{}b_d}\qquad\text{and}\qquad{}\bn=-\dfrac{\bzeta}{\norm{\bzeta}}.
+\end{gather}
+The above differs from the previous work \citep{Chang2025} in that although the other parameters remain positive by definition, $H_\beta$ can be negative to allow for cyclic softening.
+\eqsref{eq:coaxial} is the key to a concise numerical implementation.
