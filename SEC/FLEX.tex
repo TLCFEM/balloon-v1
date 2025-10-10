@@ -1,7 +1,7 @@
 \section{Towards A Better One}
 \subsection{History of Load Reversals}
 In conventional plasticity models, local reversals cannot be easily detected.
-A common criterion for detecting reversals is the double contraction $\beeta:\dot{\bs}$.
+A common criterion for detecting reversals is the double contraction $\beeta:\dot{\beeta}$.
 For example, in the multi-surface theory \citep{Semenov2022}, the exact criterion is used to identify the initiation of a load reversal, which further controls the activation of a new surface.
 
 The normal yield ratio $z$ effectively represents the current `loading level' at any given moment.
@@ -32,24 +32,71 @@ It is reasonable to assume that the plastic strain increment $\dot{\bvarepsilon}
 Without loss of generality, one can thus define
 \begin{gather}\label{eq:split_q_definition}
     \dot{\bvarepsilon}^{p,m}=K\dot{\bvarepsilon}^p,\qquad
-    \dot{\bvarepsilon}^{p,r}=\dot{\bvarepsilon}^p-\dot{\bvarepsilon}^{p,m}=\left(1-K\right)\dot{\bvarepsilon}^p,
+    \dot{\bvarepsilon}^{p,c}=\dot{\bvarepsilon}^p-\dot{\bvarepsilon}^{p,m}=\left(1-K\right)\dot{\bvarepsilon}^p,
 \end{gather}
 where $K=K\left(z,z_r\right)$ is a function of $z$ and $z_r$ (or equivalently, $\left\{z_r^j\right\}_{j=0}^N$) that yields a split ratio between \num{0} and \num{1}.
 Accordingly, a similar split can be applied to $q$,
 \begin{gather}
-q=q_m+q_r,\qquad
+q=q_m+q_c,\qquad
 \dot{q}_m=K\dot{q},\qquad
-\dot{q}_r=\left(1-K\right)\dot{q},
+\dot{q}_c=\left(1-K\right)\dot{q},
 \end{gather}
+\subsection{Isotropic Hardening Stagnation}
+\citet[][see, \S~2.4]{Yoshida2002} introduce an additional \textit{non-isotropic-hardening} surface in the stress space, such that isotropic hardening can be activated or deactivated based on the size of the back stress, and thus the kinematic hardening.
+One should be aware that this approach does not work if kinematic hardening is not defined.
+Since the evolution of the back stress is ultimately driven by the plastic strain, such an approach can be equivalently formulated in the strain space.
+\citet{Ohno1982,Chaboche2008,Hashiguchi2023a} all adopt a strain space formulation.
+Such an approach is widely used in the literature as a basic building block for more complex models \citep[see, e.g.,][]{Xu2016,Zheng2026}.
 
-Then the isotropic bound $F$ can be accordingly defined as a function of $\dot{q}_m$ instead,
+The isotropic bound $F$ can be defined as a function of $q_m$ instead of $q$,
 \begin{gather}\label{eq:f_revised}
 \boxed{F=F\left(q_m\right).}
 \end{gather}
 \eqsref{eq:f_revised} effectively loosens the coupling between $F$ and $q$.
 By varying $K$, it is possible to control the portion of $\dot{\bvarepsilon}^p$ that contributes to the evolution of $F$.
+The simplest example would be
+\begin{gather}
+    K\left(z,z_r\right)=\begin{cases}
+        0, & z\leqslant{}z^r,  \\
+        1, & \text{otherwise}.
+    \end{cases}
+\end{gather}
+With this choice, isotropic hardening is completely deactivated (thus stagnated) during cyclic loading when $z\leqslant{}z^r$.
+Depending on how $z_r$ is defined, various memory effects can be simulated.
+While for monotonic loading when $z>z^r$, isotropic hardening is fully activated as $\dot{q}_m=\dot{q}$, this is equivalent to the conventional formulation.
+\subsection{Cyclic Hardening}
+We introduce an additional term $\bbeta$ and its corresponding bound $H_\beta$, similar to the back stress $\balpha$, to capture the cyclic hardening effect.
+The shifted stress shall be revised as
+\begin{gather}
+    \boxed{\beeta=\bs-H_\alpha\balpha-H_\beta\bbeta+\left(z-1\right)F\bd.}
+\end{gather}
+Unlike $\balpha$, which is driven by $\dot{\bvarepsilon}^p$, here $\bbeta$ is assumed to be driven by $\dot{\bvarepsilon}^{p,c}$, its rate form can be expressed as
+\begin{gather}
+    \dot{\bbeta}=\dot{\bbeta}\left(\dot{\bvarepsilon}^{p,c},\bbeta\right).
+\end{gather}
+In terms of the bound $H_\beta$, we assume that it is driven by the same measure of plastic strain as the isotropic bound $F$, thus,
+\begin{gather}
+    H_\beta=H_\beta\left(q_m\right).
+\end{gather}
 
-
+All three back stress like terms in $\beeta$ have different effects.
+\begin{itemize}
+    \item The first term $H_\alpha\balpha$ is identical to the conventional back stress term, both $\balpha$ and $H_\alpha$ evolve with $q$.
+          This term is primarily responsible for the Bauschinger effect.
+    \item The second term $H_\beta\bbeta$ is quite novel, $\bbeta$ evolves with the cyclic plastic strain $\bvarepsilon^{p,c}$, while $H_\beta$ evolves with the monotonic part $\bvarepsilon^{p,m}$.
+          This term should be comparitively small, and is primarily responsible for cyclic hardening/softening and formation of hysteresis loops.
+    \item The third term $\left(z-1\right)F\bd$ has negligible influence during loading as $z$ approaches \num{1}.
+          However, during unloading when $z$ decreases, it further shifts the center of the subloading surface away from $H_\beta\bbeta$, thus effectively enhancing the Bauschinger effect.
+\end{itemize}
+\subsection{Objective Transition}
+As shown in \eqsref{eq:int_z}, for a given interval of $z$, the corresponding change in $q$ is always constant, regardless of the specific form of $U(z)$.
+However, $z$ only measures the relative loading level.
+As a result, the response curve becomes steeper when the yield stress is higher, and less steep when it is lower.
+To make this transition more objective and less dependent on material parameters, we propose the following enhancement.
+\begin{gather}\label{eq:z_evolution_revised}
+    \boxed{\dot{z}=\dfrac{U}{F}\dot{q}.}
+\end{gather}
+\subsection{Summary}
 \begin{table}[htb]
     \centering\footnotesize
     \caption{Summary of the proposed formulation}\label{tab:summary}
@@ -72,15 +119,3 @@ By varying $K$, it is possible to control the portion of $\dot{\bvarepsilon}^p$ 
 
 Compared to the previous formulation \citep{Chang2025}, we have revised the isotropic hardening rule by introducing a multiplicative split of the accumulated plastic strain.
 As a result, the isotropic bound $\sigma^y$ is function of not only $q$ but also $z$ and its history.
-
-\subsection{Stagnation}
-\citet[][see, \S~2.4]{Yoshida2002} introduces an additional \textit{non-isotropic-hardening} surface in the stress space such that isotropic hardening can be activated/deactivated based on the size of the back stress, thus the kinematic hardening.
-One shall be aware of the fact that this approach would not work if kinematic hardening is not defined.
-Since the evolution of the back stress is eventually driven by the plastic strain, such an approach can be equivalently formulated in the strain space.
-\citet{Ohno1982,Chaboche2008,Hashiguchi2023a} all adopt a strain space formulation.
-\subsection{Objective Transition}
-However, $z$ is only a measure of the relative loading level, inevitably, the loading curve tends to be steeper when the yield stress is large, and vice versa.
-To make this transition more objective, less dependent on material parameters, we propose the following enhancement.
-\begin{gather}\label{eq:z_evolution_revised}
-    \dot{z}=\dfrac{U}{H}\dot{q}.
-\end{gather}

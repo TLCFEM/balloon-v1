@@ -6,7 +6,8 @@ Compared with bounding surface theory \citep{Mahan2011}, subloading surface theo
 As noted by \citet[][see \S~8.2.3]{Hashiguchi2017}, bounding surface theory cannot ensure smooth stiffness at the elastic--plastic transition because of its non-shrinking elastic region, which also prevents hysteresis under small one--sided cycles.
 Subloading surface theory avoids these drawbacks.
 \subsection{The Basic Framework}
-To lay a foundation for subsequent discussions, in this section, we briefly summarise the general framework of the subloading surface theory, primarily following the formulation of \citet{Chang2025}, which is more concise yet mathematically equivalent to the original \citep{Hashiguchi2023a}.
+To lay the foundation for subsequent discussions, we briefly summarise the general framework of subloading surface theory in this section, primarily following the formulation of \citet{Chang2025}, which is more concise yet mathematically equivalent to the original by \citet{Hashiguchi2023a}.
+It should be noted that the notation system used in this work is \textit{not} fully compatible with that of the previous work \citep{Chang2025}.
 \subsubsection{Constitutive Law}
 Based on the additive decomposition of deformation, conventional elasticity applies.
 That is, the stress tensor $\bsigma$ can be expressed as the double contraction of the elasticity tensor $\mb{D}_e$ and the elastic strain tensor $\bvarepsilon^e$,
@@ -18,17 +19,16 @@ where $\bvarepsilon$ is the total strain tensor and $\bvarepsilon^p$ is the plas
 The subloading surface differs from the conventional yield surface by an additional scalar field $z$, referred to as the normal yield ratio in the existing literature.
 It can be expressed as
 \begin{gather}\label{eq:fs_original}
-f_s=\norm{\beeta}-zF,
+f_s=\norm{\beeta}-zF=\norm{\bs-H_\alpha\balpha+\left(z-1\right)F\bd}-zF,
 \end{gather}
-where $\beeta=\bs-H\balpha+\left(z-1\right)F\bd$ is the shifted stress tensor, $\bs=\dev{\bsigma}$ is the deviatoric stress tensor, $\balpha$ is the normalised conventional back stress tensor, $\bd$ is the similarity tensor defined by \citet{Chang2025}, both are internal history fields that would evolve in the stress space, the magnitudes of which are bounded by some user defined constants.
-The scalars $H$ and $F$ are used to further scale $\balpha$ and $\bd$ respectively and they may also evolve with the development of plasticity.
-
+where $\beeta$ is the shifted stress tensor, $\bs=\dev{\bsigma}$ is the deviatoric stress tensor, $\balpha$ is the normalised conventional back stress tensor, $\bd$ is the similarity tensor \citep{Chang2025}, both are internal history fields that would evolve in the stress space, the magnitudes of which are bounded by some user defined constants.
+Those two tensors are further scaled by the scalar fields $H_\alpha$ and $F$ respectively, which may also evolve with the development of plasticity.
 \subsubsection{Flow and Evolution Rules}
 Assuming associative plasticity, the flow rule takes the well--known form,
 \begin{gather}
     \dot{\bvarepsilon^p}=\gamma{}\pdfrac{f_s}{\bsigma}=\gamma\dfrac{\beeta}{\norm{\beeta}}=\gamma{}\bn,
 \end{gather}
-where $\gamma$ is the plastic multiplier, and $\bn=\dfrac{\beeta}{\norm{\beeta}}$ according to \eqsref{eq:fs_original}.
+where $\gamma$ is the plastic multiplier.
 The scalar fields are driven by the accumulated plastic strain $q$, whose rate form is defined as a function of the plastic strain rate $\dot{\bvarepsilon^p}$.
 A common choice is to track the magnitude of $\dot{\bvarepsilon^p}$, thus,
 \begin{gather}\label{eq:q_original}
@@ -39,12 +39,14 @@ With the above, the following evolution rule is introduced for $z$,
     \dot{z}=U\dot{q},
 \end{gather}
 where $U=U\left(z\right)$ is a function of $z$.
-Furthermore, the scalar fields $F=F\left(q\right)$ and $H=H\left(q\right)$ are defined as functions of $q$,  while the tensor fields $\balpha$ and $\bd$ evolve according to Armstrong--Frederick type rules \citep{Frederick2007}.
+Furthermore, the scalar fields $F=F\left(q\right)$ and $H_\alpha=H_\alpha\left(q\right)$ are defined as functions of $q$.
+The tensor fields $\balpha$ and $\bd$ evolve according to Armstrong--Frederick type rules \citep{Frederick2007}.
+Their general rate forms can be written as $\dot{\balpha}=\dot{\balpha}\left(\dot{\bvarepsilon}^p,\balpha\right)$ and $\dot{\bd}=\dot{\bd}\left(\dot{\bvarepsilon}^p,\bd\right)$.
 \section{Limitations}
 The most distinctive feature of the subloading surface model is that the normal yield ratio $z$ gradually approaches unity from zero during the loading process.
 Thus, there is no elastic region during this process, as $z$ is driven by $q$ as defined in \eqsref{eq:z_evolution}, which accumulates with plastic deformation.
 \eqsref{eq:z_evolution} can be rearranged and integrated to obtain the change of $q$ due to the change of $z$, say, for example, from $z=0$ to $z=z^*<1$,
-\begin{gather}
+\begin{gather}\label{eq:int_z}
     \Delta{}q=\int_{0}^{z^*}\dfrac{1}{U}~\md{z}.
 \end{gather}
 Noting that regardless of the specific form of $U\left(z\right)$, the right-hand side is always a constant, meaning that loading from $z=0$ to $z=z^*$ always requires the same amount of plastic strain accumulation $\Delta{}q$.
