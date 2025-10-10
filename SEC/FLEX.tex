@@ -20,26 +20,24 @@ For example, $z_r$ can take the maximum value of the most recent $M$ values.
 When $M=1$, $z_r$ is the most recent value $z_r^N$.
 When $M\geqslant{}N$, $z_r$ is simply the maximum value of all $z_r^j$.
 \subsection{Additive Decomposition of Plastic Strain}
-It is possible to split the plastic strain $\bvarepsilon^p$ into two parts,
+It is possible to split the plastic strain $\bvarepsilon^p$ into at least two parts,
 \begin{gather}\label{eq:split_q}
-    \boxed{\bvarepsilon^p=\bvarepsilon^{p,m}+\bvarepsilon^{p,c},}
+    \bvarepsilon^p=\bvarepsilon^p_m+\bvarepsilon^p_c+\cdots,
 \end{gather}
-with $\bvarepsilon^{p,m}$ denoting the `monotonic' part and $\bvarepsilon^{p,c}$ denoting the `cyclic' part.
+with $\bvarepsilon^p_m$ denoting the `monotonic' part and $\bvarepsilon^p_c$ denoting the `cyclic' part.
 The rationale behind this split is straightforward: the accumulated plastic strain $q$ defined in \eqsref{eq:q_original} only tracks the total amount of plastic deformation, although it is non-decreasing, there is no way to infer the corresponding loading process.
 The split \eqsref{eq:split_q} allows one to identify the plastic strain accumulated during monotonic loading and that accumulated during load reversals.
 This makes it possible to account for various effects such as rearrangement of dislocations.
 It is reasonable to assume that the plastic strain increment $\dot{\bvarepsilon}^p$ within a given (sub-)step would be distributed between two parts according to some rule, which may depend on the current loading level $z$, and/or its history $z_r$.
 Without loss of generality, one can thus define
 \begin{gather}\label{eq:split_q_definition}
-    \dot{\bvarepsilon}^{p,m}=K\dot{\bvarepsilon}^p,\qquad
-    \dot{\bvarepsilon}^{p,c}=\dot{\bvarepsilon}^p-\dot{\bvarepsilon}^{p,m}=\left(1-K\right)\dot{\bvarepsilon}^p,
+    \boxed{\dot{\bvarepsilon}^p_m=K_m\dot{\bvarepsilon}^p,\qquad\dot{\bvarepsilon}^p_c=K_c\dot{\bvarepsilon}^p,}
 \end{gather}
-where $K=K\left(z,z_r\right)$ is a function of $z$ and $z_r$ (or equivalently, $\left\{z_r^j\right\}_{j=0}^N$) that yields a split ratio between \num{0} and \num{1}.
-Accordingly, a similar split can be applied to $q$,
+where $K_m=K_m\left(z,z_r\right)$ and $K_c=K_c\left(z,z_r\right)$ are functions of $z$ and $z_r$ (or equivalently, $\left\{z_r^j\right\}_{j=0}^N$) that yield ratios between zero and unity.
+It is possible to further impose the constraint $K_m+K_c=1$ such that $\bvarepsilon^p=\bvarepsilon^p_m+\bvarepsilon^p_c$, however, this is not strictly necessary.
+A similar split can be applied to $q$ such that
 \begin{gather}
-q=q_m+q_c,\qquad
-\dot{q}_m=K\dot{q},\qquad
-\dot{q}_c=\left(1-K\right)\dot{q},
+\dot{q}_m=K_m\dot{q},\qquad\dot{q}_c=K_c\dot{q}.
 \end{gather}
 \subsection{Isotropic Hardening Stagnation}
 \citet[][see, \S~2.4]{Yoshida2002} introduce an additional \textit{non-isotropic-hardening} surface in the stress space, such that isotropic hardening can be activated or deactivated based on the size of the back stress, and thus the kinematic hardening.
@@ -53,76 +51,63 @@ The isotropic bound $F$ can be defined as a function of $q_m$ instead of $q$,
 \boxed{F=F\left(q_m\right).}
 \end{gather}
 \eqsref{eq:f_revised} effectively loosens the coupling between $F$ and $q$.
-By varying $K$, it is possible to control the portion of $\dot{\bvarepsilon}^p$ that contributes to the evolution of $F$.
+By varying $K_m$, it is possible to control the portion of $\dot{\bvarepsilon}^p$ that contributes to the evolution of $F$.
 The simplest example would be
 \begin{gather}
-    K\left(z,z_r\right)=\begin{cases}
+    K_m=\begin{cases}
         0, & z\leqslant{}z^r,  \\
         1, & \text{otherwise}.
-    \end{cases}
+        \end{cases}
 \end{gather}
 With this choice, isotropic hardening is completely deactivated (thus stagnated) during cyclic loading when $z\leqslant{}z^r$.
 Depending on how $z_r$ is defined, various memory effects can be simulated.
 While for monotonic loading when $z>z^r$, isotropic hardening is fully activated as $\dot{q}_m=\dot{q}$, this is equivalent to the conventional formulation.
-\subsection{Cyclic Hardening}
-We introduce an additional term $\bbeta$ and its corresponding bound $H_\beta$, similar to the back stress $\balpha$, to capture the cyclic hardening effect.
+\subsection{Cyclic Hardening/Softening}
+We introduce an additional term $\bbeta$ and its corresponding bound $H_\beta$, similar to the back stress $\balpha$, to capture the cyclic hardening/softening effect.
 The shifted stress shall be revised as
 \begin{gather}\label{eq:eta_revised}
-    \boxed{\beeta=\bs-H_\alpha\balpha-H_\beta\bbeta+\left(z-1\right)F\bd.}
+    \boxed{\beeta=\bs-H_\alpha\balpha-H_\beta\bbeta+\left(z-1\right)H_d\bd.}
 \end{gather}
-Unlike $\balpha$, which is driven by $\dot{\bvarepsilon}^p$, here $\bbeta$ is assumed to be driven by $\dot{\bvarepsilon}^{p,c}$, its rate form can be expressed as
+Unlike $\balpha$, which is driven by $\dot{\bvarepsilon}^p$, here $\bbeta$ is assumed to be driven by $\dot{\bvarepsilon}^p_c$, its rate form can be expressed as
 \begin{gather}
-    \dot{\bbeta}=\dot{\bbeta}\left(\dot{\bvarepsilon}^{p,c},\bbeta\right).
+    \dot{\bbeta}=\dot{\bbeta}\left(\dot{\bvarepsilon}^p_c,\bbeta\right).
 \end{gather}
 In terms of the bound $H_\beta$, we assume that it is driven by the same measure of plastic strain as the isotropic bound $F$, thus,
 \begin{gather}
     H_\beta=H_\beta\left(q_m\right).
 \end{gather}
-
-All three back stress like terms in \eqsref{eq:eta_revised} have different effects.
-\begin{itemize}
-    \item The first term $H_\alpha\balpha$ is identical to the conventional back stress term, both $\balpha$ and $H_\alpha$ evolve with $q$.
-          This term transitions the center of the surface around in the stress space thus is primarily responsible for the Bauschinger effect.
-    \item The second term $H_\beta\bbeta$ is quite novel, $\bbeta$ evolves with the cyclic plastic strain $\bvarepsilon^{p,c}$, while $H_\beta$ evolves with the monotonic part $\bvarepsilon^{p,m}$.
-    Again, by adjusting $K$, it is possible to evolve either $H_\beta$ or $\bbeta$ under certain loading conditions.
-    This term should be comparatively small, and is primarily responsible for cyclic hardening/softening and formation of hysteresis loops.
-    \item The third term $\left(1-z\right)F\bd$ has negligible influence during loading as $z$ approaches \num{1}.
-          However, during unloading when $z$ decreases, it further shifts the center of the subloading surface away from $H_\beta\bbeta$, thus effectively enhancing the Bauschinger effect.
-\end{itemize}
+This additional term $H_\beta\bbeta$ is quite novel, $\bbeta$ evolves with the cyclic plastic strain $\bvarepsilon^p_c$, while $H_\beta$ evolves with the monotonic part $\bvarepsilon^p_m$.
+Again, by adjusting $K_*$, it is possible to evolve either $H_\beta$ or $\bbeta$ under certain loading conditions.
+This term should be comparatively small, and is primarily responsible for cyclic hardening/softening and formation of hysteresis loops.
 \subsection{Objective Transition}
 As shown in \eqsref{eq:int_z}, for a given interval of $z$, the corresponding change in $q$ is always constant, regardless of the specific form of $U(z)$.
 However, $z$ only measures the relative loading level.
-As a result, the response curve becomes steeper when the yield stress is higher, and less steep when it is lower.
+As a result, the response curve becomes steeper when the yield stress is larger, and less steep when it is smaller.
 To make this transition more objective and less dependent on material parameters, we propose the following enhancement.
 \begin{gather}\label{eq:z_evolution_revised}
     \boxed{\dot{z}=\dfrac{U}{F}\dot{q}.}
 \end{gather}
 \subsection{Summary}
+Following the Armstrong-Frederick rule, one can define
+\begin{gather}
+    \dot{\bbeta}=b_\beta\left(\dot{\bvarepsilon}^p_c-\norm{\dot{\bvarepsilon}^p_c}\bbeta\right)=b_\beta\norm{\dot{\bvarepsilon}^p_c}\left(\bn-\bbeta\right)=b_\beta{}K_c\left(\bn-\bbeta\right)\gamma.
+\end{gather}
+In the above, $b_\beta$ is a material parameter that controls the rate of evolution of $\bbeta$.
+
 \begin{table}[htb]
     \centering\footnotesize
     \caption{Summary of the proposed formulation}\label{tab:summary}
     \begin{tabular}{rl}
         \toprule
         Constitutive Law         & $\bsigma=\mb{D}_e:\left(\bvarepsilon-\bvarepsilon^p\right)$                                                                                           \\\midrule
-        Subloading Surface       & $f_s=\norm{\beeta}-z\sqrt{\dfrac{2}{3}}\sigma^y$                                                                                                      \\[2mm]
-                                 & $\beeta=\dev{\bsigma}-a^y\balpha+\left(z-1\right)\sigma^y\bd$                                                                                         \\\midrule
-                                 Flow Rule                & $\dot{\bvarepsilon^p}=\gamma{}\bn$                                                                                                                    \\\midrule
-                                 Evolution Rules          & $\dot{q}=\sqrt{\dfrac{2}{3}}\gamma$                                                                                                                   \\[2mm]
-                                 & $\dot{z}=U\dot{q}$                                                                                                                                    \\[2mm]
-                                 & $\dot{\balpha}=b\left(\sqrt{\dfrac{2}{3}}\bn-\balpha\right)\gamma$                                                                                    \\[2mm]
-                                 & $\dot{\bd}=c_e\left(\sqrt{\dfrac{2}{3}}z_e\bn-\bd\right)\gamma$                                                                                       \\[2mm]
-                                 & $a^y=a^i+k_\text{kin}q+a^s_\text{kin}\left(1-e^{-m^s_\text{kin}q}\right)$                                                                             \\\midrule
-        New Proposal\faLightbulb & $\sigma^y=\sigma^y_m+\sigma^y_r$                                                                                                                      \\[2mm]
-        New Proposal\faLightbulb & $\sigma^y_m=\sigma^i_m+k_{m,\text{iso}}q_m+\sigma^s_{m,\text{iso}}\left(1-e^{-m^s_{m,\text{iso}}q_m}\right)$ with $\dot{q_m}=Q\dot{q}$                \\[2mm]
-        New Proposal\faLightbulb & $\sigma^y_r=\sigma^i_r+k_{r,\text{iso}}q_r+\sigma^s_{r,\text{iso}}\left(1-e^{-m^s_{r,\text{iso}}q_r}\right)$ with $\dot{q_r}=\left(1-Q\right)\dot{q}$ \\\bottomrule
+        Subloading Surface       & $f_s=\norm{\beeta}-zF$                                                                                                      \\[2mm]
+        & $\beeta=\bs-H_\alpha\balpha-H_\beta\bbeta+\left(z-1\right)H_d\bd$                                                                                         \\\midrule
+        Flow Rule                & $\dot{\bvarepsilon}^p=\gamma{}\bn=\gamma{}\dfrac{\beeta}{\norm{\beeta}}$                                                                                                                    \\\midrule
+        Evolution Rules          & $\dot{q}=\gamma$                                                                                                                    \\[2mm]
+        &$\dot{q}_m=K_m\gamma$                                                                                                                                  \\[2mm]
+        & $F\dot{z}=U\dot{q}$                                                                                                                                    \\[2mm]
+        & $\dot{\balpha}=b_\alpha\left(\bn-\balpha\right)\gamma$                                                                                    \\[2mm]
+        &         $\dot{\bbeta}=b_\beta{}K_c\left(\bn-\bbeta\right)\gamma$                                                                                \\[2mm]
+        &  $\dot{\bd}=b_d\left(\bn-\bd\right)\gamma$                                                                           \\\bottomrule
     \end{tabular}
 \end{table}
-
-Compared to the previous formulation \citep{Chang2025}, we have revised the isotropic hardening rule by introducing a multiplicative split of the accumulated plastic strain.
-As a result, the isotropic bound $\sigma^y$ is function of not only $q$ but also $z$ and its history.
-\subsection{Discrete Expressions}
-
-Following the Armstrong-Frederick rule, one can define
-\begin{gather}
-    \dot{\bbeta}=b_\beta\left(\dot{\bvarepsilon}^{p,c}-\norm{\dot{\bvarepsilon}^{p,c}}\bbeta\right)=b_\beta\norm{\dot{\bvarepsilon}^{p,c}}\left(\bn-\bbeta\right)=b_\beta\left(1-K\right)\gamma\left(\bn-\bbeta\right).
-\end{gather}

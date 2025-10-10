@@ -21,10 +21,17 @@ It can be expressed as
 \begin{gather}\label{eq:fs_original}
 f_s=\norm{\beeta}-zF=\norm{\bs-H_\alpha\balpha+\left(z-1\right)H_d\bd}-zF,
 \end{gather}
-where $\beeta$ is the shifted stress tensor, $\bs = \dev{\bsigma}$ is the deviatoric stress tensor, $\balpha$ is the back stress tensor normalised by $H_\alpha$, and $\bd$ is the similarity tensor \citep{Chang2025}.
+where $\beeta$ is the shifted stress tensor, $\bs=\dev{\bsigma}$ is the deviatoric stress tensor, $\balpha$ is the back stress tensor normalised by $H_\alpha$, and $\bd$ is the similarity tensor \citep{Chang2025}.
 Both $\balpha$ and $\bd$ are internal history variables that evolve in stress space, with their magnitudes bounded by unity.
 Those two tensors are further scaled by the scalar fields $H_\alpha$ and $H_d$ respectively, which may also evolve with the development of plasticity.
 For simplicity, $H_\alpha$ and $H_d$ can be taken as constant fractions of $F$, which characterises the size of the subloading surface and may be interpreted as the yield stress.
+These two back stress like terms have different effects.
+\begin{itemize}
+    \item The first term $H_\alpha\balpha$ is identical to the conventional back stress term, both $\balpha$ and $H_\alpha$ evolve with the accumulated plastic strain.
+          This term transitions the center of the surface in the stress space thus is primarily responsible for the Bauschinger effect.
+    \item The second term $\left(1-z\right)H_d\bd$ has negligible influence during loading as $z$ approaches unity.
+          However, during unloading when $z$ decreases, it further shifts the center of the subloading surface away from $H_\alpha\balpha$, thus effectively enhancing the Bauschinger effect.
+\end{itemize}
 \subsubsection{Flow and Evolution Rules}
 Assuming associative plasticity, the flow rule takes the well--known form,
 \begin{gather}
