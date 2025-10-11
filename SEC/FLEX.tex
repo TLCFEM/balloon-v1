@@ -149,5 +149,10 @@ if it is negative, then
 \begin{gather}
     -\norm{\bzeta}=\norm{\beeta}+\gamma2G+\dfrac{H_\alpha\gamma{}b_\alpha}{1+\gamma{}b_\alpha}+\dfrac{H_\beta\gamma{}b_\beta{}K_c}{1+\gamma{}b_\beta{}K_c}+\dfrac{\left(1-z\right)H_d\gamma{}b_d}{1+\gamma{}b_d}\qquad\text{and}\qquad{}\bn=-\dfrac{\bzeta}{\norm{\bzeta}}.
 \end{gather}
+Thus, one and only one sign in the following expression holds
+\begin{gather}
+0\leqslant\norm{\beeta}=\pm\norm{\bzeta}-\left(\gamma2G+\dfrac{H_\alpha\gamma{}b_\alpha}{1+\gamma{}b_\alpha}+\dfrac{H_\beta\gamma{}b_\beta{}K_c}{1+\gamma{}b_\beta{}K_c}+\dfrac{\left(1-z\right)H_d\gamma{}b_d}{1+\gamma{}b_d}\right).
+\end{gather}
+The norm of $\beeta$ can thus be computed via terms that do not rely on $\beeta$ at all.
 The above differs from the previous work \citep{Chang2025} in that although the other parameters remain positive by definition, $H_\beta$ can be negative to allow for cyclic softening.
 \eqsref{eq:coaxial} is the key to a concise and compact numerical implementation.
