@@ -21,28 +21,30 @@ It can be expressed as
 \begin{gather}\label{eq:fs_original}
 f_s=\norm{\beeta}-zF=\norm{\bs-H_\alpha\balpha+\left(z-1\right)H_d\bd}-zF,
 \end{gather}
-where $\beeta$ is the shifted stress tensor, $\bs=\dev{\bsigma}$ is the deviatoric stress tensor, $\balpha$ is the back stress tensor normalised by $H_\alpha$, and $\bd$ is the similarity tensor \citep{Chang2025}.
+where $\beeta$ is the shifted stress tensor, $\bs=\bs\left(\bsigma\right)$ is some measure of the stress tensor $\bsigma$, in von Mises models, it is often taken as the deviatoric stress tensor $\bs=\dev{\bsigma}$, $\balpha$ is the back stress tensor normalised by $H_\alpha$, and $\bd$ is the similarity tensor \citep{Chang2025}.
 Both $\balpha$ and $\bd$ are internal history variables that evolve in stress space, with their magnitudes bounded by unity.
 Those two tensors are further scaled by the scalar fields $H_\alpha$ and $H_d$ respectively, which may also evolve with the development of plasticity.
 For simplicity, $H_\alpha$ and $H_d$ can be taken as constant fractions of $F$, which characterises the size of the subloading surface and may be interpreted as the yield stress.
 These two back stress like terms have different effects.
 \begin{itemize}
     \item The first term $H_\alpha\balpha$ is identical to the conventional back stress term, both $\balpha$ and $H_\alpha$ evolve with the accumulated plastic strain.
-          This term transitions the center of the surface in the stress space thus is primarily responsible for the Bauschinger effect.
+          As commonly understood, this term contributes to kinematic hardening by shifting the center of the surface, and is primarily responsible for the Bauschinger effect.
     \item The second term $\left(1-z\right)H_d\bd$ has negligible influence during loading as $z$ approaches unity.
           However, during unloading when $z$ decreases, it further shifts the center of the subloading surface away from $H_\alpha\balpha$, thus effectively enhancing the Bauschinger effect.
 \end{itemize}
 \subsubsection{Flow and Evolution Rules}
-Assuming associative plasticity, the flow rule takes the well--known form,
+Assuming von Mises framework (thus $\bs=\dev{\bsigma}$) and associative plasticity, the flow rule takes the well--known form,
 \begin{gather}
-    \dot{\bvarepsilon^p}=\gamma{}\pdfrac{f_s}{\bsigma}=\gamma\dfrac{\beeta}{\norm{\beeta}}=\gamma{}\bn,
+    \dot{\bvarepsilon^p}=\gamma{}\pdfrac{f_s}{\bsigma}=\gamma{}\pdfrac{f_s}{\beeta}:\pdfrac{\beeta}{\bsigma}=\gamma\dfrac{\beeta}{\norm{\beeta}}=\gamma{}\bn,
 \end{gather}
 where $\gamma$ is the plastic multiplier.
 The scalar fields are driven by the accumulated plastic strain $q$, whose rate form is defined as a function of the plastic strain rate $\dot{\bvarepsilon^p}$.
 A common choice is to track the magnitude of $\dot{\bvarepsilon^p}$, thus,
 \begin{gather}\label{eq:q_original}
-    \dot{q}=\norm{\dot{\bvarepsilon^p}}.
+    \dot{q}=\norm{\dot{\bvarepsilon^p}}=\gamma.
 \end{gather}
+For the von Mises yield criterion as expressed in \eqsref{eq:fs_original}, $\pdfrac{f_s}{\bsigma}$ happens to be normalised.
+This is not always the case for other yield criteria, where further normalisation may be required to obtain the simplification $\dot{q}=\gamma$.\footnote{Such normalisation is advantageous for both formulation and implementation: a) The increment $\dot{q}$ does not depend on other tensors, making the computation of derivatives much simpler; and 2) the plastic multiplier $\gamma$ is bounded, since $\gamma=\norm{\dot{\bvarepsilon^p}}\leqslant\norm{\dot{\bvarepsilon}}$, which can help stabilise the numerical implementation.}
 With the above, the following evolution rule is introduced for $z$,
 \begin{gather}\label{eq:z_evolution}
     \dot{z}=U\dot{q},
@@ -51,7 +53,11 @@ where $U=U\left(z\right)$ is a function of $z$.
 Furthermore, the scalar bounds $H_\alpha=H_\alpha\left(q\right)$, $H_d=H_d\left(q\right)$ and $F=F\left(q\right)$ are defined as functions of $q$.
 It is further required that $H_d<F$ under all circumstances, which ensures that the subloading surface is always inside the yield surface.
 The tensor fields $\balpha$ and $\bd$ evolve according to Armstrong--Frederick type rules \citep{Frederick2007}.
-Their general rate forms can be written as $\dot{\balpha}=\dot{\balpha}\left(\dot{\bvarepsilon}^p,\balpha\right)$ and $\dot{\bd}=\dot{\bd}\left(\dot{\bvarepsilon}^p,\bd\right)$.
+\begin{gather}
+    \dot{\balpha}=b_\alpha\left(\bn-\balpha\right)\gamma,\qquad
+    \dot{\bd}=b_d\left(\bn-\bd\right)\gamma,
+\end{gather}
+where $b_\alpha$ and $b_d$ are material parameters that control the rate of evolution.
 \section{Limitations}
 The most distinctive feature of the subloading surface model is that the normal yield ratio $z$ gradually approaches unity from zero during the loading process.
 Thus, there is no elastic region during this process, as $z$ is driven by $q$ as defined in \eqsref{eq:z_evolution}, which accumulates with plastic deformation.
