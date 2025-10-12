@@ -118,11 +118,14 @@ Popular options may include a liner component, an exponential component that sat
 \subsection{Choice of $K_*$}
 The following expression is chosen for $K_m$.
 \begin{gather}\label{eq:km}
-    K_m=\dfrac{1-\exp{\dfrac{z}{k_r\left(z-z_r\right)}}}{1-k_b\ln{\left(1-z_r\right)}},
+    K_m=\begin{cases}
+        \dfrac{1-\exp{\dfrac{z}{k_r\left(z-z_r\right)}}}{1-k_b\ln{\left(1-z_r\right)}}, & 0\leqslant{}z<z_r,           \\[2mm]
+        \dfrac{1}{1-k_b\ln{\left(1-z_r\right)}},                                        & z_r\leqslant{}z\leqslant{}1,
+    \end{cases}
 \end{gather}
 in which $k_r$ and $k_b$ are two material parameters that control the transition.
 The detailed design rationale is omitted for brevity.
-However, the following properties are worth noting.
+However, the following properties of the first segment $0\leqslant{}z<z_r$ are worth noting.
 \begin{itemize}
     \item It is a smooth function for $0\leqslant{}z\leqslant{}z_r$ with the derivative at the right end strictly being zero.
     \item When $k_b=0$, the right end is $(z_r,1)$, as $k_b$ increases, the right end moves downwards and approaches $(z_r,0)$.

@@ -45,10 +45,11 @@ if __name__ == "__main__":
 
     ls_gen = line_style_generator()
     plt.figure(figsize=(5, 2))
-    for k_r in [0.2, 0.5, 1.0, 2.0, 5]:
+    for k_r in [1e-1, 0.2, 0.5, 1.0, 2.0, 5, 1e1]:
         z = np.linspace(0, z_r - 1e-4, 200)
         plt.plot(z, K_m(z, z_r, k_r, k_b), linestyle=next(ls_gen))
 
+    plt.hlines(y=1 / (1 - k_b * np.log(1 - z_r)), xmin=z_r, xmax=1)
     ax = plt.gca()
     ax.annotate(
         "",
@@ -56,7 +57,7 @@ if __name__ == "__main__":
         xytext=(0.9, 0.8),
         arrowprops=dict(arrowstyle="<|-|>", lw=1.5, color="red"),
     )
-    ax.annotate(r"$k_b$", xy=(0.92, 0.65))
+    ax.annotate(r"$k_b$", xy=(0.92, 0.5))
     ax.annotate(
         "",
         xy=(0.75, 0.85),
