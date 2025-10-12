@@ -55,13 +55,13 @@ By varying $K_m$, it is possible to control the portion of $\dot{\bvarepsilon}^p
 The simplest example would be
 \begin{gather}
     K_m=\begin{cases}
-        0, & z\leqslant{}z^r,  \\
+        0, & z\leqslant{}z_r,  \\
         1, & \text{otherwise}.
         \end{cases}
 \end{gather}
-With this choice, isotropic hardening is completely deactivated (thus stagnated) during cyclic loading when $z\leqslant{}z^r$.
+With this choice, isotropic hardening is completely deactivated (thus stagnated) during cyclic loading when $z\leqslant{}z_r$.
 Depending on how $z_r$ is defined, various memory effects can be simulated.
-While for monotonic loading when $z>z^r$, isotropic hardening is fully activated as $\dot{q}_m=\dot{q}$, this is equivalent to the conventional formulation.
+While for monotonic loading when $z>z_r$, isotropic hardening is fully activated as $\dot{q}_m=\dot{q}$, this is equivalent to the conventional formulation.
 \subsection{Cyclic Hardening/Softening}
 We introduce an additional term $\bbeta$ and its corresponding bound $H_\beta$, similar to the back stress $\balpha$, to capture the cyclic hardening/softening effect.
 The shifted stress shall be revised as
@@ -115,6 +115,29 @@ For specific applications, minor changes, for example, accounting for extra cons
 For scalar bounds $H_\alpha=H_\alpha(q)$, $H_\beta=H_\beta(q_m)$, $H_d=H_d(q)$, and $F=F(q_m)$, any suitable univariate functions can be chosen, so we keep the corresponding expressions general.
 Popular options may include a liner component, an exponential component that saturates, and/or a power term.
 \section{Implementation}
+\subsection{Choice of $K_*$}
+The following expression is chosen for $K_m$.
+\begin{gather}\label{eq:km}
+    K_m=\dfrac{1-\exp{\dfrac{z}{k_r\left(z-z_r\right)}}}{1-k_b\ln{\left(1-z_r\right)}},
+\end{gather}
+in which $k_r$ and $k_b$ are two material parameters that control the transition.
+The detailed design rationale is omitted for brevity.
+However, the following properties are worth noting.
+\begin{itemize}
+    \item It is a smooth function for $0\leqslant{}z\leqslant{}z_r$ with the derivative at the right end strictly being zero.
+    \item When $k_b=0$, the right end is $(z_r,1)$, as $k_b$ increases, the right end moves downwards and approaches $(z_r,0)$.
+    \item When $k_r=0$, it is a flat line.
+\end{itemize}
+The function is illustrated in \figref{fig:km}.
+\begin{figure}
+    \centering
+    \includegraphics{PIC/illustration_km}
+    \caption{illustration of $K_m$ defined in \eqsref{eq:km}}\label{fig:km}
+\end{figure}
+It is assumed that $K_c=1-K_m$.
+
+\subsection{Some Simplifications}
+With the assist of $\bs=\bs^\text{trial}-\gamma2G\bn$ and the implicit Euler method for back stress like tensors, one can obtain the following expression for $\beeta$,
 \begin{gather}
     \begin{split}
         \beeta & =\bs-H_\alpha\balpha-H_\beta\bbeta+\left(z-1\right)H_d\bd                                                                                                                                                                               \\
@@ -130,18 +153,13 @@ By denoting the right hand side as
 \begin{gather}
     \bzeta=\bs^\text{trial}-\dfrac{H_\alpha}{1+\gamma{}b_\alpha}\balpha_n-\dfrac{H_\beta}{1+\gamma{}b_\beta{}K_c}\bbeta_n+\dfrac{\left(z-1\right)H_d}{1+\gamma{}b_d}\bd_n,
 \end{gather}
-one could conclude that if the bracketed term on the left hand side is positive, then
-\begin{gather}
-    \norm{\bzeta}=\norm{\beeta}+\gamma2G+\dfrac{H_\alpha\gamma{}b_\alpha}{1+\gamma{}b_\alpha}+\dfrac{H_\beta\gamma{}b_\beta{}K_c}{1+\gamma{}b_\beta{}K_c}+\dfrac{\left(1-z\right)H_d\gamma{}b_d}{1+\gamma{}b_d}\qquad\text{and}\qquad{}\bn=\dfrac{\bzeta}{\norm{\bzeta}},
+one could conclude that one and only one sign in the following expression holds
+\begin{gather}\label{eq:coaxial_final}
+0\leqslant\norm{\beeta}=\pm\norm{\bzeta}-\left(\gamma2G+\dfrac{H_\alpha\gamma{}b_\alpha}{1+\gamma{}b_\alpha}+\dfrac{H_\beta\gamma{}b_\beta{}K_c}{1+\gamma{}b_\beta{}K_c}+\dfrac{\left(1-z\right)H_d\gamma{}b_d}{1+\gamma{}b_d}\right)\quad\text{and}\quad{}\bn=\pm\dfrac{\bzeta}{\norm{\bzeta}}.
 \end{gather}
-if it is negative, then
-\begin{gather}
-    -\norm{\bzeta}=\norm{\beeta}+\gamma2G+\dfrac{H_\alpha\gamma{}b_\alpha}{1+\gamma{}b_\alpha}+\dfrac{H_\beta\gamma{}b_\beta{}K_c}{1+\gamma{}b_\beta{}K_c}+\dfrac{\left(1-z\right)H_d\gamma{}b_d}{1+\gamma{}b_d}\qquad\text{and}\qquad{}\bn=-\dfrac{\bzeta}{\norm{\bzeta}}.
-\end{gather}
-Thus, one and only one sign in the following expression holds
-\begin{gather}
-0\leqslant\norm{\beeta}=\pm\norm{\bzeta}-\left(\gamma2G+\dfrac{H_\alpha\gamma{}b_\alpha}{1+\gamma{}b_\alpha}+\dfrac{H_\beta\gamma{}b_\beta{}K_c}{1+\gamma{}b_\beta{}K_c}+\dfrac{\left(1-z\right)H_d\gamma{}b_d}{1+\gamma{}b_d}\right).
-\end{gather}
-The norm of $\beeta$ can thus be computed via terms that do not rely on $\beeta$ at all.
-The above differs from the previous work \citep{Chang2025} in that although the other parameters remain positive by definition, $H_\beta$ can be negative to allow for cyclic softening.
-\eqsref{eq:coaxial} is the key to a concise and compact numerical implementation.
+The norm of $\beeta$ can thus be computed using terms that do not depend on $\beeta$ itself.
+This differs from previous work \citep{Chang2025} in that, although the other parameters remain positive by definition, $H_\beta$ can be negative to allow for cyclic softening.
+\eqsref{eq:coaxial} is key to a concise and efficient numerical implementation.
+By exploiting this, in an implicit integration scheme, $\beeta$ and $\bn$ are now decoupled, making it possible to treat $\beeta$ as an intermediate variable and thus reduce the size of the local system.
+\eqsref{eq:coaxial_final} also simplifies the computation of derivatives.
+Further details of the numerical implementation are omitted for brevity, interested readers may refer to a previous paper \citep{Chang2025}.

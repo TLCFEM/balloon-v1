@@ -31,5 +31,5 @@ __pycache__
 *venv
 BALLOON.pdf
 PIC/CYCLIC/*.txt
-PIC/CYCLIC/*.pdf
+PIC/**/_*.pdf
 PICCOLLECTION.pdf
