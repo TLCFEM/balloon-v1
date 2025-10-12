@@ -77,38 +77,31 @@ def plot():
     stress = np.loadtxt("R2-S1.txt")
     hist = np.loadtxt("R1-HIST1.txt")
 
-    fig, ax = new_fig()
-
-    ax.plot(
-        strain[:, 1] * 1e3, stress[:, 1], color="#d73027", marker="x", markevery=149
-    )
-    ax.legend(["$\\sigma$"], loc="upper left")
-    ax.set_xlabel("strain ($1/1000$)")
-    ax.set_ylabel("stress (MPa)")
-    ax.set_xbound(min(strain[:, 1] * 1e3), max(strain[:, 1] * 1e3))
-    ax.set_ybound(1.1 * min(stress[:, 1]), 1.1 * max(stress[:, 1]))
-
-    fig.savefig("cyclic.total.pdf")
-
     fig, ax = plot_gradient_line(
         strain[:, 1] * 1e3, stress[:, 1], marker=None, cmap="rainbow"
     )
     ax.set_xlabel("strain ($1/1000$)")
     ax.set_ylabel("stress (MPa)")
-    fig.savefig("cyclic.gradient.pdf")
+    fig.savefig("_balloon.stress.pdf")
 
-    fig, ax = new_fig()
+    items = [
+        (4, "$q_m$", "qm"),
+        (6, "$z$", "z"),
+        (8, "$\\beta$", "beta"),
+    ]
 
-    ax.plot(strain[:, 1] * 1e3, hist[:, 6], color="#d73027", marker="x", markevery=149)
-    ax.legend(["$z$"], loc="upper left")
-    ax.set_xlabel("strain ($1/1000$)")
-    ax.set_ylabel("normal yield ratio $z$")
-    ax.set_xbound(min(strain[:, 1] * 1e3), max(strain[:, 1] * 1e3))
-    ax.set_ybound(0, 1.1)
+    for idx, label, filename in items:
+        fig, ax = plot_gradient_line(
+            strain[:, 1] * 1e3, hist[:, idx], marker=None, cmap="rainbow"
+        )
+        ax.legend(["$z$"], loc="upper left")
+        ax.set_xlabel("strain ($1/1000$)")
+        ax.set_ylabel(label)
+        ax.set_xbound(min(strain[:, 1] * 1e3), max(strain[:, 1] * 1e3))
 
-    print(max(hist[:, 6]))
+        print(max(hist[:, idx]))
 
-    fig.savefig("cyclic.ratio.total.pdf")
+        fig.savefig(f"_balloon.{filename}.pdf")
 
     turning_points = []
     for i in range(1, len(stress[:, 1]) - 1):
@@ -125,7 +118,7 @@ def plot():
         marker=".",
         linestyle="None",
     )
-    fig.savefig("cyclic.stress.total.pdf")
+    fig.savefig("_balloon.cyclic.pdf")
 
 
 if __name__ == "__main__":
