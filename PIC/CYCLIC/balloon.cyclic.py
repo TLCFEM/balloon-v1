@@ -1,11 +1,59 @@
 import os
+from pathlib import Path
 import subprocess
+from tempfile import TemporaryDirectory
 from matplotlib.collections import LineCollection
 from matplotlib.colors import Normalize
 import numpy as np
 import matplotlib.pyplot as plt
 
 plt.rcParams.update({"font.size": 6})
+
+
+model = r"""
+node 1 0 0
+node 2 1 0
+
+material Balloon1D 1 \
+2E5 1E6 4E0 1E2 2 \
+200 1E3 0 0 \ ! hf
+0 0 0 0 \ ! ha
+50 1E3 0 0 \ ! hb
+0 0 0 0 \ ! hd
+0 1. \ ! alpha
+1E2 1. \ ! beta
+0 1. ! d
+
+element T2D2 1 1 2 1 1
+
+plainrecorder 1 Element HIST 1
+plainrecorder 2 Element S 1
+plainrecorder 3 Element E 1
+
+fix2 1 1 1
+fix2 2 2 1 2
+
+# expression SimpleScalar 1 t t<100?0.5-0.5*cos(2pi*t):1-cos(2pi*t)
+expression SimpleScalar 1 t t<25?sin(2pi*t):t<50?2sin(2pi*t):t<75?4sin(2pi*t):8sin(2pi*t)
+
+amplitude Custom 3 1
+
+# cload 1 3 200 1 2
+disp 1 3 2e-3 1 2
+
+step static 1 100
+set fixed_step_size 1
+set ini_step_size 1E-2
+set symm_mat 0
+
+converger RelIncreDisp 1 1E-10 10 1
+
+analyze
+
+save recorder 1 2 3
+
+exit
+"""
 
 
 def new_fig():
@@ -71,56 +119,63 @@ def plot():
             return
         SUANPAN_EXE = "suanpan"
 
-    subprocess.run([SUANPAN_EXE, "-f", "balloon.cyclic.sp"], stdout=subprocess.DEVNULL)
+    prefix = Path(__file__).parent
 
-    strain = np.loadtxt("R3-E1.txt")
-    stress = np.loadtxt("R2-S1.txt")
-    hist = np.loadtxt("R1-HIST1.txt")
-
-    fig, ax = plot_gradient_line(
-        strain[:, 1] * 1e3, stress[:, 1], marker=None, cmap="rainbow"
-    )
-    ax.set_xlabel("strain ($1/1000$)")
-    ax.set_ylabel("stress (MPa)")
-    fig.savefig("_balloon.stress.pdf")
-
-    items = [
-        (4, "$q_m$", "qm"),
-        (6, "$z$", "z"),
-        (8, "$\\beta$", "beta"),
-    ]
-
-    for idx, label, filename in items:
-        fig, ax = plot_gradient_line(
-            strain[:, 1] * 1e3, hist[:, idx], marker=None, cmap="rainbow"
+    with TemporaryDirectory() as tmpdir:
+        os.chdir(tmpdir)
+        with open("balloon.sp", "w") as file:
+            file.write(model)
+        subprocess.run(
+            [SUANPAN_EXE, "-f", "balloon.sp"], capture_output=True, text=True
         )
-        ax.legend(["$z$"], loc="upper left")
+
+        strain = np.loadtxt("R3-E1.txt")
+        stress = np.loadtxt("R2-S1.txt")
+        hist = np.loadtxt("R1-HIST1.txt")
+
+        fig, ax = plot_gradient_line(
+            strain[:, 1] * 1e3, stress[:, 1], marker=None, cmap="rainbow"
+        )
         ax.set_xlabel("strain ($1/1000$)")
-        ax.set_ylabel(label)
-        ax.set_xbound(min(strain[:, 1] * 1e3), max(strain[:, 1] * 1e3))
+        ax.set_ylabel("stress (MPa)")
+        fig.savefig(prefix / "_balloon.stress.pdf")
 
-        print(f"{max(hist[:, idx]):.16e}")
+        items = [
+            (4, "$q_m$", "qm"),
+            (6, "$z$", "z"),
+            (8, "$\\beta$", "beta"),
+        ]
 
-        fig.savefig(f"_balloon.{filename}.pdf")
+        for idx, label, filename in items:
+            fig, ax = plot_gradient_line(
+                strain[:, 1] * 1e3, hist[:, idx], marker=None, cmap="rainbow"
+            )
+            ax.legend(["$z$"], loc="upper left")
+            ax.set_xlabel("strain ($1/1000$)")
+            ax.set_ylabel(label)
+            ax.set_xbound(min(strain[:, 1] * 1e3), max(strain[:, 1] * 1e3))
 
-    turning_points = []
-    for i in range(1, len(stress[:, 1]) - 1):
-        if (stress[i - 1, 1] < stress[i, 1] > stress[i + 1, 1]) or (
-            stress[i - 1, 1] > stress[i, 1] < stress[i + 1, 1]
-        ):
-            turning_points.append(stress[i, 1])
+            print(f"{max(hist[:, idx]):.16e}")
 
-    fig, ax = new_fig()
-    ax.plot(
-        range(len(turning_points)),
-        turning_points,
-        color="#d73027",
-        marker=".",
-        linestyle="None",
-    )
-    fig.savefig("_balloon.cyclic.pdf")
+            fig.savefig(prefix / f"_balloon.{filename}.pdf")
+
+        turning_points = []
+        for i in range(1, len(stress[:, 1]) - 1):
+            if (stress[i - 1, 1] < stress[i, 1] > stress[i + 1, 1]) or (
+                stress[i - 1, 1] > stress[i, 1] < stress[i + 1, 1]
+            ):
+                turning_points.append(stress[i, 1])
+
+        fig, ax = new_fig()
+        ax.plot(
+            range(len(turning_points)),
+            turning_points,
+            color="#d73027",
+            marker=".",
+            linestyle="None",
+        )
+        fig.savefig(prefix / "_balloon.cyclic.pdf")
 
 
 if __name__ == "__main__":
-    os.chdir(os.path.dirname(os.path.abspath(__file__)))
     plot()
