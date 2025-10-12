@@ -99,7 +99,7 @@ def plot():
         ax.set_ylabel(label)
         ax.set_xbound(min(strain[:, 1] * 1e3), max(strain[:, 1] * 1e3))
 
-        print(max(hist[:, idx]))
+        print(f"{max(hist[:, idx]):.16e}")
 
         fig.savefig(f"_balloon.{filename}.pdf")
 
