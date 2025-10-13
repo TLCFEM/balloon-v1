@@ -15,10 +15,10 @@ node 1 0 0
 node 2 1 0
 
 material Balloon1D 1 \
-2E5 1E6 4E0 1E2 2 \
+2E5 1E6 1E1 1E2 2 \
 200 1E3 0 0 \ ! hf
 0 0 0 0 \ ! ha
-50 1E3 0 0 \ ! hb
+50 -1E3 0 0 \ ! hb
 0 0 0 0 \ ! hd
 0 1. \ ! alpha
 1E2 1. \ ! beta
