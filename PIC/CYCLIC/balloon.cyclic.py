@@ -143,8 +143,8 @@ def plot():
 
         items = [
             (4, "$q_m$", "qm"),
-            (6, "$z$", "z"),
-            (7, "$f_c$", "fc"),
+            (5, "$z$", "z"),
+            (6, "$f_c$", "fc"),
         ]
 
         for idx, label, filename in items:

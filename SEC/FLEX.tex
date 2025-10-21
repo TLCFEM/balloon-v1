@@ -48,7 +48,7 @@ Such an approach is widely used in the literature as a basic building block for 
 
 The isotropic bound $F$ can be defined as a function of $q_m$ instead of $q$,
 \begin{gather}\label{eq:f_revised}
-\boxed{F=F\left(q_m\right).}
+F=F_m\left(q_m\right).
 \end{gather}
 \eqsref{eq:f_revised} effectively loosens the coupling between $F$ and $q$.
 By varying $K_m$, it is possible to control the portion of $\dot{\bvarepsilon}^p$ that contributes to the evolution of $F$.
@@ -63,26 +63,6 @@ With this choice, isotropic hardening is completely deactivated (thus stagnated)
 Depending on how $z_r$ is defined, various memory effects can be simulated.
 While for monotonic loading when $z>z_r$, isotropic hardening is fully activated as $\dot{q}_m=\dot{q}$, this is equivalent to the conventional formulation.
 \subsection{Cyclic Hardening/Softening}
-We introduce an additional term $\bbeta$ and its corresponding bound $H_\beta$, similar to the back stress $\balpha$, to capture the cyclic hardening/softening effect.
-The shifted stress shall be revised as
-\begin{gather}\label{eq:eta_revised}
-    \boxed{\beeta=\bs-H_\alpha\balpha-H_\beta\bbeta+\left(z-1\right)H_d\bd.}
-\end{gather}
-Unlike $\balpha$, which is driven by $\dot{\bvarepsilon}^p$, here $\bbeta$ is assumed to be driven by $\dot{\bvarepsilon}^p_c$, its rate form can be expressed as
-\begin{gather}
-    \dot{\bbeta}=b_\beta\left(\dot{\bvarepsilon}^p_c-\norm{\dot{\bvarepsilon}^p_c}\bbeta\right)=b_\beta\norm{\dot{\bvarepsilon}^p_c}\left(\bn-\bbeta\right)=b_\beta{}K_c\left(\bn-\bbeta\right)\gamma.
-\end{gather}
-In the above, $b_\beta$ is a material parameter that controls the rate of evolution of $\bbeta$.
-One may notice that, the cyclic part $\dot{\bvarepsilon}^p_c$ effectively affects the rate of evolution of $\bbeta$ only, an alternative interpretation is that $\bbeta$ is driven by the total plastic strain $\dot{\bvarepsilon}^p$, just like $\balpha$, but its rate of evolution is controlled by $K_c$.
-If $K_c$ is a constant, it can be absorbed into $b_\beta$ as a single material parameter.
-In terms of the bound $H_\beta$, we assume that it is driven by the same measure of plastic strain as the isotropic bound $F$, thus,
-\begin{gather}
-    H_\beta=H_\beta\left(q_m\right).
-\end{gather}
-
-This additional term $H_\beta\bbeta$ is quite novel, $\bbeta$ evolves with the cyclic plastic strain $\bvarepsilon^p_c$, while $H_\beta$ evolves with the monotonic part $\bvarepsilon^p_m$.
-Again, by adjusting $K_*$, it is possible to evolve either $H_\beta$ or $\bbeta$ under certain loading conditions.
-This term should be comparatively small, and is primarily responsible for cyclic hardening/softening and formation of hysteresis loops.
 \subsection{Objective Transition}
 As shown in \eqsref{eq:int_z}, for a given interval of $z$, the corresponding change in $q$ is always constant, regardless of the specific form of $U(z)$.
 However, $z$ only measures the relative loading level.
@@ -102,34 +82,34 @@ For specific applications, minor changes, for example, accounting for extra cons
         \toprule
           Constitutive Law & $\bsigma=\mb{D}_e:\left(\bvarepsilon-\bvarepsilon^p\right)$              \\ \midrule
         Subloading Surface & $f_s=\norm{\beeta}-zF$                                                   \\[2mm]
-                           & $\beeta=\bs-H_\alpha\balpha-H_\beta\bbeta+\left(z-1\right)H_d\bd$        \\ \midrule
+                           & $\beeta=\bs-H_\alpha\balpha+\left(z-1\right)H_d\bd$        \\ \midrule
                  Flow Rule & $\dot{\bvarepsilon}^p=\gamma{}\bn=\gamma{}\dfrac{\beeta}{\norm{\beeta}}$ \\ \midrule
            Evolution Rules & $\dot{q}=\gamma$                                                         \\[2mm]
                            & $\dot{q}_m=K_m\gamma$                                                    \\[2mm]
+                           & $\dot{q}_c=K_c\gamma$                                                    \\[2mm]
+                           & $F=F_m+F_c$                                                    \\[2mm]
                            & $F\dot{z}=U\dot{q}$                                                      \\[2mm]
                            & $\dot{\balpha}=b_\alpha\left(\bn-\balpha\right)\gamma$                   \\[2mm]
-                           & $\dot{\bbeta}=b_\beta{}K_c\left(\bn-\bbeta\right)\gamma$                 \\[2mm]
                            & $\dot{\bd}=b_d\left(\bn-\bd\right)\gamma$                                \\ \bottomrule
     \end{tabular}
 \end{table}
-For scalar bounds $H_\alpha=H_\alpha(q)$, $H_\beta=H_\beta(q_m)$, $H_d=H_d(q)$, and $F=F(q_m)$, any suitable univariate functions can be chosen, so we keep the corresponding expressions general.
+For scalar bounds $H_\alpha=H_\alpha(q)$, $H_d=H_d(q)$, $F_m=F_m(q_m)$ and $F_c=F_c(q_c)$, any suitable univariate functions can be chosen, so we keep the corresponding expressions general.
 Popular options may include a liner component, an exponential component that saturates, and/or a power term.
 \section{Implementation}
 \subsection{Choice of $K_*$}
 The following expression is chosen for $K_m$.
 \begin{gather}\label{eq:km}
     K_m=\begin{cases}
-        \dfrac{1-\exp{\dfrac{z}{k_r\left(z-z_r\right)}}}{1-k_b\ln{\left(1-z_r\right)}}, & 0\leqslant{}z<z_r,           \\[2mm]
-        \dfrac{1}{1-k_b\ln{\left(1-z_r\right)}},                                        & z_r\leqslant{}z\leqslant{}1,
+        0, & 0\leqslant{}z<z_r,           \\[2mm]
+        1-\exp{\dfrac{z-z_r}{k_r\left(z-1\right)}},                                        & z_r\leqslant{}z\leqslant{}1,
     \end{cases}
 \end{gather}
-in which $k_r$ and $k_b$ are two material parameters that control the transition.
+in which $k_r$ is a material parameter that control the transition.
 The detailed design rationale is omitted for brevity.
-However, the following properties of the first segment $0\leqslant{}z<z_r$ are worth noting.
+However, the following properties of the second segment $z_r\leqslant{}z\leqslant{}1$ are worth noting.
 \begin{itemize}
-    \item It is a smooth function for $0\leqslant{}z\leqslant{}z_r$ with the derivative at the right end strictly being zero.
-    \item When $k_b=0$, the right end is $(z_r,1)$, as $k_b$ increases, the right end moves downwards and approaches $(z_r,0)$.
-    \item When $k_r=0$, it is a flat line.
+    \item It is a smooth function for $z_r\leqslant{}z\leqslant{}1$ with the derivative at the right end strictly being zero.
+    \item The right end is $(1,1)$, meaning that when $z$ approaches unity, $K_m$ also approaches unity.
 \end{itemize}
 The function is illustrated in \figref{fig:km}.
 \begin{figure}
@@ -138,31 +118,3 @@ The function is illustrated in \figref{fig:km}.
     \caption{illustration of $K_m$ defined in \eqsref{eq:km}}\label{fig:km}
 \end{figure}
 It is assumed that $K_c=1-K_m$.
-
-\subsection{Some Simplifications}
-With the assist of $\bs=\bs^\text{trial}-\gamma2G\bn$ and the implicit Euler method for back stress like tensors, one can obtain the following expression for $\beeta$,
-\begin{gather}
-    \begin{split}
-        \beeta & =\bs-H_\alpha\balpha-H_\beta\bbeta+\left(z-1\right)H_d\bd                                                                                                                                                                               \\
-               & =\bs^\text{trial}-\gamma2G\bn-H_\alpha\dfrac{\gamma{}b_\alpha\bn+\balpha_n}{1+\gamma{}b_\alpha}-H_\beta\dfrac{\gamma{}b_\beta{}K_c\bn+\bbeta_n}{1+\gamma{}b_\beta{}K_c}+\left(z-1\right)H_d\dfrac{\gamma{}b_d\bn+\bd_n}{1+\gamma{}b_d}.
-    \end{split}
-\end{gather}
-Rearranging the above yields
-\begin{multline}\label{eq:coaxial}
-    \left(\norm{\beeta}+\gamma2G+\dfrac{H_\alpha\gamma{}b_\alpha}{1+\gamma{}b_\alpha}+\dfrac{H_\beta\gamma{}b_\beta{}K_c}{1+\gamma{}b_\beta{}K_c}+\dfrac{\left(1-z\right)H_d\gamma{}b_d}{1+\gamma{}b_d}\right)\bn\\
-    =\bs^\text{trial}-\dfrac{H_\alpha}{1+\gamma{}b_\alpha}\balpha_n-\dfrac{H_\beta}{1+\gamma{}b_\beta{}K_c}\bbeta_n+\dfrac{\left(z-1\right)H_d}{1+\gamma{}b_d}\bd_n.
-\end{multline}
-By denoting the right hand side as
-\begin{gather}
-    \bzeta=\bs^\text{trial}-\dfrac{H_\alpha}{1+\gamma{}b_\alpha}\balpha_n-\dfrac{H_\beta}{1+\gamma{}b_\beta{}K_c}\bbeta_n+\dfrac{\left(z-1\right)H_d}{1+\gamma{}b_d}\bd_n,
-\end{gather}
-one could conclude that one and only one sign in the following expression holds
-\begin{gather}\label{eq:coaxial_final}
-0\leqslant\norm{\beeta}=\pm\norm{\bzeta}-\left(\gamma2G+\dfrac{H_\alpha\gamma{}b_\alpha}{1+\gamma{}b_\alpha}+\dfrac{H_\beta\gamma{}b_\beta{}K_c}{1+\gamma{}b_\beta{}K_c}+\dfrac{\left(1-z\right)H_d\gamma{}b_d}{1+\gamma{}b_d}\right)\quad\text{and}\quad{}\bn=\pm\dfrac{\bzeta}{\norm{\bzeta}}.
-\end{gather}
-The norm of $\beeta$ can thus be computed using terms that do not depend on $\beeta$ itself.
-This differs from previous work \citep{Chang2025} in that, although the other parameters remain positive by definition, $H_\beta$ can be negative to allow for cyclic softening.
-\eqsref{eq:coaxial} is key to a concise and efficient numerical implementation.
-By exploiting this, in an implicit integration scheme, $\beeta$ and $\bn$ are now decoupled, making it possible to treat $\beeta$ as an intermediate variable and thus reduce the size of the local system.
-\eqsref{eq:coaxial_final} also simplifies the computation of derivatives.
-Further details of the numerical implementation are omitted for brevity, interested readers may refer to a previous paper \citep{Chang2025}.
