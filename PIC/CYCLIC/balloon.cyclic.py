@@ -15,13 +15,13 @@ node 1 0 0
 node 2 1 0
 
 material Balloon1D 1 \
-2E5 1E6 1E1 1E2 2 \
-200 0 0 0 \ ! hf
-0 0 0 0 \ ! ha
-0 0 80 2E2 \ ! hb
+2E5 1E6 1E1 2 \
+200 1E3 0 0 \ ! hfm
+0 1E3 0 0 \ ! hfc
+1 0 0 0 \ ! ha
 0 0 0 0 \ ! hd
-1E3 1. \ ! alpha
-1E2 1. \ ! beta
+1E2 1. \ ! fc
+1E1 1. \ ! alpha
 1E3 1. ! d
 
 element T2D2 1 1 2 1 1
@@ -125,9 +125,10 @@ def plot():
         os.chdir(tmpdir)
         with open("balloon.sp", "w") as file:
             file.write(model)
-        subprocess.run(
+        result = subprocess.run(
             [SUANPAN_EXE, "-f", "balloon.sp"], capture_output=True, text=True
         )
+        print(result.stdout)
 
         strain = np.loadtxt("R3-E1.txt")
         stress = np.loadtxt("R2-S1.txt")
