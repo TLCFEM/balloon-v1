@@ -29,46 +29,29 @@ def line_style_generator():
         i += 1
 
 
-def K_m(z, z_r, k_r, k_b):
-    denom = 1 - k_b * np.log(1 - z_r)
-    epsilon = 1e-8
-    z_diff = np.where(np.abs(z - z_r) < epsilon, epsilon, z - z_r)
-    exponent = z / (k_r * z_diff)
-    return (1 - np.exp(exponent)) / denom
+def K_m(z, z_r, k_r):
+    return 1 - np.exp((z - z_r) / k_r / (z - 1.0))
 
 
 if __name__ == "__main__":
     os.chdir(Path(__file__).parent)
 
-    z_r = 0.85
-    k_b = 0.3
+    z_r = 0.35
 
     ls_gen = line_style_generator()
     plt.figure(figsize=(5, 2))
     for k_r in [1e-1, 0.2, 0.5, 1.0, 2.0, 5, 1e1]:
-        z = np.linspace(0, z_r - 1e-4, 200)
-        plt.plot(z, K_m(z, z_r, k_r, k_b), linestyle=next(ls_gen))
+        z = np.linspace(z_r, 1.0, 80, endpoint=False)
+        plt.plot(z, K_m(z, z_r, k_r), linestyle=next(ls_gen))
 
-    plt.hlines(y=1 / (1 - k_b * np.log(1 - z_r)), xmin=z_r, xmax=1)
     ax = plt.gca()
-    ax.annotate(
-        "",
-        xy=(0.9, 0.4),
-        xytext=(0.9, 0.8),
-        arrowprops=dict(arrowstyle="<|-|>", lw=1.5, color="red"),
-    )
-    ax.annotate(r"$k_b$", xy=(0.92, 0.5))
-    ax.annotate(
-        "",
-        xy=(0.75, 0.85),
-        xytext=(0.95, 0.85),
-        arrowprops=dict(arrowstyle="<|-|>", lw=1.5, color="red"),
-    )
-    ax.annotate(r"$z_r$", xy=(0.85, 0.89))
+    ax.set_xticks([0, 1])
+    ax.set_xticklabels(["0.0", "1.0"])
+    ax.text(0.35, -0.05, r"$z_r$", ha="center", va="top", transform=ax.transAxes)
     ax.annotate(
         r"$k_r$",
-        xy=(0.65, 0.2),
-        xytext=(0.25, 0.7),
+        xy=(0.9, 0.2),
+        xytext=(0.3, 0.7),
         arrowprops=dict(arrowstyle="<|-|>", lw=1.5, color="red"),
     )
 
@@ -76,6 +59,5 @@ if __name__ == "__main__":
     plt.ylabel(r"$K_m(z)$")
     plt.xlim(0, 1)
     plt.ylim(0, 1)
-    plt.grid(True)
     plt.tight_layout()
     plt.savefig("illustration_km.pdf")

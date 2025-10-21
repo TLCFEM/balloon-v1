@@ -1,4 +1,4 @@
-\section{Towards A Better One}
+\section{A Flexible Isotropic Hardening}
 \subsection{History of Load Reversals}
 In conventional plasticity models, local reversals cannot be easily detected.
 A common criterion for detecting reversals is the double contraction $\beeta:\dot{\beeta}$.
@@ -31,86 +31,63 @@ This makes it possible to account for various effects such as rearrangement of d
 It is reasonable to assume that the plastic strain increment $\dot{\bvarepsilon}^p$ within a given (sub-)step would be distributed between two parts according to some rule, which may depend on the current loading level $z$, and/or its history $z_r$.
 Without loss of generality, one can thus define
 \begin{gather}\label{eq:split_q_definition}
-    \boxed{\dot{\bvarepsilon}^p_m=K_m\dot{\bvarepsilon}^p,\qquad\dot{\bvarepsilon}^p_c=K_c\dot{\bvarepsilon}^p,}
+    \dot{\bvarepsilon}^p_m=K_m\dot{\bvarepsilon}^p,\qquad\dot{\bvarepsilon}^p_c=K_c\dot{\bvarepsilon}^p,
 \end{gather}
 where $K_m=K_m\left(z,z_r\right)$ and $K_c=K_c\left(z,z_r\right)$ are functions of $z$ and $z_r$ (or equivalently, $\left\{z_r^j\right\}_{j=0}^N$) that yield ratios between zero and unity.
 It is possible to further impose the constraint $K_m+K_c=1$ such that $\bvarepsilon^p=\bvarepsilon^p_m+\bvarepsilon^p_c$, however, this is not strictly necessary.
 A similar split can be applied to $q$ such that
 \begin{gather}
-\dot{q}_m=K_m\dot{q},\qquad\dot{q}_c=K_c\dot{q}.
+\boxed{\dot{q}_m=K_m\dot{q},\qquad\dot{q}_c=K_c\dot{q}.}
 \end{gather}
-\subsection{Isotropic Hardening Stagnation}
+\subsection{Proposed Isotropic Hardening}
+The isotropic bound $F$ can be defined as a function of both $q_m$ and $q_c$ instead of $q$ solely.
+Assuming an additive decomposition, it can be expressed as
+\begin{gather}\label{eq:f_revised}
+    F=F_m+F_c.
+\end{gather}
+In the following, we elaborate the two components $F_m$ and $F_c$ and their effects on isotropic hardening respectively.
+\subsubsection{Isotropic Hardening Stagnation}
 \citet[][see, \S~2.4]{Yoshida2002} introduce an additional \textit{non-isotropic-hardening} surface in the stress space, such that isotropic hardening can be activated or deactivated based on the size of the back stress, and thus the kinematic hardening.
 One should be aware that this approach does not work if kinematic hardening is not defined.
 Since the evolution of the back stress is ultimately driven by the plastic strain, such an approach can be equivalently formulated in the strain space.
 \citet{Ohno1982,Chaboche2008,Hashiguchi2023a} all adopt a strain space formulation.
 Such an approach is widely used in the literature as a basic building block for more complex models \citep[see, e.g.,][]{Xu2016,Zheng2026}.
 
-The isotropic bound $F$ can be defined as a function of $q_m$ instead of $q$,
-\begin{gather}\label{eq:f_revised}
-F=F_m\left(q_m\right).
+Noting that there is deterministic mapping between $\Delta{}z$ and $\Delta{}q$ (see discussions around \eqsref{eq:int_z}), those strain space formulations can be equivalently reformulated in the $z$ space, thus the stress space.
+We assume $F_m=F_m\left(q_m\right)$ is a function of $q_m$ solely.
+By choosing a proper $K_m$, for example, $K_m=0$ for $0\leqslant{}z<z_r$, it is possible to fully deactivate the evolution of $q_m$, thus $F_m$, during cyclic loading phase.
+Unlike existing formulations, this approach requires no additional history variables for the secondary surface (whether defined in stress or strain space).
+Similar information has already been inherently embedded in $z$.
+Furthermore, because $z$ is a scalar, it avoids tensor bookkeeping and yields a simpler, more efficient implementation.
+\subsubsection{Cyclic Hardening/Softening}
+The cyclic hardening/softening is controlled by $F_c$, which is assumed to be governed by the following evolution rule,
+\begin{gather}\label{eq:fc}
+\boxed{\dot{F_c}=b_f\left(H_c-F_c\right)\dot{q}_c\qquad\text{with}\qquad{}H_c=H_c\left(q_m\right).}
 \end{gather}
-\eqsref{eq:f_revised} effectively loosens the coupling between $F$ and $q$.
-By varying $K_m$, it is possible to control the portion of $\dot{\bvarepsilon}^p$ that contributes to the evolution of $F$.
-The simplest example would be
-\begin{gather}
-    K_m=\begin{cases}
-        0, & z\leqslant{}z_r,  \\
-        1, & \text{otherwise}.
-        \end{cases}
-\end{gather}
-With this choice, isotropic hardening is completely deactivated (thus stagnated) during cyclic loading when $z\leqslant{}z_r$.
-Depending on how $z_r$ is defined, various memory effects can be simulated.
-While for monotonic loading when $z>z_r$, isotropic hardening is fully activated as $\dot{q}_m=\dot{q}$, this is equivalent to the conventional formulation.
-\subsection{Cyclic Hardening/Softening}
+In the above, $b_f$ is a material parameter that controls the rate of saturation, and $H_c$ is the saturation value that may depend on $q_m$.
+It is possible to associate $H_c$ with $F_m$ such that the former is a fraction of the latter.
+With the evolution of $q_c$, $F_c$ would gradually saturate to $H_c$.
+Meanwhile, since $H_c=H_c\left(q_m\right)$ depends on $q_m$, it would also evolve during monotonic loading phases.
+\eqsref{eq:fc} thus allows multi-stage saturation that allows cyclic hardening/softening under various loading histories.
+This differs from other models in the literature \citep[e.g.,][]{Ohno1982,Zheng2026} in which similar saturation can only occur once.
 \subsection{Objective Transition}
-As shown in \eqsref{eq:int_z}, for a given interval of $z$, the corresponding change in $q$ is always constant, regardless of the specific form of $U(z)$.
+As shown in \eqsref{eq:int_z}, for a given interval of $z$, the corresponding change in $q$ is always constant, regardless of the specific form of $U(z)$ --- as long as it is given.
 However, $z$ only measures the relative loading level.
 As a result, the response curve becomes steeper when the yield stress is larger, and less steep when it is smaller.
 To make this transition more objective and less dependent on material parameters, we propose the following enhancement.
 \begin{gather}\label{eq:z_evolution_revised}
     \boxed{\dot{z}=\dfrac{U}{F}\dot{q}.}
 \end{gather}
-\subsection{Summary}
-The proposed formulation is summarised in \tabref{tab:summary}.
-It should be emphasised that the formulation presented in this work is general.
-For specific applications, minor changes, for example, accounting for extra constants $\sqrt{\dfrac{2}{3}}$ in von Mises models \citep[see]{Chang2025}, may be made.
-\begin{table}[htb]
-    \centering\footnotesize
-    \caption{Summary of the proposed formulation}\label{tab:summary}
-    \begin{tabular}{rl}
-        \toprule
-          Constitutive Law & $\bsigma=\mb{D}_e:\left(\bvarepsilon-\bvarepsilon^p\right)$              \\ \midrule
-        Subloading Surface & $f_s=\norm{\beeta}-zF$                                                   \\[2mm]
-                           & $\beeta=\bs-H_\alpha\balpha+\left(z-1\right)H_d\bd$        \\ \midrule
-                 Flow Rule & $\dot{\bvarepsilon}^p=\gamma{}\bn=\gamma{}\dfrac{\beeta}{\norm{\beeta}}$ \\ \midrule
-           Evolution Rules & $\dot{q}=\gamma$                                                         \\[2mm]
-                           & $\dot{q}_m=K_m\gamma$                                                    \\[2mm]
-                           & $\dot{q}_c=K_c\gamma$                                                    \\[2mm]
-                           & $F=F_m+F_c$                                                    \\[2mm]
-                           & $F\dot{z}=U\dot{q}$                                                      \\[2mm]
-                           & $\dot{\balpha}=b_\alpha\left(\bn-\balpha\right)\gamma$                   \\[2mm]
-                           & $\dot{\bd}=b_d\left(\bn-\bd\right)\gamma$                                \\ \bottomrule
-    \end{tabular}
-\end{table}
-For scalar bounds $H_\alpha=H_\alpha(q)$, $H_d=H_d(q)$, $F_m=F_m(q_m)$ and $F_c=F_c(q_c)$, any suitable univariate functions can be chosen, so we keep the corresponding expressions general.
-Popular options may include a liner component, an exponential component that saturates, and/or a power term.
-\section{Implementation}
-\subsection{Choice of $K_*$}
-The following expression is chosen for $K_m$.
+\subsection{Choice of $K_m$ and $K_c$}
+in this work, the following expression is chosen for $K_m$.
 \begin{gather}\label{eq:km}
     K_m=\begin{cases}
-        0, & 0\leqslant{}z<z_r,           \\[2mm]
-        1-\exp{\dfrac{z-z_r}{k_r\left(z-1\right)}},                                        & z_r\leqslant{}z\leqslant{}1,
+        0,                                          & 0\leqslant{}z<z_r,           \\[2mm]
+        1-\exp{\dfrac{z-z_r}{k_r\left(z-1\right)}}, & z_r\leqslant{}z\leqslant{}1,
     \end{cases}
 \end{gather}
-in which $k_r$ is a material parameter that control the transition.
-The detailed design rationale is omitted for brevity.
-However, the following properties of the second segment $z_r\leqslant{}z\leqslant{}1$ are worth noting.
-\begin{itemize}
-    \item It is a smooth function for $z_r\leqslant{}z\leqslant{}1$ with the derivative at the right end strictly being zero.
-    \item The right end is $(1,1)$, meaning that when $z$ approaches unity, $K_m$ also approaches unity.
-\end{itemize}
+in which $k_r$ is a material parameter that controls the transition.
+\eqsref{eq:km} provides a smooth transition of $K_m$ from zero at $z=z_r$ to unity at $z=1$.
 The function is illustrated in \figref{fig:km}.
 \begin{figure}
     \centering
@@ -118,3 +95,40 @@ The function is illustrated in \figref{fig:km}.
     \caption{illustration of $K_m$ defined in \eqsref{eq:km}}\label{fig:km}
 \end{figure}
 It is assumed that $K_c=1-K_m$.
+\subsection{Summary}
+The proposed formulation is summarised in \tabref{tab:summary}.
+It should be emphasised that the formulation presented in this work is general.
+For specific applications, minor changes, for example, accounting for extra constants $\sqrt{\dfrac{2}{3}}$ in von Mises models \citep[see][]{Chang2025}, may be made.
+\begin{table}[htb]
+    \centering\footnotesize
+    \caption{summary of the proposed formulation}\label{tab:summary}
+    \begin{tabular}{rl}
+        \toprule
+          Constitutive Law & $\bsigma=\mb{D}_e:\left(\bvarepsilon-\bvarepsilon^p\right)$              \\ \midrule
+        Subloading Surface & $f_s=\norm{\beeta}-zF$                                                   \\[2mm]
+                           & $F=F_m+F_c$                                                    \\[2mm]
+                           & $\beeta=\bs-H_\alpha\balpha+\left(z-1\right)H_d\bd$        \\ \midrule
+                 Flow Rule & $\dot{\bvarepsilon}^p=\gamma{}\bn=\gamma{}\dfrac{\beeta}{\norm{\beeta}}$ \\ \midrule
+           Evolution Rules & $\dot{q}=\gamma$                                                         \\[2mm]
+                           & $F\dot{z}=U\dot{q}$                                                      \\[2mm]
+                           & $\dot{q}_m=K_m\gamma$                                                    \\[2mm]
+                           & $\dot{F_c}=b_f\left(H_c-F_c\right)K_c\gamma$                                                    \\[2mm]
+                           & $\dot{\balpha}=b_\alpha\left(\bn-\balpha\right)\gamma$                   \\[2mm]
+                           & $\dot{\bd}=b_d\left(\bn-\bd\right)\gamma$                                \\ \bottomrule
+    \end{tabular}
+\end{table}
+For scalar bounds $H_\alpha=H_\alpha(q)$, $H_d=H_d(q)$,  $H_c=H_c(q_m)$ and $F_m=F_m(q_m)$, any suitable univariate functions can be chosen, so we keep the corresponding expressions general.
+Popular options may include a liner component, an exponential component that saturates, and/or a power term.
+
+A careful examination shows the boundary between subloading surface theory and conventional plasticity is blurred.
+In specific, the following can be observed.
+\begin{enumerate}
+    \item The term $zF$ controls the effective size of the yield surface: during loading $zF$ grows from $0$ to $F$, so there is no initial elastic domain.
+          It is possible to define a similar loading behaviour in conventional plasticity by using an isotropic hardening function that starts from zero.
+    \item During unloading, the subloading surface contracts so the current stress point remains on the surface.
+          This can also be achieved in conventional plasticity by simply adjusting isotropic hardening.
+    \item The term $\left(1-z\right)H_d\bd$ acts as an additional, generalised back stress contribution, complementing the conventional $H_\alpha\balpha$ term.
+\end{enumerate}
+Without introducing any additional surfaces, \tabref{tab:summary} shows that the subloading surface theory can be deemed as a generalisation of conventional plasticity, and it is effectively a single--surface theory.
+The proposed model mimics a balloon, expanding during loading and contracting during unloading.
+We denote this formulation the \texttt{balloon} model.
