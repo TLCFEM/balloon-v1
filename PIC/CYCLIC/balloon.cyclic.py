@@ -15,13 +15,13 @@ node 1 0 0
 node 2 1 0
 
 material Balloon1D 1 \
-2E5 1E6 1E1 2 \
-200 1E3 0 0 \ ! hfm
-0 1E3 0 0 \ ! hfc
-1 0 0 0 \ ! ha
+2E5 1E6 1E0 2 \
+200 2E3 0 0 \ ! hfm
+0 4E3 0 0 \ ! hfc
+20 0 0 0 \ ! ha
 0 0 0 0 \ ! hd
 1E2 1. \ ! fc
-1E1 1. \ ! alpha
+1E2 1. \ ! alpha
 1E3 1. ! d
 
 element T2D2 1 1 2 1 1
@@ -144,14 +144,13 @@ def plot():
         items = [
             (4, "$q_m$", "qm"),
             (6, "$z$", "z"),
-            (8, "$\\beta$", "beta"),
+            (7, "$f_c$", "fc"),
         ]
 
         for idx, label, filename in items:
             fig, ax = plot_gradient_line(
                 strain[:, 1] * 1e3, hist[:, idx], marker=None, cmap="rainbow"
             )
-            ax.legend(["$z$"], loc="upper left")
             ax.set_xlabel("strain ($1/1000$)")
             ax.set_ylabel(label)
             ax.set_xbound(min(strain[:, 1] * 1e3), max(strain[:, 1] * 1e3))
