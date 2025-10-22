@@ -16,7 +16,7 @@ node 2 1 0
 
 material Balloon1D 1 \
 2E5 4E5 1E2 -4 \
-400 1E1 0 0 \ ! hfm
+400 0 0 0 \ ! hfm
 0 0 100 1E1 \ ! hfc
 100 0 0 0 \ ! ha
 0 0 0 0 \ ! hd
