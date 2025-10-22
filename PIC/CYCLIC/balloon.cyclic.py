@@ -33,7 +33,7 @@ plainrecorder 3 Element E 1
 fix2 1 1 1
 fix2 2 2 1 2
 
-expression SimpleScalar 1 t t<20?1-cos(2pi*t):t<40?2-2cos(2pi*t):t<60?1-1cos(2pi*t):t<80?3-3cos(2pi*t):5-5cos(2pi*t)
+expression SimpleScalar 1 t t<20?1-cos(2pi*t):t<40?2-2cos(2pi*t):t<60?3-3cos(2pi*t):t<80?4-4cos(2pi*t):5-5cos(2pi*t)
 # expression SimpleScalar 1 t t<20?sin(2pi*t):t<40?2sin(2pi*t):t<60?3sin(2pi*t):t<80?4sin(2pi*t):5sin(2pi*t)
 
 amplitude Custom 3 1
