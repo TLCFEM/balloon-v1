@@ -73,11 +73,25 @@ This differs from other models in the literature \citep[e.g.,][]{Ohno1982,Zheng2
 \subsection{Objective Transition}
 As shown in \eqsref{eq:int_z}, for a given interval of $z$, the corresponding change in $q$ is always constant, regardless of the specific form of $U(z)$ --- as long as it is given.
 However, $z$ only measures the relative loading level.
-As a result, the response curve becomes steeper when the yield stress is larger, and less steep when it is smaller.
+As a result, the response curve becomes steeper when the yield stress is larger, and less so when it is smaller.
 To make this transition more objective and less dependent on material parameters, we propose the following enhancement.
 \begin{gather}\label{eq:z_evolution_revised}
     \boxed{\dot{z}=\dfrac{U}{F}\dot{q}.}
 \end{gather}
+
+Furthermore, in earlier models \citep{Chang2025,Hashiguchi2024}, the function $U$ does not consider loading history.
+It is further extended in this work to account for loading history by introducing the dependence on $q_m$.
+Thus, $U=U\left(q_m,z\right)$.
+A typical choice can be
+\begin{gather}
+    U\left(q_m,z\right)=-u\ln{z}
+\end{gather}
+with $u=u\left(q_m\right)$ being a varying parameter that graudally decreases with $q_m$.
+Or, following the suggestion by \citet{Chang2025}, the following expression can be used,
+\begin{gather}
+    U\left(q_m,z\right)=u\left(z^{-n}-1\right)\qquad\text{for}\qquad0<n\leqslant1,
+\end{gather}
+again, with $u=u\left(q_m\right)$.
 \subsection{Choice of $K_m$ and $K_c$}
 in this work, the following expression is chosen for $K_m$.
 \begin{gather}\label{eq:km}
