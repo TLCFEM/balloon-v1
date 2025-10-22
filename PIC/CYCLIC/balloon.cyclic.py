@@ -15,11 +15,12 @@ node 1 0 0
 node 2 1 0
 
 material Balloon1D 1 \
-2E5 4E5 1E2 -4 \
+2E5 1E2 -4 \
+4E5 0 -3.9E5 5E3 \
 400 0 0 0 \ ! hfm
 0 0 100 1E1 \ ! hfc
 100 0 0 0 \ ! ha
-0 0 0 0 \ ! hd
+300 0 0 0 \ ! hd
 4E1 1. \ ! fc
 1E1 1. \ ! alpha
 1E3 1. ! d
@@ -33,13 +34,13 @@ plainrecorder 3 Element E 1
 fix2 1 1 1
 fix2 2 2 1 2
 
-expression SimpleScalar 1 t t<20?1-cos(2pi*t):t<40?2-2cos(2pi*t):t<60?3-3cos(2pi*t):t<80?4-4cos(2pi*t):5-5cos(2pi*t)
-# expression SimpleScalar 1 t t<20?sin(2pi*t):t<40?2sin(2pi*t):t<60?3sin(2pi*t):t<80?4sin(2pi*t):5sin(2pi*t)
+# expression SimpleScalar 1 t t<20?1-cos(2pi*t):t<40?2-2cos(2pi*t):t<60?3-3cos(2pi*t):t<80?4-4cos(2pi*t):5-5cos(2pi*t)
+expression SimpleScalar 1 t t<20?sin(2pi*t):t<40?2sin(2pi*t):t<60?3sin(2pi*t):t<80?4sin(2pi*t):5sin(2pi*t)
 
 amplitude Custom 3 1
 
 # cload 1 3 200 1 2
-disp 1 3 10e-3 1 2
+disp 1 3 4e-3 1 2
 
 step static 1 100
 set fixed_step_size 1
