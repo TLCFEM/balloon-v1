@@ -21,7 +21,7 @@ material Balloon1D 1 \
 100 0 0 0 \ ! ha
 0 0 0 0 \ ! hd
 4E1 1. \ ! fc
-4E2 1. \ ! alpha
+1E1 1. \ ! alpha
 1E3 1. ! d
 
 element T2D2 1 1 2 1 1
@@ -145,6 +145,7 @@ def plot():
             (4, "$q_m$", "qm"),
             (5, "$z$", "z"),
             (6, "$f_c$", "fc"),
+            (7, r"$\alpha$", "alpha"),
         ]
 
         for idx, label, filename in items:
