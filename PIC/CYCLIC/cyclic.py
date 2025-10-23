@@ -1,5 +1,7 @@
 import os
+from pathlib import Path
 import subprocess
+from tempfile import TemporaryDirectory
 from matplotlib.collections import LineCollection
 from matplotlib.colors import Normalize
 import numpy as np
@@ -8,8 +10,48 @@ import matplotlib.pyplot as plt
 plt.rcParams.update({"font.size": 6})
 
 
+model = r"""
+node 1 0 0
+node 2 1 0
+
+material Subloading1D 1 2E5 \
+200 2E3 0 0 \
+0 0 0 0 \
+5E3 100 100 0
+
+element T2D2 1 1 2 1 1
+
+plainrecorder 1 Element HIST 1
+plainrecorder 2 Element S 1
+plainrecorder 3 Element E 1
+
+fix2 1 1 1
+fix2 2 2 1 2
+
+expression SimpleScalar 1 t t<20?sin(2pi*t):t<40?2sin(2pi*t):t<60?3sin(2pi*t):t<80?4sin(2pi*t):5sin(2pi*t)
+
+amplitude Custom 3 1
+
+# cload 1 2 200 1 2
+disp 1 3 2e-3 1 2
+
+step static 1 100
+set fixed_step_size 1
+set ini_step_size 1E-2
+set symm_mat 0
+
+converger RelIncreDisp 1 1E-10 10 1
+
+analyze
+
+save recorder 1 2 3
+
+exit
+"""
+
+
 def new_fig():
-    fig = plt.figure(figsize=(6, 2.5), tight_layout=True)
+    fig = plt.figure(figsize=(6, 5), tight_layout=True)
     ax1 = fig.add_subplot(111)
     ax1.grid(True)
     return fig, ax1
@@ -71,47 +113,60 @@ def plot():
             return
         SUANPAN_EXE = "suanpan"
 
-    result = subprocess.run(
-        [SUANPAN_EXE, "-f", "cyclic.sp"], capture_output=True, text=True
-    )
-    print(result.stdout)
+    prefix = Path(__file__).parent
 
-    strain = np.loadtxt("R3-E1.txt")
-    stress = np.loadtxt("R2-S1.txt")
-    hist = np.loadtxt("R1-HIST1.txt")
+    with TemporaryDirectory() as tmpdir:
+        os.chdir(tmpdir)
+        with open("balloon.sp", "w") as file:
+            file.write(model)
+        subprocess.run(
+            [SUANPAN_EXE, "-f", "balloon.sp"], capture_output=True, text=True
+        )
 
-    fig, ax = new_fig()
+        strain = np.loadtxt("R3-E1.txt")
+        stress = np.loadtxt("R2-S1.txt")
+        hist = np.loadtxt("R1-HIST1.txt")
 
-    ax.plot(
-        strain[:, 1] * 1e3, stress[:, 1], color="#d73027", marker="x", markevery=149
-    )
-    ax.legend(["$\\sigma$"], loc="upper left")
-    ax.set_xlabel("strain ($1/1000$)")
-    ax.set_ylabel("stress (MPa)")
-    ax.set_xbound(min(strain[:, 1] * 1e3), max(strain[:, 1] * 1e3))
-    ax.set_ybound(1.1 * min(stress[:, 1]), 1.1 * max(stress[:, 1]))
+        fig, ax = plot_gradient_line(
+            strain[:, 1], stress[:, 1], marker=None, cmap="rainbow"
+        )
+        ax.set_xlabel("normalised strain (1)")
+        ax.set_ylabel("normalised stress (1)")
+        fig.savefig(prefix / "_subloading.stress.pdf")
 
-    fig.savefig("cyclic.total.pdf")
+        items = [
+            (3, "$z$", "z"),
+        ]
 
-    fig, ax = plot_gradient_line(
-        strain[:, 1] * 1e3, stress[:, 1], marker=None, cmap="rainbow"
-    )
-    ax.set_xlabel("strain ($1/1000$)")
-    ax.set_ylabel("stress (MPa)")
-    fig.savefig("cyclic.gradient.pdf")
+        for idx, label, filename in items:
+            fig, ax = plot_gradient_line(
+                strain[:, 1], hist[:, idx], marker=None, cmap="rainbow"
+            )
+            ax.set_xlabel("normalised strain (1)")
+            ax.set_ylabel(label)
+            ax.set_xbound(min(strain[:, 1]), max(strain[:, 1]))
 
-    fig, ax = new_fig()
+            print(f"{max(hist[:, idx]):.16e}")
 
-    ax.plot(strain[:, 1] * 1e3, hist[:, 3], color="#d73027", marker="x", markevery=149)
-    ax.legend(["$z$"], loc="upper left")
-    ax.set_xlabel("strain ($1/1000$)")
-    ax.set_ylabel("normal yield ratio $z$")
-    ax.set_xbound(min(strain[:, 1] * 1e3), max(strain[:, 1] * 1e3))
-    ax.set_ybound(0, 1.1)
+            fig.savefig(prefix / f"_subloading.{filename}.pdf")
 
-    fig.savefig("cyclic.ratio.total.pdf")
+        turning_points = []
+        for i in range(1, len(stress[:, 1]) - 1):
+            if (stress[i - 1, 1] < stress[i, 1] > stress[i + 1, 1]) or (
+                stress[i - 1, 1] > stress[i, 1] < stress[i + 1, 1]
+            ):
+                turning_points.append(stress[i, 1])
+
+        fig, ax = new_fig()
+        ax.plot(
+            range(len(turning_points)),
+            turning_points,
+            color="#d73027",
+            marker=".",
+            linestyle="None",
+        )
+        fig.savefig(prefix / "_subloading.cyclic.pdf")
 
 
 if __name__ == "__main__":
-    os.chdir(os.path.dirname(os.path.abspath(__file__)))
     plot()
