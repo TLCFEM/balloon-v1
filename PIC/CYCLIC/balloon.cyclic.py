@@ -15,15 +15,15 @@ node 1 0 0
 node 2 1 0
 
 material Balloon1D 1 \
-2E5 1E2 -4 \
-4E5 0 -3E5 5E3 \
-400 0 0 0 \ ! hfm
-0 0 100 1E1 \ ! hfc
-100 0 0 0 \ ! ha
-300 0 0 0 \ ! hd
-4E1 1. \ ! fc
-1E1 1. \ ! alpha
-1E3 1. ! d
+1 1E2 10 \
+1E1 0 0 0 \ ! u
+1 0 0 0 \ ! hfm
+0 0 1E-1 1E-1 \ ! hfc
+1E-2 0 0 0 \ ! ha
+0 0 0 0 \ ! hd
+4E0 1. \ ! fc
+1E-1 1. \ ! alpha
+1E0 1. ! d
 
 element T2D2 1 1 2 1 1
 
@@ -40,7 +40,7 @@ expression SimpleScalar 1 t t<20?sin(2pi*t):t<40?2sin(2pi*t):t<60?3sin(2pi*t):t<
 amplitude Custom 3 1
 
 # cload 1 3 200 1 2
-disp 1 3 4e-3 1 2
+disp 1 3 2 1 2
 
 step static 1 100
 set fixed_step_size 1
@@ -135,10 +135,10 @@ def plot():
         hist = np.loadtxt("R1-HIST1.txt")
 
         fig, ax = plot_gradient_line(
-            strain[:, 1] * 1e3, stress[:, 1], marker=None, cmap="rainbow"
+            strain[:, 1], stress[:, 1], marker=None, cmap="rainbow"
         )
-        ax.set_xlabel("strain ($1/1000$)")
-        ax.set_ylabel("stress (MPa)")
+        ax.set_xlabel("normalised strain (1)")
+        ax.set_ylabel("normalised stress (1)")
         fig.savefig(prefix / "_balloon.stress.pdf")
 
         items = [
@@ -150,11 +150,11 @@ def plot():
 
         for idx, label, filename in items:
             fig, ax = plot_gradient_line(
-                strain[:, 1] * 1e3, hist[:, idx], marker=None, cmap="rainbow"
+                strain[:, 1], hist[:, idx], marker=None, cmap="rainbow"
             )
-            ax.set_xlabel("strain ($1/1000$)")
+            ax.set_xlabel("normalised strain (1)")
             ax.set_ylabel(label)
-            ax.set_xbound(min(strain[:, 1] * 1e3), max(strain[:, 1] * 1e3))
+            ax.set_xbound(min(strain[:, 1]), max(strain[:, 1]))
 
             print(f"{max(hist[:, idx]):.16e}")
 
