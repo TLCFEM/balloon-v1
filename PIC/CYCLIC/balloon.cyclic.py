@@ -15,15 +15,15 @@ node 1 0 0
 node 2 1 0
 
 material Balloon1D 1 \
-1 1E2 10 \
-1E1 0 0 0 \ ! u
-1 0 0 0 \ ! hfm
-0 0 1E-1 1E-1 \ ! hfc
-1E-2 0 0 0 \ ! ha
-0 0 0 0 \ ! hd
-4E0 1. \ ! fc
-1E-1 1. \ ! alpha
-1E0 1. ! d
+1 1E2 0. 10 \
+2E0 0 0 0 \ ! u
+1 1E-2 0 0 \ ! hfm
+0 0 1E-2 1E-1 \ ! hfc
+1E-1 0 0 0 \ ! ha
+8E-1 0 0 0 \ ! hd
+1E0 1. \ ! fc
+2E-2 1. \ ! alpha
+1E-2 1. ! d
 
 element T2D2 1 1 2 1 1
 
@@ -40,7 +40,7 @@ expression SimpleScalar 1 t t<20?sin(2pi*t):t<40?2sin(2pi*t):t<60?3sin(2pi*t):t<
 amplitude Custom 3 1
 
 # cload 1 3 200 1 2
-disp 1 3 2 1 2
+disp 1 3 10 1 2
 
 step static 1 100
 set fixed_step_size 1
