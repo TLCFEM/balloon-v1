@@ -21,12 +21,12 @@ When $M=1$, $z_r$ is the most recent value $z_r^N$.
 When $M\geqslant{}N$, $z_r$ is simply the maximum value of all $z_r^j$.
 \subsection{Additive Decomposition of Plastic Strain}
 It is possible to split the plastic strain $\bvarepsilon^p$ into at least two parts,
-\begin{gather}\label{eq:split_q}
+\begin{gather}\label{eq:split_ep}
     \bvarepsilon^p=\bvarepsilon^p_m+\bvarepsilon^p_c+\cdots,
 \end{gather}
 with $\bvarepsilon^p_m$ denoting the `monotonic' part and $\bvarepsilon^p_c$ denoting the `cyclic' part.
-The rationale behind this split is straightforward: the accumulated plastic strain $q$ defined in \eqsref{eq:q_original} only tracks the total amount of plastic deformation, although it is non-decreasing, there is no way to infer the corresponding loading process.
-The split \eqsref{eq:split_q} allows one to identify the plastic strain accumulated during monotonic loading and that accumulated during load reversals.
+The rationale behind this split is straightforward: the accumulated plastic strain $q$ defined in \eqsref{eq:q_original} only tracks the total amount of plastic deformation, although it is non-decreasing, there is no way to infer further details of the corresponding loading process.
+The split \eqsref{eq:split_ep} allows one to identify the plastic strain accumulated during monotonic loading and that accumulated during load reversals.
 This makes it possible to account for various effects such as rearrangement of dislocations.
 It is reasonable to assume that the plastic strain increment $\dot{\bvarepsilon}^p$ within a given (sub-)step would be distributed between two parts according to some rule, which may depend on the current loading level $z$, and/or its history $z_r$.
 Without loss of generality, one can thus define
@@ -34,28 +34,22 @@ Without loss of generality, one can thus define
     \dot{\bvarepsilon}^p_m=K_m\dot{\bvarepsilon}^p,\qquad\dot{\bvarepsilon}^p_c=K_c\dot{\bvarepsilon}^p,
 \end{gather}
 where $K_m=K_m\left(z,z_r\right)$ and $K_c=K_c\left(z,z_r\right)$ are functions of $z$ and $z_r$ (or equivalently, $\left\{z_r^j\right\}_{j=0}^N$) that yield ratios between zero and unity.
-It is possible to further impose the constraint $K_m+K_c=1$ such that $\bvarepsilon^p=\bvarepsilon^p_m+\bvarepsilon^p_c$, however, this is not strictly necessary.
+It is possible to further impose the constraint $K_m+K_c=1$ such that there are exactly two components $\bvarepsilon^p=\bvarepsilon^p_m+\bvarepsilon^p_c$, however, this is not strictly necessary.
 A similar split can be applied to $q$ such that
-\begin{gather}
+\begin{gather}\label{eq:split_q}
 \boxed{\dot{q}_m=K_m\dot{q},\qquad\dot{q}_c=K_c\dot{q}.}
 \end{gather}
 \subsection{Proposed Isotropic Hardening}
-The isotropic bound $F$ can be defined as a function of both $q_m$ and $q_c$ instead of $q$ solely.
+With \eqsref{eq:split_q}, the isotropic bound $F$ can be defined as a function of both $q_m$ and $q_c$ instead of $q$.
 Assuming an additive decomposition, it can be expressed as
 \begin{gather}\label{eq:f_revised}
     F=F_m+F_c.
 \end{gather}
 In the following, we elaborate the two components $F_m$ and $F_c$ and their effects on isotropic hardening respectively.
 \subsubsection{Isotropic Hardening Stagnation}
-\citet[][see, \S~2.4]{Yoshida2002} introduce an additional \textit{non-isotropic-hardening} surface in the stress space, such that isotropic hardening can be activated or deactivated based on the size of the back stress, and thus the kinematic hardening.
-One should be aware that this approach does not work if kinematic hardening is not defined.
-Since the evolution of the back stress is ultimately driven by the plastic strain, such an approach can be equivalently formulated in the strain space.
-\citet{Ohno1982,Chaboche2008,Hashiguchi2023a} all adopt a strain space formulation.
-Such an approach is widely used in the literature as a basic building block for more complex models \citep[see, e.g.,][]{Xu2016,Zheng2026}.
-
-Noting that there is deterministic mapping between $\Delta{}z$ and $\Delta{}q$ (see discussions around \eqsref{eq:int_z}), those strain space formulations can be equivalently reformulated in the $z$ space, thus the stress space.
+Noting that there is deterministic mapping between $\Delta{}z$ and $\Delta{}q$ (see discussions around \eqsref{eq:int_z}), those aforementioned strain space formulations for isotropic hardening stagnation can be equivalently reformulated in the $z$ space, thus the stress space.
 We assume $F_m=F_m\left(q_m\right)$ is a function of $q_m$ solely.
-By choosing a proper $K_m$, for example, $K_m=0$ for $0\leqslant{}z<z_r$, it is possible to fully deactivate the evolution of $q_m$, thus $F_m$, during cyclic loading phase.
+By choosing a proper $K_m$, for example, $K_m=0$ for $0\leqslant{}z\leqslant{}z_r$, it is possible to fully deactivate the evolution of $q_m$, thus $F_m$, during cyclic loading phase.
 Unlike existing formulations, this approach requires no additional history variables for the secondary surface (whether defined in stress or strain space).
 Similar information has already been inherently embedded in $z$.
 Furthermore, because $z$ is a scalar, it avoids tensor bookkeeping and yields a simpler, more efficient implementation.
@@ -93,7 +87,7 @@ Or, following the suggestion by \citet{Chang2025}, the following expression can 
 \end{gather}
 again, with $u=u\left(q_m\right)$.
 \subsection{Choice of $K_m$ and $K_c$}
-in this work, the following expression is chosen for $K_m$.
+In this work, the following expression is chosen for $K_m$.
 \begin{gather}\label{eq:km}
     K_m=\begin{cases}
         0,                                          & 0\leqslant{}z<z_r,           \\[2mm]
@@ -102,6 +96,8 @@ in this work, the following expression is chosen for $K_m$.
 \end{gather}
 in which $k_r$ is a material parameter that controls the transition.
 \eqsref{eq:km} provides a smooth transition of $K_m$ from zero at $z=z_r$ to unity at $z=1$.
+Thus, the evolution of $q_m$ is fully deactivated when $0\leqslant{}z<z_r$, stable hysteresis loops may form during this cyclic loading phase.
+For $z_r\leqslant{}z\leqslant{}1$, $\dot{q}_m$ gradually increases and becomes the main contributing component of $\dot{q}$, isotropic hardening is reactivated.
 The function is illustrated in \figref{fig:km}.
 \begin{figure}
     \centering
@@ -143,6 +139,6 @@ In specific, the following can be observed.
           This can also be achieved in conventional plasticity by simply adjusting isotropic hardening.
     \item The term $\left(1-z\right)H_d\bd$ acts as an additional, generalised back stress contribution, complementing the conventional $H_\alpha\balpha$ term.
 \end{enumerate}
-Without introducing any additional surfaces, \tabref{tab:summary} shows that the subloading surface theory can be deemed as a generalisation of conventional plasticity, and it is effectively a single surface theory.
+Without introducing any additional (memory) surfaces, \tabref{tab:summary} shows that the subloading surface theory can be deemed as a generalisation of conventional plasticity, and it is effectively a single surface theory.
 The proposed model mimics a balloon, expanding during loading and contracting during unloading.
-We denote this formulation the \texttt{balloon} model.
+It is thus denoted as the \texttt{balloon} model.
