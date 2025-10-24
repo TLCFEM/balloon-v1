@@ -70,7 +70,7 @@ The tensor fields $\balpha$ and $\bd$ evolve according to Armstrong--Frederick t
     \dot{\bd}=b_d\left(\bn-\bd\right)\gamma,
 \end{gather}
 where $b_\alpha$ and $b_d$ are material parameters that control the rate of evolution.
-\section{Limitations}
+\section{Limitations of Existing Formulation}
 The most distinctive feature of the subloading surface theory is that the normal yield ratio $z$ gradually approaches unity from zero during the loading process.
 Thus, there is no elastic region during this process, as $z$ accumulates with plastic deformation since it is driven by $q$ as defined in \eqsref{eq:z_evolution}.
 \eqsref{eq:z_evolution} can be rearranged and integrated to obtain the change of $q$ due to the change of $z$, say, for example, from $z=0$ to some $z=z^*<1$,
@@ -79,6 +79,8 @@ Thus, there is no elastic region during this process, as $z$ accumulates with pl
 \end{gather}
 Noting that regardless of the specific form of $U\left(z\right)$, the right-hand side is always deterministic (a constant), meaning that loading from $z=0$ to $z=z^*$ always requires the same amount of plastic strain accumulation $\Delta{}q$.
 As in conventional models, stable hysteresis loops cannot form unless isotropic hardening saturates to a constant value.
+
+To simulate various cyclic phenomena \citep[see, e.g.,][]{Hassan1992,Hassan1994}, a mechanism that conditionally activates or deactivates isotropic hardening (a process also referred to as hardening stagnation, non-hardening region) must be introduced.
 
 \citet[][see, \S~2.4]{Yoshida2002} introduce an additional \textit{non-isotropic-hardening} surface in the stress space, such that isotropic hardening can be activated or deactivated based on the size of the back stress, and thus the kinematic hardening.
 One should be aware that this approach does not work if kinematic hardening is not defined.
