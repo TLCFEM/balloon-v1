@@ -87,17 +87,19 @@ Or, following the suggestion by \citet{Chang2025}, the following expression can 
 \end{gather}
 again, with $u=u\left(q_m\right)$.
 \subsection{Choice of $K_m$ and $K_c$}
+As explained earlier, the introduction of $z_r$ allows one to identify two distinct loading phases: monotonic loading when $z$ increases from $z_r$ to \num{1}, and cyclic loading when $z$ increases from \num{0} to $z_r$.
+The split functions $K_m$ and $K_c$ shall meet the following requirements.
+\begin{enumerate}
+    \item For $0\leqslant{}z<z_r$, $\dot{q}$ mostly distributes to $\dot{q}_c$.
+    \item For $z_r\leqslant{}z\leqslant{}1$, $\dot{q}$ mostly distributes to $\dot{q}_m$.
+    \item The amount of $\dot{q}_m$ accumulated during cyclic loading phase shall be inversely proportional to $z_r$.
+\end{enumerate}
 In this work, the following expression is chosen for $K_m$.
 \begin{gather}\label{eq:km}
-    K_m=\begin{cases}
-        0,                                          & 0\leqslant{}z<z_r,           \\[2mm]
-        1-\exp{\dfrac{z-z_r}{k_r\left(z-1\right)}}, & z_r\leqslant{}z\leqslant{}1,
-    \end{cases}
+    K_m=1-\exp{\left(\dfrac{1-z_r}{k_r}\dfrac{z}{z-1}\right)}
 \end{gather}
 in which $k_r$ is a material parameter that controls the transition.
-\eqsref{eq:km} provides a smooth transition of $K_m$ from zero at $z=z_r$ to unity at $z=1$.
-Thus, the evolution of $q_m$ is fully deactivated when $0\leqslant{}z<z_r$, stable hysteresis loops may form during this cyclic loading phase.
-For $z_r\leqslant{}z\leqslant{}1$, $\dot{q}_m$ gradually increases and becomes the main contributing component of $\dot{q}$, isotropic hardening is reactivated.
+\eqsref{eq:km} provides a smooth transition of $K_m$ from zero at $z=0$ to unity at $z=1$.
 The function is illustrated in \figref{fig:km}.
 \begin{figure}
     \centering
