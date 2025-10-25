@@ -5,6 +5,8 @@ Despite differences in terminology, subloading surface theory closely resembles 
 Compared with bounding surface theory \citep{Mahan2011}, subloading surface theory is more straightforward and easier to implement \citep{Chang2025}.
 As noted by \citet[][see \S~8.2.3]{Hashiguchi2017}, bounding surface theory cannot ensure smooth stiffness at the elastic--plastic transition because of its non-shrinking elastic region, which also prevents hysteresis under small one--sided cycles.
 Subloading surface theory avoids these drawbacks.
+However, just like other (conventional and non-conventional) plasticity models, it has limited capability in describing various cyclic phenomena, including, for example, stable hysteresis loops under fixed strain/stress amplitudes, cyclic hardening/softening, stress relaxation, etc.
+As a result, simulating experimental results \citep[e.g.,][]{Hassan1992,Hassan1994,Hassan2008} would be challenging if not impossible without further enhancements.
 \subsection{The Basic Framework}
 To lay the foundation for subsequent discussions, we briefly summarise the general framework of subloading surface theory in this section, primarily following the formulation of \citet{Chang2025}, which is more concise yet mathematically equivalent to the original by \citet{Hashiguchi2023a}.
 It should be noted that the notation system used in this work is \textit{not} fully compatible with that of the previous work \citep{Chang2025}.
@@ -26,13 +28,13 @@ Both $\balpha$ and $\bd$ are internal history variables that evolve in stress sp
 Those two tensors are further scaled by the scalar fields $H_\alpha$ and $H_d$ respectively, which may also evolve with the development of plasticity.
 For simplicity, $H_\alpha$ and $H_d$ can be taken as constant fractions of $F$, which characterises the size of the subloading surface and may be interpreted as the yield stress.
 \figref{fig:subloading_surface} presents a graphical illustration of each term.
-\begin{figure}
+\begin{figure}[htb]
     \centering\includegraphics[page=1]{PICCOLLECTION}
     \caption{the subloading surface}\label{fig:subloading_surface}
 \end{figure}
 \figref{fig:subloading} compares the effects of $\balpha$ and $\bd$.
 To make the differences clearer, some parameters are deliberately set to small values.
-\begin{figure}
+\begin{figure}[htb]
     \centering\includegraphics{PIC/illustration_subloading}
     \caption{effects of $\balpha$ and $\bd$}\label{fig:subloading}
 \end{figure}
