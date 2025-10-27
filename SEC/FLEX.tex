@@ -68,6 +68,8 @@ This differs from other models in the literature \citep[e.g.,][]{Ohno1982,Zheng2
 With \eqsref{eq:f_revised}, isotropic hardening is bounded by the size $F_m+H_c$ which is governed by $q_m$ solely.
 Stable hysteresis loops would eventually saturate $F$ to this value via the accumulation of $q_c$.
 Recalling the constraint that $H_d<F$, it would be more consistent to redefine $H_d=H_d\left(q_m\right)$ such that it depends on $q_m$ solely instead of $q$.
+
+For a similar reason, it is also plausible to redefine the kinematic hardening bound as $H_\alpha=H_\alpha\left(q_m\right)$.
 \subsection{Objective Transition}
 As shown in \eqsref{eq:int_z}, for a given interval of $z$, the corresponding change in $q$ is always constant, regardless of the specific form of $U(z)$ --- as long as it is given.
 However, $z$ only measures the relative loading level.
@@ -133,8 +135,9 @@ For specific applications, minor changes, for example, accounting for extra cons
                            & $\dot{\bd}=b_d\left(\bn-\bd\right)\gamma$                                \\ \bottomrule
     \end{tabular}
 \end{table}
-For scalar bounds $H_\alpha=H_\alpha(q)$, $H_d=H_d(q_m)$,  $H_c=H_c(q_m)$ and $F_m=F_m(q_m)$, any suitable univariate functions can be chosen, so we keep the corresponding expressions general.
+For scalar bounds $H_\alpha=H_\alpha(q_m)$, $H_d=H_d(q_m)$,  $H_c=H_c(q_m)$ and $F_m=F_m(q_m)$, any suitable univariate functions can be chosen, so we keep the corresponding expressions general.
 Popular options may include a liner component, an exponential component that saturates, and/or a power term.
+It must be noted that all scalar bounds are functions of $q_m$ in this work.
 
 A careful examination shows the boundary between subloading surface theory and conventional plasticity is blurred.
 In specific, the following can be observed.
