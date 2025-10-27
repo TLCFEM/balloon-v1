@@ -1,11 +1,13 @@
 import os
+import sys
 from pathlib import Path
-import subprocess
 from tempfile import TemporaryDirectory
+
+import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.collections import LineCollection
 from matplotlib.colors import Normalize
-import numpy as np
-import matplotlib.pyplot as plt
+from runner import run_model
 
 plt.rcParams.update({"font.size": 6})
 
@@ -105,30 +107,12 @@ def plot_gradient_line(
     return fig, ax
 
 
-SUANPAN_EXE = (
-    ("C:\\Users\\Theodore\\Documents\\Repos\\suanPan\\MSVC\\Release\\suanPan.exe")
-    if os.name == "nt"
-    else "suanpan"
-)
-
-
 def plot():
-    global SUANPAN_EXE
-    if not SUANPAN_EXE:
-        if subprocess.run(["which", "suanpan"]).returncode != 0:
-            print("suanPan not found, please install it first.")
-            return
-        SUANPAN_EXE = "suanpan"
-
     prefix = Path(__file__).parent
 
     with TemporaryDirectory() as tmpdir:
         os.chdir(tmpdir)
-        with open("balloon.sp", "w") as file:
-            file.write(model)
-        subprocess.run(
-            [SUANPAN_EXE, "-f", "balloon.sp"], capture_output=True, text=True
-        )
+        run_model(model)
 
         strain = np.loadtxt("R3-E1.txt")
         stress = np.loadtxt("R2-S1.txt")
@@ -179,4 +163,5 @@ def plot():
 
 
 if __name__ == "__main__":
+    sys.path.insert(0, str(Path(__file__).parent.resolve()))
     plot()
