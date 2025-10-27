@@ -1,11 +1,13 @@
 import os
+import sys
 from pathlib import Path
-import subprocess
 from tempfile import TemporaryDirectory
+
+import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.collections import LineCollection
 from matplotlib.colors import Normalize
-import numpy as np
-import matplotlib.pyplot as plt
+from runner import run_model
 
 plt.rcParams.update({"font.size": 6})
 
@@ -17,7 +19,7 @@ node 2 1 0
 material Balloon1D 1 \
 1 1E0 4 \
 1E2 0 -1E2 15E-1 \ ! u
-1 1e-2 0 0 \ ! hfm
+1 1e-8 0 0 \ ! hfm
 0 0 0 2E-2 \ ! hfc
 0 0 0 0 \ ! ha
 0 0 0 0 \ ! hd
@@ -62,14 +64,7 @@ def new_fig():
     return fig, ax1
 
 
-def plot_gradient_line(
-    x,
-    y,
-    cmap="viridis",
-    linewidth=2,
-    marker: str | None = "x",
-    markevery=149,
-):
+def plot_gradient_line(x, y, cmap="viridis", linewidth=2):
     x = np.asarray(x)
     y = np.asarray(y)
     z = np.arange(len(x))
@@ -87,94 +82,27 @@ def plot_gradient_line(
     # Plot
     fig, ax = new_fig()
     ax.add_collection(lc)
-    ax.set_xlim(x.min(), x.max())
-    ax.set_ylim(y.min(), y.max())
-
-    # Add optional markers
-    if marker:
-        ax.plot(
-            x[::markevery],
-            y[::markevery],
-            linestyle="None",
-            marker=marker,
-            color="black",
-        )
+    ax.autoscale()
 
     return fig, ax
 
 
-SUANPAN_EXE = (
-    ("C:\\Users\\Theodore\\Documents\\Repos\\suanPan\\MSVC\\Release\\suanPan.exe")
-    if os.name == "nt"
-    else "suanpan"
-)
-
-
 def plot():
-    global SUANPAN_EXE
-    if not SUANPAN_EXE:
-        if subprocess.run(["which", "suanpan"]).returncode != 0:
-            print("suanPan not found, please install it first.")
-            return
-        SUANPAN_EXE = "suanpan"
-
     prefix = Path(__file__).parent
 
     with TemporaryDirectory() as tmpdir:
         os.chdir(tmpdir)
-        with open("balloon.sp", "w") as file:
-            file.write(model)
-        subprocess.run(
-            [SUANPAN_EXE, "-f", "balloon.sp"], capture_output=True, text=True
-        )
+        run_model(model)
 
         strain = np.loadtxt("R3-E1.txt")
         stress = np.loadtxt("R2-S1.txt")
-        hist = np.loadtxt("R1-HIST1.txt")
 
-        fig, ax = plot_gradient_line(
-            strain[:, 1], stress[:, 1], marker=None, cmap="rainbow"
-        )
+        fig, ax = plot_gradient_line(strain[:, 1], stress[:, 1], cmap="rainbow")
         ax.set_xlabel("normalised strain (1)")
         ax.set_ylabel("normalised stress (1)")
         fig.savefig(prefix / "_balloon.stress.pdf")
 
-        items = [
-            (4, "$q_m$", "qm"),
-            (5, "$z$", "z"),
-            (6, "$f_c$", "fc"),
-            (7, r"$\alpha$", "alpha"),
-        ]
-
-        for idx, label, filename in items:
-            fig, ax = plot_gradient_line(
-                strain[:, 1], hist[:, idx], marker=None, cmap="rainbow"
-            )
-            ax.set_xlabel("normalised strain (1)")
-            ax.set_ylabel(label)
-            ax.set_xbound(min(strain[:, 1]), max(strain[:, 1]))
-
-            print(f"{max(hist[:, idx]):.16e}")
-
-            fig.savefig(prefix / f"_balloon.{filename}.pdf")
-
-        turning_points = []
-        for i in range(1, len(stress[:, 1]) - 1):
-            if (stress[i - 1, 1] < stress[i, 1] > stress[i + 1, 1]) or (
-                stress[i - 1, 1] > stress[i, 1] < stress[i + 1, 1]
-            ):
-                turning_points.append(stress[i, 1])
-
-        fig, ax = new_fig()
-        ax.plot(
-            range(len(turning_points)),
-            turning_points,
-            color="#d73027",
-            marker=".",
-            linestyle="None",
-        )
-        fig.savefig(prefix / "_balloon.cyclic.pdf")
-
 
 if __name__ == "__main__":
+    sys.path.insert(0, str(Path(__file__).parent.resolve()))
     plot()
