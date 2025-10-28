@@ -11,12 +11,12 @@ node 2 1 0
 material Balloon1D 1 \
 1 1E2 10 \
 1E1 0 0 0 \ ! u
-1 5e-2 0 0 \ ! hfm
+.5 1e-8 0 0 \ ! hfm
 0 0 0 0 \ ! hfc
 .5 0 0 0 \ ! ha
 0 0 0 0 \ ! hd
 1E-2 1. \ ! fc
-1E0 1. \ ! alpha
+2E0 1. \ ! alpha
 1E-2 1. ! d
 
 element T2D2 1 1 2 1 1
