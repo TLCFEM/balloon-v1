@@ -5,8 +5,7 @@ from tempfile import TemporaryDirectory
 
 import matplotlib.pyplot as plt
 import numpy as np
-from runner import gplot, run_model
-
+from runner import AutoSwitch, gplot, run_model
 
 model = r"""
 node 1 0 0
@@ -59,10 +58,7 @@ if __name__ == "__main__":
     prefix = Path(__file__).parent
     sys.path.insert(0, str(prefix.resolve()))
 
-    with TemporaryDirectory() as tmpdir:
-        os.chdir(tmpdir)
-        run_model(model)
-
+    with AutoSwitch(model=model):
         strain = np.loadtxt("R3-E1.txt")
         stress = np.loadtxt("R2-S1.txt")
         hist = np.loadtxt("R1-HIST1.txt")

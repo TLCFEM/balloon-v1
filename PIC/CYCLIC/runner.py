@@ -2,12 +2,12 @@ import os
 import shutil
 import subprocess
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.collections import LineCollection
 from matplotlib.colors import Normalize
-
 
 plt.rcParams.update({"font.size": 6})
 
@@ -50,3 +50,15 @@ def gplot(x, y, cmap="viridis", linewidth=2):
     ax.autoscale()
 
     return fig, ax
+
+
+class AutoSwitch(TemporaryDirectory):
+    def __init__(self, *args, **kwargs):
+        self.model = kwargs.pop("model")
+        super().__init__(*args, **kwargs)
+
+    def __enter__(self):
+        target = super().__enter__()
+        os.chdir(target)
+        run_model(self.model)
+        return target

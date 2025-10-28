@@ -4,7 +4,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 
 import numpy as np
-from runner import gplot, run_model
+from runner import AutoSwitch, gplot, run_model
 
 
 model = r"""
@@ -56,10 +56,7 @@ if __name__ == "__main__":
     prefix = Path(__file__).parent
     sys.path.insert(0, str(prefix.resolve()))
 
-    with TemporaryDirectory() as tmpdir:
-        os.chdir(tmpdir)
-        run_model(model)
-
+    with AutoSwitch(model=model):
         strain = np.loadtxt("R3-E1.txt")
         stress = np.loadtxt("R2-S1.txt")
 
