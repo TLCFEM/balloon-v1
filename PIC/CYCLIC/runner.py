@@ -45,7 +45,7 @@ def gplot(x, y, *, cmap="viridis", linewidth=2, size=(6, 5)):
 
     fig = plt.figure(figsize=size, tight_layout=True)
     ax = fig.add_subplot(111)
-    ax.grid(True)
+    ax.grid(True, linestyle="--", linewidth=0.5)
     ax.add_collection(lc)
     ax.autoscale()
 

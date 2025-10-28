@@ -1,11 +1,9 @@
-import os
 import sys
 from pathlib import Path
-from tempfile import TemporaryDirectory
 
 import matplotlib.pyplot as plt
 import numpy as np
-from runner import AutoSwitch, gplot, run_model
+from runner import AutoSwitch, gplot
 
 model = r"""
 node 1 0 0

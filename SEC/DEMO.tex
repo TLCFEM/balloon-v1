@@ -3,6 +3,20 @@ We present a few numerical examples to demonstrate the capabilities of the propo
 For brevity, we mostly use normalised quantities in the following examples.
 In specific, stresses are normalised by the initial yield stress, which is often the initial size of the conventional yield surface; strains are normalised by the initial yield strain, which is the initial yield stress divided by the elastic modulus.
 By such, the conventional yield point is always located at $(1,1)$.
+\subsection{}
+\figref{fig:ex1} demonstrates the gradual degradation of stiffness controlled by $u$.
+In other models, it is typically achieved by introducing a reduction factor for elastic modulus.
+
+The following parameters/functions are used.
+\begin{gather}
+    F=F_m=1,\qquad
+    u=100\exp{\left(-q_m\right)}.
+\end{gather}
+\begin{figure}[htb]
+    \centering
+    \includegraphics{PIC/ex1.reduction}
+    \caption{reduction}\label{fig:ex1}
+\end{figure}
 \subsection{Isotropic Hardening Stagnation}
 \subsection{Cyclic Hardening}
 \subsection{Cyclic Softening}
