@@ -30,7 +30,10 @@ def run_model(model: str):
     subprocess.run([SUANPAN_EXE, "-f", "balloon.sp"], capture_output=True, text=True)
 
 
-def gplot(x, y, *, cmap=None, color=None, linewidth=2, size=(6, 5)):
+COUNTER = 1
+
+
+def gplot(x, y, *, cmap=None, color=None, linewidth=1, size=(6, 5), scatter=False):
     x = np.asarray(x)
     y = np.asarray(y)
     z = np.arange(len(x))
@@ -50,10 +53,15 @@ def gplot(x, y, *, cmap=None, color=None, linewidth=2, size=(6, 5)):
         lc = LineCollection(segments, colors=color, linewidth=linewidth)  # type: ignore
     lc.set_array(z)
 
-    fig = plt.figure(figsize=size, tight_layout=True)
-    ax = fig.add_subplot(111)
+    global COUNTER
+    COUNTER += 1
+    fig = plt.figure(COUNTER, size, layout="tight")
+    ax = fig.gca()
     ax.grid(True, linestyle="--", linewidth=0.5)
-    ax.add_collection(lc)
+    if scatter:
+        ax.scatter(x, y, 2, color)
+    else:
+        ax.add_collection(lc)
     ax.autoscale()
 
     return fig, ax
