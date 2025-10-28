@@ -3,13 +3,8 @@ import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.collections import LineCollection
-from matplotlib.colors import Normalize
-from runner import run_model
-
-plt.rcParams.update({"font.size": 6})
+from runner import gplot, run_model
 
 
 model = r"""
@@ -57,38 +52,9 @@ exit
 """
 
 
-def new_fig():
-    fig = plt.figure(figsize=(6, 5), tight_layout=True)
-    ax1 = fig.add_subplot(111)
-    ax1.grid(True)
-    return fig, ax1
-
-
-def plot_gradient_line(x, y, cmap="viridis", linewidth=2):
-    x = np.asarray(x)
-    y = np.asarray(y)
-    z = np.arange(len(x))
-
-    points = np.array([x, y]).T.reshape(-1, 1, 2)
-
-    lc = LineCollection(
-        np.concatenate([points[:-1], points[1:]], axis=1),
-        cmap=cmap,
-        norm=Normalize(z.min(), z.max()),
-    )
-    lc.set_array(z)
-    lc.set_linewidth(linewidth)
-
-    # Plot
-    fig, ax = new_fig()
-    ax.add_collection(lc)
-    ax.autoscale()
-
-    return fig, ax
-
-
-def plot():
+if __name__ == "__main__":
     prefix = Path(__file__).parent
+    sys.path.insert(0, str(prefix.resolve()))
 
     with TemporaryDirectory() as tmpdir:
         os.chdir(tmpdir)
@@ -97,12 +63,7 @@ def plot():
         strain = np.loadtxt("R3-E1.txt")
         stress = np.loadtxt("R2-S1.txt")
 
-        fig, ax = plot_gradient_line(strain[:, 1], stress[:, 1], cmap="rainbow")
+        fig, ax = gplot(strain[:, 1], stress[:, 1], cmap="rainbow")
         ax.set_xlabel("normalised strain (1)")
         ax.set_ylabel("normalised stress (1)")
         fig.savefig(prefix / "_balloon.stress.pdf")
-
-
-if __name__ == "__main__":
-    sys.path.insert(0, str(Path(__file__).parent.resolve()))
-    plot()

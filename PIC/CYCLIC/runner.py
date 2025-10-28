@@ -3,6 +3,14 @@ import shutil
 import subprocess
 from pathlib import Path
 
+import numpy as np
+from matplotlib import pyplot as plt
+from matplotlib.collections import LineCollection
+from matplotlib.colors import Normalize
+
+
+plt.rcParams.update({"font.size": 6})
+
 if os.name == "nt":
     SUANPAN_EXE = (
         "C:\\Users\\Theodore\\Documents\\Repos\\suanPan\\MSVC\\Release\\suanPan.exe"
@@ -20,3 +28,25 @@ def run_model(model: str):
     with open("balloon.sp", "w") as file:
         file.write(model)
     subprocess.run([SUANPAN_EXE, "-f", "balloon.sp"], capture_output=True, text=True)
+
+
+def gplot(x, y, cmap="viridis", linewidth=2):
+    x = np.asarray(x)
+    y = np.asarray(y)
+    z = np.arange(len(x))
+
+    points = np.array([x, y]).T.reshape(-1, 1, 2)
+
+    segments = np.concatenate([points[:-1], points[1:]], axis=1)
+
+    lc = LineCollection(segments, cmap=cmap, norm=Normalize(z.min(), z.max()))  # type: ignore
+    lc.set_array(z)
+    lc.set_linewidth(linewidth)
+
+    fig = plt.figure(figsize=(6, 5), tight_layout=True)
+    ax = fig.add_subplot(111)
+    ax.grid(True)
+    ax.add_collection(lc)
+    ax.autoscale()
+
+    return fig, ax
