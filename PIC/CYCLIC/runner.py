@@ -24,10 +24,14 @@ else:
         raise RuntimeError("suanPan not found.")
 
 
-def run_model(model: str):
+def run_model(model: str, print_result: bool = False):
     with open("balloon.sp", "w") as file:
         file.write(model)
-    subprocess.run([SUANPAN_EXE, "-f", "balloon.sp"], capture_output=True, text=True)
+    result = subprocess.run(
+        [SUANPAN_EXE, "-f", "balloon.sp"], capture_output=True, text=True
+    )
+    if print_result or "[ERROR]" in result.stdout:
+        print(result.stdout)
 
 
 COUNTER = 1
@@ -70,10 +74,11 @@ def gplot(x, y, *, cmap=None, color=None, linewidth=1, size=(6, 5), scatter=Fals
 class AutoSwitch(TemporaryDirectory):
     def __init__(self, *args, **kwargs):
         self.model = kwargs.pop("model")
+        self.print_result = kwargs.pop("print_result", False)
         super().__init__(*args, **kwargs)
 
     def __enter__(self):
         target = super().__enter__()
         os.chdir(target)
-        run_model(self.model)
+        run_model(self.model, self.print_result)
         return target
