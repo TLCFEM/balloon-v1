@@ -16,7 +16,7 @@ material Balloon1D 1 \
 .5 0 0 0 \ ! ha
 0 0 0 0 \ ! hd
 1E-2 1. \ ! fc
-2E0 1. \ ! alpha
+1E0 1. \ ! alpha
 1E-2 1. ! d
 
 element T2D2 1 1 2 1 1
