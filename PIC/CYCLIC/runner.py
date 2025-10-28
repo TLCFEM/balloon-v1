@@ -30,7 +30,7 @@ def run_model(model: str):
     subprocess.run([SUANPAN_EXE, "-f", "balloon.sp"], capture_output=True, text=True)
 
 
-def gplot(x, y, cmap="viridis", linewidth=2):
+def gplot(x, y, *, cmap="viridis", linewidth=2, size=(6, 5)):
     x = np.asarray(x)
     y = np.asarray(y)
     z = np.arange(len(x))
@@ -43,7 +43,7 @@ def gplot(x, y, cmap="viridis", linewidth=2):
     lc.set_array(z)
     lc.set_linewidth(linewidth)
 
-    fig = plt.figure(figsize=(6, 5), tight_layout=True)
+    fig = plt.figure(figsize=size, tight_layout=True)
     ax = fig.add_subplot(111)
     ax.grid(True)
     ax.add_collection(lc)
