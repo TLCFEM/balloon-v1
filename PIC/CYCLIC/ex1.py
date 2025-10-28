@@ -57,7 +57,13 @@ if __name__ == "__main__":
         strain = np.loadtxt("R3-E1.txt")
         stress = np.loadtxt("R2-S1.txt")
 
-        fig, ax = gplot(strain[:, 1], stress[:, 1], cmap="rainbow", size=(4, 2.5))
+        fig, ax = gplot(strain[:, 1], stress[:, 1], color="#ca0020", size=(4, 2.5))
+        ax.annotate(
+            r"$q_m\uparrow\rightarrow{}u\downarrow$",
+            xy=(1, -0.875),
+            xytext=(8.5, -0.875),
+            arrowprops=dict(arrowstyle="<|-", lw=1, color="#0571b0"),
+        )
         ax.set_xlabel("normalised strain (1)")
         ax.set_ylabel("normalised stress (1)")
         fig.savefig(prefix / "../ex1.reduction.pdf")
