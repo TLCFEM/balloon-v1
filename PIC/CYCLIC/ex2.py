@@ -12,9 +12,9 @@ node 1 0 0
 node 2 1 0
 
 material Balloon1D 1 \
-1 1E0 10 \
+1 1E2 10 \
 1E1 0 0 0 \ ! u
-1 5e-2 0 0 \ ! hfm
+1 1e-2 0 0 \ ! hfm
 0 0 0 0 \ ! hfc
 0 0 0 0 \ ! ha
 0 0 0 0 \ ! hd
@@ -38,7 +38,7 @@ amplitude Custom 3 1
 
 disp 1 3 2 1 2
 
-step static 1 10
+step static 1 20
 set fixed_step_size 1
 set ini_step_size {dt}
 set symm_mat 0

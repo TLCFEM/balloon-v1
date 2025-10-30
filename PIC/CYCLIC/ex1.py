@@ -10,7 +10,7 @@ node 2 1 0
 
 material Balloon1D 1 \
 1 1E0 4 \
-1E2 0 -1E2 10E-1 \ ! u
+1E2 0 -1E2 3E-1 \ ! u
 1 1e-8 0 0 \ ! hfm
 0 0 0 0 \ ! hfc
 0 0 0 0 \ ! ha
@@ -36,7 +36,7 @@ disp 1 3 2 1 2
 
 step static 1 4
 set fixed_step_size 1
-set ini_step_size 1E-3
+set ini_step_size 2E-3
 set symm_mat 0
 
 converger RelIncreDisp 1 1E-10 10 1
