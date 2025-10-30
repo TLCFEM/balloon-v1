@@ -68,7 +68,7 @@ if __name__ == "__main__":
 
         turning_points = stress[interval :: 2 * interval, 1]
         fig, ax = gplot(
-            range(len(turning_points)),
+            np.array(range(len(turning_points))) / 2,
             turning_points,
             color="#ca0020",
             size=(4, 2.5),

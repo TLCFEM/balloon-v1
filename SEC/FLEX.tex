@@ -102,10 +102,13 @@ The split functions $K_m$ and $K_c$ shall meet the following requirements.
 \end{enumerate}
 To fulfil these, the following expression is chosen for $K_m$ in this work.
 \begin{gather}\label{eq:km}
-    K_m=1-\exp{\left(\dfrac{1-z_r}{k_r}\dfrac{z}{z-1}\right)}
+    K_m=\begin{cases}
+        0,                                          & 0\leqslant{}z<z_r,           \\
+        1-\exp{\dfrac{z-z_r}{k_r\left(z-1\right)}}, & z_r\leqslant{}z\leqslant{}1,
+    \end{cases}
 \end{gather}
 in which $k_r$ is a material parameter that controls the transition.
-\eqsref{eq:km} provides a smooth transition of $K_m$ from zero at $z=0$ to unity at $z=1$.
+\eqsref{eq:km} provides a smooth transition of $K_m$ from zero at $z=z_r$ to unity at $z=1$.
 The function is illustrated in \figref{fig:km}.
 \begin{figure}[htb]
     \centering

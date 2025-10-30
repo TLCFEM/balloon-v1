@@ -30,7 +30,7 @@ def line_style_generator():
 
 
 def K_m(z, z_r, k_r):
-    return 1 - np.exp((1 - z_r) / k_r * z / (z - 1))
+    return 1 - np.exp((z - z_r) / k_r / (z - 1))
 
 
 if __name__ == "__main__":
@@ -40,19 +40,22 @@ if __name__ == "__main__":
     plt.figure(figsize=(5, 2))
     ax = plt.gca()
 
+    z_r = 0.3
+
     for k_r in [0.5, 1, 2, 5, 1e1]:
-        z = np.linspace(0, 1.0, 80, endpoint=False)
-        plt.plot(z, K_m(z, 0.5, k_r), linestyle=next(ls_gen), color="#ca0020")
+        z = np.linspace(z_r, 1.0, 80, endpoint=False)
+        plt.plot(z, K_m(z, z_r, k_r), linestyle=next(ls_gen), color="#ca0020")
 
     ax.annotate(
-        r"$k_r\uparrow~z_r\uparrow$",
+        r"$k_r\uparrow$",
         xy=(0.9, 0.2),
-        xytext=(0.3, 0.7),
+        xytext=(0.45, 0.7),
         arrowprops=dict(arrowstyle="-|>", lw=1.5, color="#0571b0"),
     )
 
     plt.xlabel(r"$z$")
     plt.ylabel(r"$K_m$")
+    plt.xticks([0, z_r, 1.0], ["0.0", r"$z_r$", "1.0"])
     plt.xlim(0, 1)
     plt.ylim(0, 1)
     plt.grid(True, linestyle="--", linewidth=0.5)
