@@ -4,14 +4,17 @@ from pathlib import Path
 import numpy as np
 from runner import AutoSwitch, gplot
 
-model = r"""
+dt = 2e-3
+interval = int(0.25 / dt)
+
+model = rf"""
 node 1 0 0
 node 2 1 0
 
 material Balloon1D 1 \
-1 5E2 10 \
+1 1E1 10 \
 1E1 0 0 0 \ ! u
-1 1e-4 0 0 \ ! hfm
+1 1e-2 0 0 \ ! hfm
 0 0 1 2e-1 \ ! hfc
 0 0 0 0 \ ! ha
 0 0 0 0 \ ! hd
@@ -37,7 +40,7 @@ disp 1 3 2 1 2
 
 step static 1 50
 set fixed_step_size 1
-set ini_step_size 2E-3
+set ini_step_size {dt}
 set symm_mat 0
 
 converger RelIncreDisp 1 1E-10 10 1
@@ -63,13 +66,7 @@ if __name__ == "__main__":
         ax.set_ylabel("normalised stress (1)")
         fig.savefig(prefix / "../ex3.hardening.pdf")
 
-        turning_points = []
-        for i in range(1, len(stress[:, 1]) - 1):
-            if (stress[i - 1, 1] < stress[i, 1] > stress[i + 1, 1]) or (
-                stress[i - 1, 1] > stress[i, 1] < stress[i + 1, 1]
-            ):
-                turning_points.append(stress[i, 1])
-        turning_points = turning_points[::2]
+        turning_points = stress[interval :: 2 * interval, 1]
         fig, ax = gplot(
             range(len(turning_points)),
             turning_points,

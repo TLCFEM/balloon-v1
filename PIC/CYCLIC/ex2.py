@@ -4,7 +4,10 @@ from pathlib import Path
 import numpy as np
 from runner import AutoSwitch, gplot
 
-model = r"""
+dt = 2e-3
+interval = int(0.25 / dt)
+
+model = rf"""
 node 1 0 0
 node 2 1 0
 
@@ -37,7 +40,7 @@ disp 1 3 2 1 2
 
 step static 1 10
 set fixed_step_size 1
-set ini_step_size 5E-3
+set ini_step_size {dt}
 set symm_mat 0
 
 converger RelIncreDisp 1 1E-10 10 1
@@ -63,13 +66,7 @@ if __name__ == "__main__":
         ax.set_ylabel("normalised stress (1)")
         fig.savefig(prefix / "../ex2.stagnation.pdf")
 
-        turning_points = []
-        for i in range(1, len(stress[:, 1]) - 1):
-            if (stress[i - 1, 1] < stress[i, 1] > stress[i + 1, 1]) or (
-                stress[i - 1, 1] > stress[i, 1] < stress[i + 1, 1]
-            ):
-                turning_points.append(stress[i, 1])
-        turning_points = turning_points[::2]
+        turning_points = stress[interval :: 2 * interval, 1]
         fig, ax = gplot(
             range(len(turning_points)),
             turning_points,
