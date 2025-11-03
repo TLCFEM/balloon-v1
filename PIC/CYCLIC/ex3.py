@@ -15,7 +15,7 @@ material Balloon1D 1 \
 1 5E2 4 \
 1E1 0 0 0 \ ! u
 1 1e-2 0 0 \ ! hfm
-0 0 1 1e-2 \ ! hfc
+0 2e-2 0 0 \ ! hfc
 0 0 0 0 \ ! ha
 0 0 0 0 \ ! hd
 1E-1 1. \ ! fc

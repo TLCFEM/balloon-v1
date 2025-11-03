@@ -12,7 +12,7 @@ node 1 0 0
 node 2 1 0
 
 material Balloon1D 1 \
-1 2E0 4 \
+1 1e2 4 \
 1E1 0 0 0 \ ! u
 1 0 0 0 \ ! hfm
 0 0 .4 1e-1 \ ! hfc
@@ -31,9 +31,7 @@ plainrecorder 3 Element E 1
 fix2 1 1 1
 fix2 2 2 1 2
 
-expression SimpleScalar 1 t t<10?1.5-1.5cos(2pi*t):t<20?1-1*cos(2pi*t):t<30?2-2cos(2pi*t):t<40?2.5-2.5cos(2pi*t):3-3cos(2pi*t)
-# expression SimpleScalar 1 t t<10?1-cos(2pi*t):t<20?1.5-1.5*cos(2pi*t):t<30?2-2cos(2pi*t):t<40?2.5-2.5cos(2pi*t):3-3cos(2pi*t)
-# expression SimpleScalar 1 t t<10?sin(2pi*t):t<20?1.5sin(2pi*t):t<30?2sin(2pi*t):t<40?2.5sin(2pi*t):3sin(2pi*t)
+expression SimpleScalar 1 t t<10?1-cos(2pi*t):t<20?1.5-1.5*cos(2pi*t):t<30?2-2cos(2pi*t):t<40?2.5-2.5cos(2pi*t):3-3cos(2pi*t)
 
 amplitude Custom 3 1
 
@@ -66,15 +64,3 @@ if __name__ == "__main__":
         ax.set_xlabel("normalised strain (1)")
         ax.set_ylabel("normalised stress (1)")
         fig.savefig(prefix / "../ex5.pdf")
-
-        turning_points = stress[interval :: 2 * interval, 1]
-        fig, ax = gplot(
-            np.array(range(len(turning_points))) / 2,
-            turning_points,
-            color="#ca0020",
-            size=(4, 2.5),
-            scatter=True,
-        )
-        ax.set_xlabel("cycles")
-        ax.set_ylabel("normalised stress (1)")
-        fig.savefig(prefix / "../ex5.cycle.pdf")
