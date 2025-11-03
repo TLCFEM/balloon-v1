@@ -12,14 +12,14 @@ node 1 0 0
 node 2 1 0
 
 material Balloon1D 1 \
-200 1e1 4 \
-4E3 0 -3.8E3 5e2 \ ! u
-.3 2 0 0 \ ! hfm
-0 0 .1 1e1 \ ! hfc
+200 1e2 2 \
+4E3 0 -3.6E3 5e2 \ ! u
+.7 4 0 0 \ ! hfm
+0 0 -.15 1e2 \ ! hfc
 0 0 0 0 \ ! ha
-.25 0 0 0 \ ! hd
-1E1 1. \ ! fc
-1E1 1. \ ! alpha
+.5 0 0 0 \ ! hd
+5E0 1. \ ! fc
+0. 1. \ ! alpha
 1E2 1. ! d
 
 element T2D2 1 1 2 1 1
@@ -66,7 +66,7 @@ if __name__ == "__main__":
         )
         ax.set_xlabel("strain ($10^{-3}$)")
         ax.set_ylabel("stress (MPa)")
-        fig.savefig(prefix / "../ss304.pdf")
+        fig.savefig(prefix / "../cs1018.pdf")
 
         turning_points = stress[interval :: 2 * interval, 1]
         fig, ax = gplot(
@@ -78,7 +78,7 @@ if __name__ == "__main__":
         )
         ax.set_xlabel("cycles")
         ax.set_ylabel("stress (MPa)")
-        fig.savefig(prefix / "../ss304.cycle.pdf")
+        fig.savefig(prefix / "../cs1018.cycle.pdf")
 
         for idx, label, filename in [
             (4, "qm", "qm"),
