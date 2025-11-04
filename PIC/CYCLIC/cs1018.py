@@ -13,13 +13,13 @@ node 2 1 0
 
 material Balloon1D 1 \
 200 1e2 2 \
-4E3 0 -3.96E3 2e3 \ ! u
-.7 4 0 0 \ ! hfm
-0 0 -.2 1e3 \ ! hfc
-.2 4 0 0 \ ! ham
+4E3 0 -3.6E3 1e3 \ ! u
+.6 2 0 0 \ ! hfm
+0 0 -.1 1e2 \ ! hfc
+.1 0 0 0 \ ! ham
 0 0 0 0 \ ! hac
-5E0 1. \ ! fc
-5E0 1. \ ! ac
+5E1 1. \ ! fc
+1E0 1. \ ! ac
 1E2 1. \ ! na
 1E2 .8 ! nd
 
