@@ -16,11 +16,11 @@ material Balloon1D 1 \
 4E3 0 -3.6E3 1e3 \ ! u
 .6 1 0 0 \ ! hfm
 0 0 -.1 1e2 \ ! hfc
-.1 0 0 0 \ ! ham
-0 0 -.05 1e2 \ ! hac
+0 0 0 0 \ ! ham
+0 0 0 0 \ ! hac
 5E1 1. \ ! fc
 5E2 1. \ ! ac
-5E1 1. \ ! na
+1E1 1. \ ! na
 1E2 .8 ! nd
 
 element T2D2 1 1 2 1 1
