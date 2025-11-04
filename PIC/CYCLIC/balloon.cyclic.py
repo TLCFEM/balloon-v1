@@ -71,7 +71,7 @@ if __name__ == "__main__":
             (4, "$q_m$", "qm"),
             (5, "$z$", "z"),
             (6, "$f_c$", "fc"),
-            (7, r"$\alpha$", "alpha"),
+            (8, r"$a$", "a"),
         ]
 
         for idx, label, filename in items:

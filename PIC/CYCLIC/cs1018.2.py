@@ -84,8 +84,8 @@ if __name__ == "__main__":
         for idx, label, filename in [
             (4, "qm", "qm"),
             (6, "hfc", "hfc"),
-            (7, "alpha", "alpha"),
-            (8, "d", "d"),
+            (8, "a", "a"),
+            (9, "d", "d"),
         ]:
             fig, ax = gplot(
                 strain[:, 1] * 1000, hist[:, idx], cmap="rainbow", size=(4, 2.5)
