@@ -16,10 +16,10 @@ material Balloon1D 1 \
 4E3 0 -3.6E3 2e3 \ ! u
 .7 2 0 0 \ ! hfm
 0 0 -.1 1e3 \ ! hfc
-0 0 0 0 \ ! ha
+2 0 0 0 \ ! ha
 .6 0 0 0 \ ! hd
 5E0 1. \ ! fc
-1E2 1. \ ! alpha
+0 1. \ ! alpha
 1E2 1. ! d
 
 element T2D2 1 1 2 1 1
@@ -68,7 +68,7 @@ if __name__ == "__main__":
         ax.set_ylabel("stress (MPa)")
         fig.savefig(prefix / "../cs1018.3.pdf")
 
-        turning_points = stress[interval :: 2 * interval, 1]
+        turning_points = stress[5 * interval :: 2 * interval, 1]
         fig, ax = gplot(
             np.array(range(len(turning_points))) / 2,
             turning_points * 1000,
