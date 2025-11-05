@@ -14,14 +14,15 @@ node 2 1 0
 material Balloon1D 1 \
 200 1e2 2 \
 4E3 0 -3.6E3 1e3 \ ! u
-.6 2 0 0 \ ! hfm
+.6 1 0 0 \ ! hfm
 0 0 -.1 1e2 \ ! hfc
-.1 0 0 0 \ ! ham
+.05 0 0 0 \ ! ham
 0 0 0 0 \ ! hac
 0 \ ! density
 -fc 5E1 1. \ ! fc
 -ac 1E0 1. \ ! ac
 -na 1E2 1. \ ! na
+-na 0 10. \ ! na
 -nd 1E2 .8 ! nd
 
 element T2D2 1 1 2 1 1
@@ -85,12 +86,14 @@ if __name__ == "__main__":
         for idx, label, filename in [
             (4, "qm", "qm"),
             (6, "hfc", "hfc"),
-            (8, "a", "a"),
-            (9, "d", "d"),
+            ((8, 9), "a", "a"),
+            (10, "d", "d"),
         ]:
-            fig, ax = gplot(
-                strain[:, 1] * 1000, hist[:, idx], cmap="rainbow", size=(4, 2.5)
-            )
+            if isinstance(idx, tuple):
+                y_data = hist[:, idx[0]] + hist[:, idx[1]]
+            else:
+                y_data = hist[:, idx]
+            fig, ax = gplot(strain[:, 1] * 1000, y_data, cmap="rainbow", size=(4, 2.5))
             ax.set_xlabel("strain ($10^{-3}$)")
             ax.set_ylabel(label)
             fig.savefig(prefix / f"_{filename}.pdf")
