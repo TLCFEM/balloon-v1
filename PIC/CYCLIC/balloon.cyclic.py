@@ -16,10 +16,11 @@ material Balloon1D 1 \
 0 0 3E-1 2E-2 \ ! hfc
 1E-1 0 0 0 \ ! ham
 0 0 0 0 \ ! hac
-1E-2 1. \ ! fc
-1E-2 1. \ ! ac
-2E-2 1. \ ! alpha
-1E-2 .9 ! d
+0 \ ! density
+-fc 1E-2 1. \ ! fc
+-ac 1E-2 1. \ ! ac
+-na 2E-2 1. \ ! alpha
+-nd 1E-2 .9 ! d
 
 element T2D2 1 1 2 1 1
 
