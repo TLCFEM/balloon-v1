@@ -22,6 +22,7 @@ material Balloon1D 1 \
 -fc 2E1 1. \ ! fc
 -ac 1E1 1. \ ! ac
 -na 5E1 1. \ ! na
+-na 0 5. \
 -nd 1E2 .8 ! nd
 
 element T2D2 1 1 2 1 1
