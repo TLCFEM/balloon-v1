@@ -51,7 +51,7 @@ The parameters/expressions used in this example are summarised in \tabref{tab:ss
     evolution of $z$          & $u=200+3800\exp{\left(-2000q_m\right)}$                     \\
     isotropic hardening $F_m$ & $F_m=0.2+2q_m$ (\si{\mega\pascal})                          \\
     isotropic hardening $F_c$ & $F_c=0.1-0.1\exp{\left(-100q_m\right)}$ (\si{\mega\pascal}) \\
-    kinematic hardening       & exponential saturation                                      \\
+    kinematic hardening       & exponential (AF type) saturation                                      \\
     similarity                & $H_d=0.8F$                                                  \\\bottomrule
 \end{tabular}
 \end{table}
@@ -95,10 +95,14 @@ The parameters/expressions used in this example are summarised in \tabref{tab:cs
     evolution of $z$          & $u=400+3600\exp{\left(-1000q_m\right)}$                      \\
     isotropic hardening $F_m$ & $F_m=0.6+q_m$ (\si{\mega\pascal})                            \\
     isotropic hardening $F_c$ & $F_c=-0.1+0.1\exp{\left(-100q_m\right)}$ (\si{\mega\pascal}) \\
-    kinematic hardening       & linear + exponential saturation                              \\
+    kinematic hardening       & linear (Prager type) + exponential (AF type) saturation                                \\
     similarity                & $H_d=0.8F$                                                   \\\bottomrule
 \end{tabular}
 \end{table}
+The experimental results \citet{Hassan1994} show there is a significant correlation between the centre of stabilised hysteresis loops and plastic history for CS1018 material.
+Thus, in this example, the kinematic hardening rule adopts a combination of linear (Prager type) component and exponential (Armstrong--Frederick type) saturation component.
+
+By choosing a negative $F_c$, cycling within a fixed strain range leads to cyclic softening.
 \begin{figure}[htb]
 \centering
 \begin{subfigure}[b]{.49\textwidth}
