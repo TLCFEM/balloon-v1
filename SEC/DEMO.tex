@@ -44,69 +44,73 @@ The degree of isotropic hardening stagnation can be controlled by $k_r$.
 \subsection{SS304}
 The parameters/expressions used in this example are summarised in \tabref{tab:ss304}.
 \begin{table}
-    \footnotesize
-    \centering
-    \caption{model parameters/expressions for SS304}\label{tab:ss304}
-    \begin{tabular}{ll}
-        \toprule
-        evolution of $z$          & $u=200+3800\exp{\left(-2000q_m\right)}$                     \\
-        isotropic hardening $F_m$ & $F_m=0.2+2q_m$ (\si{\mega\pascal})                          \\
-        isotropic hardening $F_c$ & $F_c=0.1-0.1\exp{\left(-100q_m\right)}$ (\si{\mega\pascal}) \\
-        kinematic hardening       & exponential saturation                                      \\
-        similarity                & $H_d=0.8F$                                                  \\\bottomrule
-    \end{tabular}
+\footnotesize\centering
+\caption{model parameters/expressions for SS304}\label{tab:ss304}
+\begin{tabular}{ll}
+    \toprule
+    evolution of $z$          & $u=200+3800\exp{\left(-2000q_m\right)}$                     \\
+    isotropic hardening $F_m$ & $F_m=0.2+2q_m$ (\si{\mega\pascal})                          \\
+    isotropic hardening $F_c$ & $F_c=0.1-0.1\exp{\left(-100q_m\right)}$ (\si{\mega\pascal}) \\
+    kinematic hardening       & exponential saturation                                      \\
+    similarity                & $H_d=0.8F$                                                  \\\bottomrule
+\end{tabular}
 \end{table}
 \begin{figure}[htb]
+\centering
+\begin{subfigure}[b]{.49\textwidth}
     \centering
-    \begin{subfigure}[b]{0.49\textwidth}
-        \includegraphics{PIC/ss304.pdf}
-        \caption{hysteresis response}\label{fig:ss304}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \includegraphics{PIC/ss304.cycle.pdf}
-        \caption{stress amplitude per cycle}\label{fig:ss304.cycle}
-    \end{subfigure}
-    \caption{single step strain--symmetric cycling on SS304 \citep[cf.][Fig.~2]{Hassan1994}}
+    \includegraphics{PIC/ss304.pdf}
+    \caption{hysteresis response}\label{fig:ss304}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{.49\textwidth}
+    \centering
+    \includegraphics{PIC/ss304.cycle.pdf}
+    \caption{stress amplitude per cycle}\label{fig:ss304.cycle}
+\end{subfigure}
+\caption{single step strain--symmetric cycling on SS304 \citep[cf.][Fig.~2]{Hassan1994}}
 \end{figure}
 \begin{figure}[htb]
+\centering
+\begin{subfigure}[b]{.49\textwidth}
     \centering
-    \begin{subfigure}[b]{0.49\textwidth}
-        \includegraphics{PIC/ss304.2.pdf}
-        \caption{hysteresis response}\label{fig:ss304.2}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \includegraphics{PIC/ss304.2.cycle.pdf}
-        \caption{stress amplitude per cycle}\label{fig:ss304.2.cycle}
-    \end{subfigure}
-    \caption{multistep strain--symmetric cycling on SS304 \citep[cf.][Fig.~11]{Hassan1994}}
+    \includegraphics{PIC/ss304.2.pdf}
+    \caption{hysteresis response}\label{fig:ss304.2}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{.49\textwidth}
+    \centering
+    \includegraphics{PIC/ss304.2.cycle.pdf}
+    \caption{stress amplitude per cycle}\label{fig:ss304.2.cycle}
+\end{subfigure}
+\caption{multistep strain--symmetric cycling on SS304 \citep[cf.][Fig.~11]{Hassan1994}}
 \end{figure}
 \subsection{CS1018}
 The parameters/expressions used in this example are summarised in \tabref{tab:cs1018}.
 \begin{table}
-    \footnotesize
-    \centering
-    \caption{model parameters/expressions for CS1018}\label{tab:cs1018}
-    \begin{tabular}{ll}
-        \toprule
-        evolution of $z$          & $u=400+3600\exp{\left(-1000q_m\right)}$                      \\
-        isotropic hardening $F_m$ & $F_m=0.6+q_m$ (\si{\mega\pascal})                            \\
-        isotropic hardening $F_c$ & $F_c=-0.1+0.1\exp{\left(-100q_m\right)}$ (\si{\mega\pascal}) \\
-        kinematic hardening       & linear + exponential saturation                              \\
-        similarity                & $H_d=0.8F$                                                   \\\bottomrule
-    \end{tabular}
+\footnotesize\centering
+\caption{model parameters/expressions for CS1018}\label{tab:cs1018}
+\begin{tabular}{ll}
+    \toprule
+    evolution of $z$          & $u=400+3600\exp{\left(-1000q_m\right)}$                      \\
+    isotropic hardening $F_m$ & $F_m=0.6+q_m$ (\si{\mega\pascal})                            \\
+    isotropic hardening $F_c$ & $F_c=-0.1+0.1\exp{\left(-100q_m\right)}$ (\si{\mega\pascal}) \\
+    kinematic hardening       & linear + exponential saturation                              \\
+    similarity                & $H_d=0.8F$                                                   \\\bottomrule
+\end{tabular}
 \end{table}
 \begin{figure}[htb]
+\centering
+\begin{subfigure}[b]{.49\textwidth}
     \centering
-    \begin{subfigure}[b]{0.49\textwidth}
-        \includegraphics{PIC/cs1018.3.pdf}
-        \caption{single step}\label{fig:cs1018.3}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \includegraphics{PIC/cs1018.4.pdf}
-        \caption{multistep}\label{fig:cs1018.4}
-    \end{subfigure}
-    \caption{strain controlled cycling on CS1018 \citep[cf.][Figs. 4 and 12]{Hassan1994}}
+    \includegraphics{PIC/cs1018.single.pdf}
+    \caption{single step}\label{fig:cs1018.single}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{.49\textwidth}
+    \centering
+    \includegraphics{PIC/cs1018.multi.pdf}
+    \caption{multistep}\label{fig:cs1018.multi}
+\end{subfigure}
+\caption{strain controlled cycling on CS1018 \citep[cf.][Figs. 4 and 12]{Hassan1994}}
 \end{figure}

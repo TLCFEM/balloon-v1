@@ -70,7 +70,7 @@ if __name__ == "__main__":
         )
         ax.set_xlabel("strain ($10^{-3}$)")
         ax.set_ylabel("stress (MPa)")
-        fig.savefig(prefix / "../cs1018.3.pdf")
+        fig.savefig(prefix / "../cs1018.single.pdf")
 
         turning_points = stress[5 * interval :: 2 * interval, 1]
         fig, ax = gplot(
@@ -82,7 +82,7 @@ if __name__ == "__main__":
         )
         ax.set_xlabel("cycles")
         ax.set_ylabel("stress (MPa)")
-        fig.savefig(prefix / "../cs1018.3.cycle.pdf")
+        fig.savefig(prefix / "../cs1018.single.cycle.pdf")
 
         for idx, label, filename in [
             (4, "qm", "qm"),
