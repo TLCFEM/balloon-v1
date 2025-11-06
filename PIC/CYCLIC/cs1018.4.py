@@ -20,7 +20,6 @@ material Balloon1D 1 \
 0 0 0 0 \ ! hac
 0 \ ! density
 -fc 5E1 1. \ ! fc
--ac 1E0 1. \ ! ac
 -na 1E2 1. \ ! na
 -na 0 10. \ ! na
 -nd 1E2 .8 ! nd
@@ -59,13 +58,15 @@ if __name__ == "__main__":
     prefix = Path(__file__).parent
     sys.path.insert(0, str(prefix.resolve()))
 
+    size = (3.1, 2)
+
     with AutoSwitch(model=model):
         strain = np.loadtxt("R3-E1.txt")
         stress = np.loadtxt("R2-S1.txt")
         hist = np.loadtxt("R1-HIST1.txt")
 
         fig, ax = gplot(
-            strain[:, 1] * 1000, stress[:, 1] * 1000, cmap="rainbow", size=(4, 2.5)
+            strain[:, 1] * 1000, stress[:, 1] * 1000, cmap="rainbow", size=size
         )
         ax.set_xlabel("strain ($10^{-3}$)")
         ax.set_ylabel("stress (MPa)")
@@ -74,12 +75,14 @@ if __name__ == "__main__":
         for idx, label, filename in [
             (4, "qm", "qm"),
             (6, "hfc", "hfc"),
-            (8, "a", "a"),
+            ((7, 8), "a", "a"),
             (9, "d", "d"),
         ]:
-            fig, ax = gplot(
-                strain[:, 1] * 1000, hist[:, idx], cmap="rainbow", size=(4, 2.5)
-            )
+            if isinstance(idx, tuple):
+                y_data = hist[:, idx[0]] + hist[:, idx[1]]
+            else:
+                y_data = hist[:, idx]
+            fig, ax = gplot(strain[:, 1] * 1000, y_data, cmap="rainbow", size=(4, 2.5))
             ax.set_xlabel("strain ($10^{-3}$)")
             ax.set_ylabel(label)
             fig.savefig(prefix / f"_{filename}.pdf")
