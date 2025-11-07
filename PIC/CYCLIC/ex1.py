@@ -9,13 +9,13 @@ node 1 0 0
 node 2 1 0
 
 material Balloon1D 1 \
-1 1E0 4 \
-1E2 0 -1E2 3E-1 \ ! u
+1 1E2 10 \
+1E2 0 -1E2 2E-1 \ ! u
 1 1e-8 0 0 \ ! hfm
 0 0 0 0 \ ! hfc
 0 0 0 0 \ ! ham
 0 0 0 0 \ ! hac
-0 \ ! density
+0 ! density
 
 element T2D2 1 1 2 1 1
 

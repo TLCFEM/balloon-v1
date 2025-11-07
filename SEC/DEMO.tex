@@ -3,30 +3,45 @@ We present a few numerical examples to demonstrate the capabilities of the propo
 For brevity, we mostly use normalised quantities in the following examples.
 In specific, stresses are normalised by the initial yield stress, which is often the initial size of the conventional yield surface; strains are normalised by the initial yield strain, which is the initial yield stress divided by the elastic modulus.
 By such, the conventional yield point is always located at $(1,1)$.
-\subsection{}
+\subsection{Stiffness Degradation}
 \figref{fig:ex1} demonstrates the gradual degradation of stiffness controlled by $u$.
 In other models, it is typically achieved by introducing a reduction factor for elastic modulus.
 
 The following parameters/functions are used.
 \begin{gather}
     F=F_m=1,\qquad
-    u=100\exp{\left(-q_m\right)}.
+    u=100\exp{\left(-0.2q_m\right)}.
 \end{gather}
+Since $u$ effectively controls how fast $z$ increases to unity, a smaller $u$ leads to a slower transition.
+The proposal \secref{sec:obj_trans} does not rely on additional history variable, and implementing such a degradation is straightforward.
+Alternatively, it is also possible to associate $u$ with $q$.
 \begin{figure}[htb]
     \centering
     \includegraphics{PIC/ex1.reduction}
-    \caption{reduction}\label{fig:ex1}
+    \caption{stiffness degradation controlled by $u$}\label{fig:ex1}
 \end{figure}
 \subsection{Isotropic Hardening Stagnation}
 The degree of isotropic hardening stagnation can be controlled by $k_r$.
 \begin{gather}
-    k_r=1,\qquad
-    F=F_m=1+0.05q_m.
+    k_r=100,\qquad
+    F=F_m=1.
 \end{gather}
+In the following example, isotropic hardening is fully deactivated during cyclic loading.
+As a result, the hysteresis loops stabilise immediately.
 \begin{figure}[htb]
+\centering
+\begin{subfigure}[b]{.49\textwidth}
+\centering
+\includegraphics{PIC/ex2.stagnation}
+\caption{hysteresis response}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{.49\textwidth}
     \centering
-    \includegraphics{PIC/ex2.stagnation}
-    \caption{stagnation}\label{fig:ex2}
+    \includegraphics{PIC/ex2.stagnation.cycle}
+    \caption{stress amplitude per cycle}
+\end{subfigure}
+\caption{isotropic hardening stagnation controlled by $k_r$}
 \end{figure}
 \subsection{Cyclic Hardening}
 \begin{figure}[htb]

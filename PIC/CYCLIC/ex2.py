@@ -12,13 +12,13 @@ node 1 0 0
 node 2 1 0
 
 material Balloon1D 1 \
-1 1E2 10 \
+1 1E2 2 \
 1E1 0 0 0 \ ! u
-1 1e-2 0 0 \ ! hfm
+1 1e-4 0 0 \ ! hfm
 0 0 0 0 \ ! hfc
 0 0 0 0 \ ! ham
 0 0 0 0 \ ! hac
-0 \ ! density
+0 ! density
 
 element T2D2 1 1 2 1 1
 
@@ -55,11 +55,13 @@ if __name__ == "__main__":
     prefix = Path(__file__).parent
     sys.path.insert(0, str(prefix.resolve()))
 
+    size = (3.1, 2)
+
     with AutoSwitch(model=model):
         strain = np.loadtxt("R3-E1.txt")
         stress = np.loadtxt("R2-S1.txt")
 
-        fig, ax = gplot(strain[:, 1], stress[:, 1], cmap="rainbow", size=(4, 2.5))
+        fig, ax = gplot(strain[:, 1], stress[:, 1], cmap="rainbow", size=size)
         ax.set_xlabel("normalised strain (1)")
         ax.set_ylabel("normalised stress (1)")
         fig.savefig(prefix / "../ex2.stagnation.pdf")
@@ -69,7 +71,7 @@ if __name__ == "__main__":
             range(len(turning_points)),
             turning_points,
             color="#ca0020",
-            size=(4, 2.5),
+            size=size,
             scatter=True,
         )
         ax.set_xlabel("cycles")
