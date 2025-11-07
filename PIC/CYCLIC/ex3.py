@@ -56,11 +56,13 @@ if __name__ == "__main__":
     prefix = Path(__file__).parent
     sys.path.insert(0, str(prefix.resolve()))
 
+    size = (3.1, 2)
+
     with AutoSwitch(model=model):
         strain = np.loadtxt("R3-E1.txt")
         stress = np.loadtxt("R2-S1.txt")
 
-        fig, ax = gplot(strain[:, 1], stress[:, 1], cmap="rainbow", size=(4, 2.5))
+        fig, ax = gplot(strain[:, 1], stress[:, 1], cmap="rainbow", size=size)
         ax.set_xlabel("normalised strain (1)")
         ax.set_ylabel("normalised stress (1)")
         fig.savefig(prefix / "../ex3.hardening.pdf")
@@ -70,7 +72,7 @@ if __name__ == "__main__":
             np.array(range(len(turning_points))) / 2,
             turning_points,
             color="#ca0020",
-            size=(4, 2.5),
+            size=size,
             scatter=True,
         )
         ax.set_xlabel("cycles")

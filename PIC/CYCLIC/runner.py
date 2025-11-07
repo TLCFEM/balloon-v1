@@ -76,9 +76,16 @@ class AutoSwitch(TemporaryDirectory):
         self.model = kwargs.pop("model")
         self.print_result = kwargs.pop("print_result", False)
         super().__init__(*args, **kwargs)
+        self._old_cwd = None
 
     def __enter__(self):
+        self._old_cwd = os.getcwd()
         target = super().__enter__()
         os.chdir(target)
         run_model(self.model, self.print_result)
         return target
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        if self._old_cwd is not None:
+            os.chdir(self._old_cwd)
+        return super().__exit__(exc_type, exc_value, traceback)
