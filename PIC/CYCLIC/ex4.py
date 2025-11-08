@@ -12,16 +12,15 @@ node 1 0 0
 node 2 1 0
 
 material Balloon1D 1 \
-1 1e2 4 \
+1 1E2 2 \
 1E1 0 0 0 \ ! u
 1 0 0 0 \ ! hfm
-0 -2e-2 0 0 \ ! hfc
+0 -5e-2 0 0 \ ! hfc
 1e-2 0 0 0 \ ! ham
 0 0 0 0 \ ! hac
 0 \ ! density
--fc 2E-1 1. \ ! fc
--ac 2E-1 1. \ ! ac
--na 1E-1 1. \ ! alpha
+-fc 5E-1 1. \ ! fc
+-na 1e0 1.
 
 element T2D2 1 1 2 1 1
 
@@ -39,7 +38,7 @@ amplitude Custom 3 1
 
 disp 1 3 2 1 2
 
-step static 1 50
+step static 1 20
 set fixed_step_size 1
 set ini_step_size {dt}
 set symm_mat 0
@@ -58,11 +57,13 @@ if __name__ == "__main__":
     prefix = Path(__file__).parent
     sys.path.insert(0, str(prefix.resolve()))
 
+    size = (3.1, 2)
+
     with AutoSwitch(model=model):
         strain = np.loadtxt("R3-E1.txt")
         stress = np.loadtxt("R2-S1.txt")
 
-        fig, ax = gplot(strain[:, 1], stress[:, 1], cmap="rainbow", size=(4, 2.5))
+        fig, ax = gplot(strain[:, 1], stress[:, 1], cmap="rainbow", size=size)
         ax.set_xlabel("normalised strain (1)")
         ax.set_ylabel("normalised stress (1)")
         fig.savefig(prefix / "../ex4.softening.pdf")
@@ -72,7 +73,7 @@ if __name__ == "__main__":
             np.array(range(len(turning_points))) / 2,
             turning_points,
             color="#ca0020",
-            size=(4, 2.5),
+            size=size,
             scatter=True,
         )
         ax.set_xlabel("cycles")

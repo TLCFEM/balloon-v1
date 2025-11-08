@@ -3,6 +3,9 @@ We present a few numerical examples to demonstrate the capabilities of the propo
 For brevity, we mostly use normalised quantities in the following examples.
 In specific, stresses are normalised by the initial yield stress, which is often the initial size of the conventional yield surface; strains are normalised by the initial yield strain, which is the initial yield stress divided by the elastic modulus.
 By such, the conventional yield point is always located at $(1,1)$.
+
+For $z_r$, the average of the most recent a few (\num{2} to \num{10}) values is used.
+This choice appears to be random and ad hoc, but it works well in the numerical examples presented here.
 \subsection{Stiffness Degradation}
 \figref{fig:ex1} demonstrates the gradual degradation of stiffness controlled by $u$.
 In other models, it is typically achieved by introducing a reduction factor for elastic modulus.
@@ -44,6 +47,10 @@ As a result, the hysteresis loops stabilise immediately.
 \caption{isotropic hardening stagnation controlled by $k_r$}
 \end{figure}
 \subsection{Cyclic Hardening}
+\figref{fig:cyclic_hardening}
+\begin{gather}
+    F_c=0.05q_m.
+\end{gather}
 \begin{figure}[htb]
 \centering
 \begin{subfigure}[b]{.49\textwidth}
@@ -57,7 +64,26 @@ As a result, the hysteresis loops stabilise immediately.
 \includegraphics{PIC/ex3.hardening.cycle.pdf}
 \caption{stress amplitude per cycle}
 \end{subfigure}
-\caption{cyclic hardening}
+\caption{cyclic hardening}\label{fig:cyclic_hardening}
+\end{figure}
+\figref{fig:cyclic_softening}
+\begin{gather}
+    F_c=-0.05q_m.
+\end{gather}
+\begin{figure}[htb]
+\centering
+\begin{subfigure}[b]{.49\textwidth}
+    \centering
+    \includegraphics{PIC/ex4.softening.pdf}
+    \caption{hysteresis response}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{.49\textwidth}
+    \centering
+    \includegraphics{PIC/ex4.softening.cycle.pdf}
+    \caption{stress amplitude per cycle}
+\end{subfigure}
+\caption{cyclic softening}\label{fig:cyclic_softening}
 \end{figure}
 \subsection{Cyclic Softening}
 \subsection{Improved Ratcheting}

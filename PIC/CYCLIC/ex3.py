@@ -12,14 +12,15 @@ node 1 0 0
 node 2 1 0
 
 material Balloon1D 1 \
-1 5E2 4 \
+1 1E2 2 \
 1E1 0 0 0 \ ! u
-1 1e-2 0 0 \ ! hfm
-0 2e-2 0 0 \ ! hfc
-0 0 0 0 \ ! ham
+1 0 0 0 \ ! hfm
+0 5e-2 0 0 \ ! hfc
+1e-2 0 0 0 \ ! ham
 0 0 0 0 \ ! hac
 0 \ ! density
--fc 1E-1 1. \ ! fc
+-fc 5E-1 1. \ ! fc
+-na 1e0 1.
 
 element T2D2 1 1 2 1 1
 
@@ -37,7 +38,7 @@ amplitude Custom 3 1
 
 disp 1 3 2 1 2
 
-step static 1 50
+step static 1 20
 set fixed_step_size 1
 set ini_step_size {dt}
 set symm_mat 0
