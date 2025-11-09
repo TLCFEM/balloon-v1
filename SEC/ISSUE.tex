@@ -2,7 +2,7 @@
 The two-surface formulation, including bounding surface theory, has been applied to various materials, including metals \citep{Mahan2011}.
 Despite differences in terminology, subloading surface theory closely resembles bounding surface theory: both use two evolving stress--space surfaces, with the outer bounding the inner, subject to isotropic and kinematic hardening.
 
-Compared with bounding surface theory \citep{Mahan2011}, subloading surface theory is more straightforward and easier to implement \citep{Chang2025}.
+Compared with bounding surface theory \citep{Dafalias1975,Dafalias1977,Mahan2011}, subloading surface theory is more straightforward and easier to implement \citep{Chang2025}.
 As noted by \citet[][see \S~8.2.3]{Hashiguchi2017}, bounding surface theory cannot ensure smooth stiffness at the elastic--plastic transition because of its non-shrinking elastic region, which also prevents hysteresis under small one--sided cycles.
 Subloading surface theory avoids these drawbacks.
 However, just like other (conventional and non-conventional) plasticity models, it has limited capability in describing various cyclic phenomena, including, for example, stable hysteresis loops under fixed strain/stress amplitudes, cyclic hardening/softening, stress relaxation, etc.
@@ -58,6 +58,9 @@ These two back stress like terms have different effects.
     This enables the model to capture early re-yielding phenomena as termed by \citep{Yoshida2002a}.
           It also provides a mechanism to control the amount of plastic strain accumulation during one--sided and small loading cycles.
 \end{itemize}
+
+One shall note that the normal yield ratio $z$ serves a similar purpose to the variable $\delta$ in bounding surface formulations \citep{Dafalias1975,Mahan2011}.
+Both variables quantify the proximity of the active plasticity surface to a reference surface, though different terminologies are used in each formulation.
 \subsubsection{Flow and Evolution Rules}
 Assuming von Mises framework (thus $\bs=\dev{\bsigma}$) and associative plasticity, the flow rule takes the well--known form,
 \begin{gather}
