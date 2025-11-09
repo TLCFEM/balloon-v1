@@ -8,8 +8,10 @@ Subloading surface theory avoids these drawbacks.
 However, just like other (conventional and non-conventional) plasticity models, it has limited capability in describing various cyclic phenomena, including, for example, stable hysteresis loops under fixed strain/stress amplitudes, cyclic hardening/softening, stress relaxation, etc.
 As a result, simulating experimental results \citep[e.g.,][]{Hassan1992,Hassan1994,Hassan2008} would be challenging if not impossible without further enhancements.
 
-Since hysteresis loops would inevitably accumulate plastic strain, unless the size of the active plasticity surface (being either the subloading surface, the conventional yield surface, or other appropriate surfaces in other theories) has saturated to a constant value, stable hysteresis loops cannot form.
-However, experimental evidence \citep[see, e.g.,][]{Kang2002,Kang2006} has shown that further (isotropic) hardening is still possible after forming stable hysteresis loops under fixed strain/stress loading brackets.
+Since hysteresis loops inevitably lead to the accumulation of plastic strain, stable hysteresis loops cannot form unless the size of the active plasticity surface --- whether it be the subloading surface, the conventional yield surface, or another appropriate surface in alternative theories --- has saturated to a constant value.
+However, experimental evidence \citep[see, e.g.,][]{Yoshida2002a,Kang2002,Kang2006} demonstrates that further hardening can still occur even after stable hysteresis loops have formed under fixed strain or stress loading conditions.
+This is often known as work hardening stagnation \citep{Yoshida2002a,Chaboche2008}.
+However, being able to capture such behaviour is not sufficient.
 \subsection{The Basic Framework}
 To lay the foundation for subsequent discussions, we briefly summarise the general framework of subloading surface theory in this section, primarily following the formulation of \citet{Chang2025}, which is more concise yet mathematically equivalent to the original by \citet{Hashiguchi2023a}.
 It should be noted that the notation system used in this work is \textit{not} fully compatible with that of the previous work \citep{Chang2025}.
@@ -46,7 +48,8 @@ These two back stress like terms have different effects.
     \item The first term $H_\alpha\balpha$ is identical to the conventional back stress term, both $\balpha$ and $H_\alpha$ evolve with the accumulated plastic strain.
           As commonly understood, this term contributes to kinematic hardening by shifting the center of the surface, and is primarily responsible for the Bauschinger effect.
     \item The second term $\left(1-z\right)H_d\bd$ has negligible influence during loading as $z$ approaches unity.
-          However, during unloading when $z$ decreases, it further shifts the center of the subloading surface away from $H_\alpha\balpha$, thus effectively enhancing the Bauschinger effect.
+    However, during unloading, as $z$ decreases, the center of the active plasticity surface is further shifted away from $H_\alpha\balpha$, thereby effectively enhancing the Bauschinger effect.
+    This leads to a phenomenon known as early re-yielding in the literature \citep{Yoshida2002a}.
           It also provides a mechanism to control the amount of plastic strain accumulation during one--sided and small loading cycles.
 \end{itemize}
 \subsubsection{Flow and Evolution Rules}
