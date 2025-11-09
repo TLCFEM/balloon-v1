@@ -9,16 +9,16 @@ By definition, this loading level is normalised between \num{0} and \num{1} thus
 Thus, load reversals can be detected with ease by checking whether $z$ ever decreases within the given (sub-)step.
 
 For a material (point) that has experienced up to $N$ load reversals, let the normal yield ratio at each load reversal be denoted as $z_r^j$ with $j=1,2,3,\cdots,N$ standing for the $j$-th reversal.
-The initial value is $z_r^0=0$.
+The initial value, if required, can be set to zero: $z_r^0=0$.
 We use $z_r$ to denote some measure of the entirety of $z_r^j$, thus,
 \begin{gather}
     \boxed{z_r=Z\left(\left\{z_r^j\right\}_{j=0}^N\right)=Z\left(z_r^0,z_r^1,z_r^2,\cdots,z_r^N\right).}
 \end{gather}
 In the above, $Z\left(\cdot\right)$ is a function that maps the collection $\left\{z_r^j\right\}_{j=0}^N$ to a single scalar $z_r$.
 Depending on the specific choice of function $Z$, $z_r$ embodies different memory effects.
-For example, $z_r$ can take the maximum value of the most recent $M$ values.
+For example, $z_r$ can take the maximum/minimum value of the most recent $M$ values.
 When $M=1$, $z_r$ is the most recent value $z_r^N$.
-When $M\geqslant{}N$, $z_r$ is simply the maximum value of all $z_r^j$.
+When $M\geqslant{}N$, $z_r$ is simply the maximum/minimum value of all $z_r^j$.
 \subsection{Additive Decomposition of Plastic Strain}
 It is possible to split the plastic strain $\bvarepsilon^p$ into at least two parts,
 \begin{gather}\label{eq:split_ep}
@@ -26,8 +26,8 @@ It is possible to split the plastic strain $\bvarepsilon^p$ into at least two pa
 \end{gather}
 with $\bvarepsilon^p_m$ denoting the `monotonic' part and $\bvarepsilon^p_c$ denoting the `cyclic' part.
 The rationale behind this split is straightforward: the accumulated plastic strain $q$ defined in \eqsref{eq:q_original} only tracks the total amount of plastic deformation, although it is non-decreasing, there is no way to infer further details of the corresponding loading process.
-The split \eqsref{eq:split_ep} allows one to identify the plastic strain accumulated during monotonic loading and that accumulated during load reversals.
-This makes it possible to account for various effects such as rearrangement of dislocations.
+The split \eqsref{eq:split_ep} allows one to distinguish between the plastic strain accumulated during monotonic loading (according to an appropriate definition of `monotonic') and that accumulated during load reversals.
+This distinction makes it possible to account for various microstructural effects, such as the rearrangement/annihilation of dislocations.
 It is reasonable to assume that the plastic strain increment $\dot{\bvarepsilon}^p$ within a given (sub-)step would be distributed between two parts according to some rule, which may depend on the current loading level $z$, and/or its history $z_r$.
 Without loss of generality, one can thus define
 \begin{gather}\label{eq:split_q_definition}
@@ -39,6 +39,9 @@ A similar split can be applied to $q$ such that
 \begin{gather}\label{eq:split_q}
 \boxed{\dot{q}_m=K_m\dot{q},\qquad\dot{q}_c=K_c\dot{q}.}
 \end{gather}
+
+It is possible to propose a more sophisticated definition of $K_m$ that may further account for other history variables, such as plastic strain.
+We are refrained from doing so in this work to keep the formulation simple.
 \subsection{Proposed Isotropic Hardening}
 With \eqsref{eq:split_q}, the isotropic bound $F$ can be defined as a function of both $q_m$ and $q_c$ instead of $q$.
 Assuming an additive decomposition, it can be expressed as
@@ -48,15 +51,19 @@ Assuming an additive decomposition, it can be expressed as
 In the following, we elaborate the two components $F_m$ and $F_c$ and their effects on isotropic hardening respectively.
 \subsubsection{Isotropic Hardening Stagnation}
 Noting that there is deterministic mapping between $\Delta{}z$ and $\Delta{}q$ (see discussions around \eqsref{eq:int_z}), those aforementioned strain space formulations for isotropic hardening stagnation can be equivalently reformulated in the $z$ space, thus the stress space.
-We assume $F_m=F_m\left(q_m\right)$ is a function of $q_m$ solely.
+We assume
+\begin{gather}\label{eq:isotropic_stagnation}
+    F_m=F_m\left(q_m\right)
+\end{gather}
+is a function of $q_m$ solely.
 By choosing a proper $K_m$, for example, $K_m=0$ for $0\leqslant{}z\leqslant{}z_r$, it is possible to fully deactivate the evolution of $q_m$, thus $F_m$, during cyclic loading phase.
-Unlike existing formulations, this approach requires no additional history variables for the secondary surface (whether defined in stress or strain space).
+
+This type of stagnation is similar to the approach proposed by \citet{Ucak2011,Ucak2012}, who used a certain set of criteria based on the same memory surface \citep{Ohno1982} to distinguish between two distinct regions/phases: the plateau region where isotropic hardening stagnates, and the hardening region where isotropic hardening evolves normally.
+A recent application of this idea can be found in the work by \citet{Hu2018}.
+Unlike existing formulations, the proposed approach \eqsref{eq:isotropic_stagnation} requires no additional history variables for a secondary surface (whether defined in stress or strain space).
 Similar information has already been inherently embedded in $z$.
 Furthermore, because $z$ is a scalar, it avoids tensor bookkeeping and yields a simpler, more efficient implementation.
 Finally, because $K_m$ is a continuous function, when $z$ gradually increases, it can be gradually (re-)activated from a partially or fully deactivated state.
-
-This type of stagnation is similar to the approach proposed by \citet{Ucak2011,Ucak2012}, who used a certain set of criteria based on the same memory surface \citep{Ohno1982} to distinguish between two distinct regions: the plateau region where isotropic hardening stagnates, and the hardening region where isotropic hardening evolves normally.
-A recent application of this idea can be found in the work by \citet{Hu2018}.
 \subsubsection{Cyclic Hardening/Softening}
 The cyclic hardening/softening is controlled by $F_c$, which is assumed to be governed by the following evolution rule,
 \begin{gather}\label{eq:fc}
@@ -69,11 +76,11 @@ Meanwhile, since $H_c=H_c\left(q_m\right)$ depends on $q_m$, it would also evolv
 \eqsref{eq:fc} thus allows multi-stage saturation that allows cyclic hardening/softening under various loading histories.
 This differs from other models in the literature \citep[e.g.,][]{Ohno1982,Zheng2026} in which similar saturation can only occur once.
 \subsubsection{Other Relavent Changes}
-With \eqsref{eq:f_revised}, isotropic hardening is bounded by the size $F_m+H_c$ which is governed by $q_m$ solely.
+With \eqsref{eq:f_revised}, the size of the subloading surface (isotropic hardening) is bounded by $F_m+H_c$ which is governed by $q_m$ solely.
 Stable hysteresis loops would eventually saturate $F$ to this value via the accumulation of $q_c$.
-
-Recalling the constraint that $H_d<F$, it would be more consistent to redefine $H_d=H_d\left(q_m\right)$ such that it depends on $q_m$ solely instead of $q$.
-For a similar reason, it is also plausible to redefine the kinematic hardening bound as $H_\alpha=H_\alpha\left(q_m\right)$.
+In principle, a similar definition can be applied to bounds $H_\alpha$ and $H_d$.
+However, there is no strong experimental evidence indicating that these bounds exhibit hardening or softening behaviour.
+To avoid unnecessary complexity, they are defined solely as functions of $q_m$, i.e., $H_d=H_d\left(q_m\right)$ and $H_\alpha=H_\alpha\left(q_m\right)$.
 \subsection{Objective Transition}\label{sec:obj_trans}
 As shown in \eqsref{eq:int_z}, for a given interval of $z$, the corresponding change in $q$ is always constant, regardless of the specific form of $U(z)$ --- as long as it is given.
 However, $z$ only measures the relative loading level.
