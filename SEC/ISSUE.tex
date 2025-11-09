@@ -1,4 +1,4 @@
-\section{Background}
+\section{Introduction}
 The two-surface formulation, including bounding surface theory, has been applied to various materials, including metals \citep{Mahan2011}.
 Despite differences in terminology, subloading surface theory closely resembles bounding surface theory: both use two evolving stress--space surfaces, with the outer bounding the inner, subject to isotropic and kinematic hardening.
 
@@ -13,6 +13,11 @@ However, experimental evidence \citep[see, e.g.,][]{Yoshida2002a,Kang2002,Kang20
 This is often known as work hardening stagnation \citep{Yoshida2002a,Chaboche2008}.
 However, being able to capture such behaviour is not sufficient.
 Some metals may exhibit further hardening/softening under cyclic loadings \citep{Hassan1994}.
+
+In this work, we propose a flexible isotropic hardening rule based on an additive decomposition of plastic strain.
+Combined with additional modifications to the subloading surface theory, the proposed model is able to capture a wide range of cyclic phenomena, including stable hysteresis loops under fixed strain/stress amplitudes, work hardening stagnation, cyclic hardening/softening, etc.
+These are demonstrated through numerical simulations of various experimental results from the literature.
+\section{Background}
 \subsection{The Basic Framework}
 To lay the foundation for subsequent discussions, we briefly summarise the general framework of subloading surface theory in this section, primarily following the formulation of \citet{Chang2025}, which is more concise yet mathematically equivalent to the original by \citet{Hashiguchi2023a}.
 It should be noted that the notation system used in this work is \textit{not} fully compatible with that of the previous work \citep{Chang2025}.
@@ -38,19 +43,19 @@ For simplicity, $H_\alpha$ and $H_d$ can be taken as constant fractions of $F$, 
     \centering\includegraphics[page=1]{PICCOLLECTION}
     \caption{the subloading surface}\label{fig:subloading_surface}
 \end{figure}
-\figref{fig:subloading} compares the effects of $\balpha$ and $\bd$.
-To make the differences clearer, some parameters are deliberately set to small values.
-\begin{figure}[htb]
-    \centering\includegraphics{PIC/illustration_subloading}
-    \caption{effects of $\balpha$ and $\bd$}\label{fig:subloading}
-\end{figure}
+% \figref{fig:subloading} compares the effects of $\balpha$ and $\bd$.
+% To make the differences clearer, some parameters are deliberately set to small values.
+% \begin{figure}[htb]
+%     \centering\includegraphics{PIC/illustration_subloading}
+%     \caption{effects of $\balpha$ and $\bd$}\label{fig:subloading}
+% \end{figure}
 These two back stress like terms have different effects.
 \begin{itemize}
     \item The first term $H_\alpha\balpha$ is identical to the conventional back stress term, both $\balpha$ and $H_\alpha$ evolve with the accumulated plastic strain.
           As commonly understood, this term contributes to kinematic hardening by shifting the center of the surface, and is primarily responsible for the Bauschinger effect.
     \item The second term $\left(1-z\right)H_d\bd$ has negligible influence during loading as $z$ approaches unity.
     However, during unloading, as $z$ decreases, the center of the active plasticity surface is further shifted away from $H_\alpha\balpha$, thereby effectively enhancing the Bauschinger effect.
-    This leads to a phenomenon known as early re-yielding in the literature \citep{Yoshida2002a}.
+    This enables the model to capture early re-yielding phenomena as termed by \citep{Yoshida2002a}.
           It also provides a mechanism to control the amount of plastic strain accumulation during one--sided and small loading cycles.
 \end{itemize}
 \subsubsection{Flow and Evolution Rules}
@@ -83,7 +88,7 @@ For the normalised back stress $\balpha$, alternatively, the linear variant can 
 \begin{gather}
     \dot{\balpha}=b_\alpha\dot{\bvarepsilon^p}=b_\alpha\bn\gamma.
 \end{gather}
-\section{Limitations of Existing Formulation}
+\subsection{Limitations of Existing Formulation}
 The most distinctive feature of the subloading surface theory is that the normal yield ratio $z$ gradually approaches unity from zero during the loading process.
 Thus, there is no elastic region during this process, as $z$ accumulates with plastic deformation since it is driven by $q$ as defined in \eqsref{eq:z_evolution}.
 \eqsref{eq:z_evolution} can be rearranged and integrated to obtain the change of $q$ due to the change of $z$, say, for example, from $z=0$ to some $z=z^*<1$,
