@@ -7,6 +7,9 @@ As noted by \citet[][see \S~8.2.3]{Hashiguchi2017}, bounding surface theory cann
 Subloading surface theory avoids these drawbacks.
 However, just like other (conventional and non-conventional) plasticity models, it has limited capability in describing various cyclic phenomena, including, for example, stable hysteresis loops under fixed strain/stress amplitudes, cyclic hardening/softening, stress relaxation, etc.
 As a result, simulating experimental results \citep[e.g.,][]{Hassan1992,Hassan1994,Hassan2008} would be challenging if not impossible without further enhancements.
+
+Since hysteresis loops would inevitably accumulate plastic strain, unless the size of the active plasticity surface (being either the subloading surface, the conventional yield surface, or other appropriate surfaces in other theories) has saturated to a constant value, stable hysteresis loops cannot form.
+However, experimental evidence \citep[see, e.g.,][]{Kang2002,Kang2006} has shown that further (isotropic) hardening is still possible after forming stable hysteresis loops under fixed strain/stress loading brackets.
 \subsection{The Basic Framework}
 To lay the foundation for subsequent discussions, we briefly summarise the general framework of subloading surface theory in this section, primarily following the formulation of \citet{Chang2025}, which is more concise yet mathematically equivalent to the original by \citet{Hashiguchi2023a}.
 It should be noted that the notation system used in this work is \textit{not} fully compatible with that of the previous work \citep{Chang2025}.
@@ -92,4 +95,4 @@ To simulate various cyclic phenomena \citep[see, e.g.,][]{Hassan1992,Hassan1994}
 One should be aware that this approach does not work if kinematic hardening is not defined.
 Since the evolution of the back stress is ultimately driven by the plastic strain, such an approach can be equivalently formulated in the strain space.
 \citet{Ohno1982,Chaboche2008,Hashiguchi2023a} all adopt a strain space formulation.
-Such an approach is widely used in the literature as a basic building block for more complex models \citep[see, e.g.,][]{Xu2016,Zheng2026}.
+Such an approach is widely used in the literature as a basic building block for more complex models \citep[see, e.g.,][]{Xu2016,Xie2021,Zheng2026}.

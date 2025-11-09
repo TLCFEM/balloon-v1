@@ -4,7 +4,7 @@ from pathlib import Path
 import numpy as np
 from runner import AutoSwitch, gplot
 
-dt = 2e-3
+dt = 5e-3
 interval = int(0.25 / dt)
 
 model = rf"""
@@ -59,13 +59,15 @@ if __name__ == "__main__":
     prefix = Path(__file__).parent
     sys.path.insert(0, str(prefix.resolve()))
 
+    size = (3.1, 2)
+
     with AutoSwitch(model=model):
         strain = np.loadtxt("R3-E1.txt")
         stress = np.loadtxt("R2-S1.txt")
         hist = np.loadtxt("R1-HIST1.txt")
 
         fig, ax = gplot(
-            strain[:, 1] * 1000, stress[:, 1] * 1000, cmap="rainbow", size=(4, 2.5)
+            strain[:, 1] * 1000, stress[:, 1] * 1000, cmap="rainbow", size=size
         )
         ax.set_xlabel("strain ($10^{-3}$)")
         ax.set_ylabel("stress (MPa)")
@@ -76,7 +78,7 @@ if __name__ == "__main__":
             np.array(range(len(turning_points))) / 2,
             turning_points * 1000,
             color="#ca0020",
-            size=(4, 2.5),
+            size=size,
             scatter=True,
         )
         ax.set_xlabel("cycles")
@@ -91,7 +93,7 @@ if __name__ == "__main__":
             (9, "d", "d"),
         ]:
             fig, ax = gplot(
-                strain[:, 1] * 1000, hist[:, idx], cmap="rainbow", size=(4, 2.5)
+                strain[:, 1] * 1000, hist[:, idx], cmap="rainbow", size=size
             )
             ax.set_xlabel("strain ($10^{-3}$)")
             ax.set_ylabel(label)
