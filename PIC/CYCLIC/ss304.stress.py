@@ -14,13 +14,14 @@ node 2 1 0
 material Balloon1D 1 \
 200 1e2 2 \
 4E3 0 -3.6E3 1e3 \ ! u
-.2 2 0 0 \ ! hfm
+.2 0 0 0 \ ! hfm
 0 0 .08 2e2 \ ! hfc
 .02 0 0 0 \ ! ham
 0 0 0 0 \ ! hac
 0 \ ! density
 -fc 1E1 1. \ ! fc
 -na 1E2 1. \ ! na
+-na 0 80. \ ! na
 -nd 1E2 .8 ! nd
 
 element T2D2 1 1 2 1 1
@@ -36,9 +37,10 @@ expression SimpleScalar 1 t t<1?.201t:.201+1.015sin(2pi*t)
 
 amplitude Custom 3 1
 
-cload 1 3 .21 1 2
+cload 1 3 .2 1 2
 
 step static 1 80
+solver aicn 1 1e3
 set fixed_step_size 1
 set ini_step_size {dt}
 set symm_mat 0
