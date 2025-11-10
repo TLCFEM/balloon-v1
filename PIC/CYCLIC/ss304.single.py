@@ -21,7 +21,7 @@ material Balloon1D 1 \
 0 \ ! density
 -fc 1E1 1. \ ! fc
 -na 1E2 1. \ ! na
--na 0 80. \ ! na
+-na 0 70. \ ! na
 -nd 1E2 .8 ! nd
 
 element T2D2 1 1 2 1 1
@@ -33,14 +33,13 @@ plainrecorder 3 Element E 1
 fix2 1 1 1
 fix2 2 2 1 2
 
-expression SimpleScalar 1 t t<1?.201t:.201+1.015sin(2pi*t)
+expression SimpleScalar 1 t sin(2pi*t)
 
 amplitude Custom 3 1
 
-cload 1 3 .2 1 2
+disp 1 3 1e-2 1 2
 
-step static 1 80
-solver aicn 1 1e3
+step static 1 25
 set fixed_step_size 1
 set ini_step_size {dt}
 set symm_mat 0
@@ -71,7 +70,19 @@ if __name__ == "__main__":
         )
         ax.set_xlabel("strain ($10^{-3}$)")
         ax.set_ylabel("stress (MPa)")
-        fig.savefig(prefix / "../ss304.stress.pdf")
+        fig.savefig(prefix / "../ss304.single.pdf")
+
+        turning_points = stress[interval :: 2 * interval, 1]
+        fig, ax = gplot(
+            np.array(range(len(turning_points))) / 2,
+            turning_points * 1000,
+            color="#ca0020",
+            size=size,
+            scatter=True,
+        )
+        ax.set_xlabel("cycles")
+        ax.set_ylabel("stress (MPa)")
+        fig.savefig(prefix / "../ss304.single.cycle.pdf")
 
         for idx, label, filename in [
             (4, "qm", "qm"),
@@ -80,7 +91,7 @@ if __name__ == "__main__":
             (8, "d", "d"),
         ]:
             fig, ax = gplot(
-                strain[:, 1] * 1000, hist[:, idx], cmap="rainbow", size=size
+                strain[:, 1] * 1000, hist[:, idx], cmap="rainbow", size=(4, 2.5)
             )
             ax.set_xlabel("strain ($10^{-3}$)")
             ax.set_ylabel(label)

@@ -21,7 +21,7 @@ material Balloon1D 1 \
 0 \ ! density
 -fc 1E1 1. \ ! fc
 -na 1E2 1. \ ! na
--na 0 80. \ ! na
+-na 0 70. \ ! na
 -nd 1E2 .8 ! nd
 
 element T2D2 1 1 2 1 1
@@ -70,7 +70,7 @@ if __name__ == "__main__":
         )
         ax.set_xlabel("strain ($10^{-3}$)")
         ax.set_ylabel("stress (MPa)")
-        fig.savefig(prefix / "../ss304.2.pdf")
+        fig.savefig(prefix / "../ss304.multi.pdf")
 
         turning_points = stress[interval :: 2 * interval, 1]
         fig, ax = gplot(
@@ -82,7 +82,7 @@ if __name__ == "__main__":
         )
         ax.set_xlabel("cycles")
         ax.set_ylabel("stress (MPa)")
-        fig.savefig(prefix / "../ss304.2.cycle.pdf")
+        fig.savefig(prefix / "../ss304.multi.cycle.pdf")
 
         for idx, label, filename in [
             (4, "qm", "qm"),
