@@ -21,7 +21,7 @@ material Balloon1D 1 \
 0 \ ! density
 -fc 1E1 1. \ ! fc
 -na 1E2 1. \ ! na
--na 0 70. \ ! na
+-na 0 90. \ ! na
 -nd 1E2 .8 ! nd
 
 element T2D2 1 1 2 1 1

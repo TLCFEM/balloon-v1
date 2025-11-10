@@ -21,7 +21,7 @@ material Balloon1D 1 \
 0 \ ! density
 -fc 1E1 1. \ ! fc
 -na 1E2 1. \ ! na
--na 0 70. \ ! na
+-na 0 90. \ ! na
 -nd 1E2 .8 ! nd
 
 element T2D2 1 1 2 1 1
@@ -37,7 +37,7 @@ expression SimpleScalar 1 t t<1?.201t:.201+1.015sin(2pi*t)
 
 amplitude Custom 3 1
 
-cload 1 3 .232 1 2
+cload 1 3 .24 1 2
 
 step static 1 80
 solver aicn 1 1e3
