@@ -14,7 +14,7 @@ node 2 1 0
 material Balloon1D 1 \
 200 1e2 2 \
 4E3 0 -3.6E3 1e3 \ ! u
-.28 0 0 0 \ ! hfm
+.24 0 0 0 \ ! hfm
 0 0 .1 2e2 \ ! hfc
 .02 0 0 0 \ ! ham
 0 0 0 0 \ ! hac
@@ -37,7 +37,7 @@ expression SimpleScalar 1 t t<1?.201t:.201+1.015sin(2pi*t)
 
 amplitude Custom 3 1
 
-cload 1 3 .265 1 2
+cload 1 3 .232 1 2
 
 step static 1 80
 solver aicn 1 1e3
