@@ -15,7 +15,7 @@ material Balloon1D 1 \
 200 1e2 2 \
 4E3 0 -3.6E3 1e3 \ ! u
 .2 0 0 0 \ ! hfm
-0 0 .08 2e2 \ ! hfc
+0 0 .2 2e2 \ ! hfc
 .02 0 0 0 \ ! ham
 0 0 0 0 \ ! hac
 0 \ ! density
