@@ -3,6 +3,7 @@ import shutil
 import subprocess
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from time import sleep
 
 import numpy as np
 from matplotlib import pyplot as plt
@@ -87,5 +88,6 @@ class AutoSwitch(TemporaryDirectory):
 
     def __exit__(self, exc_type, exc_value, traceback):
         if self._old_cwd is not None:
+            sleep(1)
             os.chdir(self._old_cwd)
         return super().__exit__(exc_type, exc_value, traceback)
