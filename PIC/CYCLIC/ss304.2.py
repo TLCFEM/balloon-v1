@@ -15,12 +15,12 @@ material Balloon1D 1 \
 200 1e2 2 \
 4E3 0 -3.6E3 1e3 \ ! u
 .2 2 0 0 \ ! hfm
-0 0 .1 1e2 \ ! hfc
-.05 0 0 0 \ ! ham
+0 0 .08 2e2 \ ! hfc
+.02 0 0 0 \ ! ham
 0 0 0 0 \ ! hac
 0 \ ! density
 -fc 1E1 1. \ ! fc
--na 2E1 1. \ ! na
+-na 1E2 1. \ ! na
 -nd 1E2 .8 ! nd
 
 element T2D2 1 1 2 1 1
