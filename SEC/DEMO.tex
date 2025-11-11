@@ -47,10 +47,13 @@ As a result, the hysteresis loops stabilise immediately.
 \caption{isotropic hardening stagnation controlled by $k_r$}
 \end{figure}
 \subsection{Cyclic Hardening and Softening}
-\figref{fig:cyclic_hardening}
+\figref{fig:cyclic_hardening} shows an example of cyclic hardening using the following expression for $H_c$.
 \begin{gather}
-    F_c=0.05q_m.
+    H_c=0.05q_m.
 \end{gather}
+Since $F_c$ does not evolve when $z<z_r$, the very first cycle sets an anchor value.
+Subsequent loops would mostly contribute to $q_c$ that gradually saturates $F_c$ to $H_c$.
+This process repeats whenever a new maximum $q_m$ is reached and the hysteresis loops stabilise eventually.
 \begin{figure}[htb]
 \centering
 \begin{subfigure}[b]{.49\textwidth}
@@ -66,11 +69,6 @@ As a result, the hysteresis loops stabilise immediately.
 \end{subfigure}
 \caption{cyclic hardening}\label{fig:cyclic_hardening}
 \end{figure}
-
-\figref{fig:cyclic_softening}
-\begin{gather}
-    F_c=-0.05q_m.
-\end{gather}
 \begin{figure}[htb]
 \centering
 \begin{subfigure}[b]{.49\textwidth}
@@ -86,7 +84,13 @@ As a result, the hysteresis loops stabilise immediately.
 \end{subfigure}
 \caption{cyclic softening}\label{fig:cyclic_softening}
 \end{figure}
-\subsection{Improved Ratcheting}
+If $F_c$ decreases with $q_m$, cyclic softening can be observed as shown in
+\figref{fig:cyclic_softening}, in which the following expression is used.
+\begin{gather}
+    F_c=-0.05q_m.
+\end{gather}
+However, for softening, $z_r$ may stay unchanged after reaching unity, making subsequent softening difficult if not impossible to achieve since \eqsref{eq:km} only accounts for the `relative' load level instead of the absolute one.
+It is possible to refine the definitions of $K_m$ and $K_c$ to account for additional factors, but this is not pursued here for brevity.
 \subsection{SS304}
 The parameters/expressions used in this example are summarised in \tabref{tab:ss304}.
 \begin{table}[htb]
