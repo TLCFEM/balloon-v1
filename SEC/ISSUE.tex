@@ -1,23 +1,29 @@
 \section{Introduction}
-The two-surface formulation, including bounding surface theory, has been applied to various materials, including metals \citep{Mahan2011}.
-Despite differences in terminology, subloading surface theory closely resembles bounding surface theory: both use two evolving stress--space surfaces, with the outer bounding the inner, subject to isotropic and kinematic hardening.
+Simulating the material behaviour of metals under cyclic loading has long been a significant challenge.
+Metals, whether monocrystalline or polycrystalline, exhibit a range of complex phenomena under repeated loading \citep{Suresh1998}, including the Bauschinger effect, elastic shakedown, cyclic hardening or softening, and ratcheting.
+Conventional plasticity theory \citep[see][]{Simo1998} can reproduce monotonic responses reasonably well, but it often fails to capture these cyclic effects with sufficient accuracy.
+To overcome these limitations, extensions to classical plasticity have been developed, giving rise to a variety of non-conventional plasticity models.
 
-Compared with bounding surface theory \citep{Dafalias1975,Dafalias1977,Mahan2011}, subloading surface theory is more straightforward and easier to implement \citep{Chang2025}.
-As noted by \citet[][see \S~8.2.3]{Hashiguchi2017}, bounding surface theory cannot ensure smooth stiffness at the elastic--plastic transition because of its non-shrinking elastic region, which also prevents hysteresis under small one--sided cycles.
-Subloading surface theory avoids these drawbacks.
-However, just like other (conventional and non-conventional) plasticity models, it has limited capability in describing various cyclic phenomena, including, for example, stable hysteresis loops under fixed strain/stress amplitudes, cyclic hardening/softening, stress relaxation, etc.
-As a result, simulating experimental results \citep[e.g.,][]{Hassan1992,Hassan1994,Hassan2008} would be challenging if not impossible without further enhancements.
+Among these, two-surface formulations, particularly bounding surface theory \citep{Dafalias1975,Krieg1975} and subloading surface theory \citep{Hashiguchi1980,Hashiguchi1989,Hashiguchi2023a,Hashiguchi2024}, have attracted considerable attention and have been applied to a wide range of materials.
+Although the two theories differ in terminology, they are conceptually similar: both introduce two evolving surfaces in stress space, an inner active surface confined by an outer bounding surface, each subject to isotropic and kinematic hardening.
+In both cases, the evolution of the inner surface depends on its proximity to the bounding surface.
 
-Since hysteresis loops inevitably lead to the accumulation of plastic strain, stable hysteresis loops cannot form unless the size of the active plasticity surface --- whether it be the subloading surface, the conventional yield surface, or another appropriate surface in alternative theories --- has saturated to a constant value.
-However, experimental evidence \citep[see, e.g.,][]{Yoshida2002a,Kang2002,Kang2006} demonstrates that further hardening can still occur even after stable hysteresis loops have formed under fixed strain or stress loading conditions.
-This is often known as work hardening stagnation \citep{Yoshida2002a,Chaboche2008}.
-However, being able to capture such behaviour is not sufficient.
-Some metals may exhibit further hardening/softening under cyclic loadings \citep{Hassan1994}.
-Although recent endeavours typically involve both isotropic and kinematic hardening components \citep[e.g.,][]{Yang2023}, more advanced cyclic response is often achieved largely by complex kinematic hardening rules.
+Compared with bounding surface theory \citep{Dafalias1975,Dafalias1977,Mahan2011}, subloading surface theory offers a more straightforward formulation and is easier to implement numerically \citep{Chang2025}.
+As noted by \citet[][see \S 8.2.3]{Hashiguchi2017}, bounding surface theory cannot guarantee smooth stiffness at the elastic--plastic transition due to its non-shrinking elastic region, which also inhibits hysteresis under small one-sided cycles.
+Subloading surface theory circumvents these issues.
+Nevertheless, like other conventional and non-conventional plasticity models, it remains limited in its ability to describe several key cyclic phenomena.
 
-In this work, we propose a flexible isotropic hardening rule based on an additive decomposition of plastic strain.
-Combined with additional modifications to the subloading surface theory, the proposed model is able to capture a wide range of cyclic phenomena, including stable hysteresis loops under fixed strain/stress amplitudes, work hardening stagnation, cyclic hardening/softening, etc.
-These are demonstrated through numerical simulations of various experimental results from the literature.
+For instance, hysteresis loops inherently lead to the accumulation of plastic strain.
+As a result, stable loops cannot form unless the size of the active plasticity surface --- whether the subloading surface, the classical yield surface, or an analogous surface in alternative formulations --- saturates to a constant value.
+However, experimental observations \citep[e.g.,][]{Yoshida2002a,Kang2002,Kang2006} show that additional hardening can still occur even after stable hysteresis loops develop under fixed strain or stress amplitudes.
+This behaviour, known as work hardening stagnation \citep{Yoshida2002a,Chaboche2008}, is necessary but not sufficient for accurate modelling.
+Some metals exhibit further cyclic hardening or softening under continued cyclic loading \citep{Hassan1994}.
+Consequently, reproducing experimental results \citep[e.g.,][]{Hassan1992,Hassan1994,Hassan2008} can be difficult, if not impossible, without additional refinements.
+Although recent efforts typically incorporate both isotropic and kinematic hardening \citep[e.g.,][]{Yang2023}, improvements in cyclic response have often relied primarily on increasingly complex kinematic hardening rules.
+
+In this work, we introduce a flexible isotropic hardening rule based on an additive decomposition of plastic strain.
+Combined with targeted modifications to subloading surface theory, the resulting model can reproduce a broad spectrum of cyclic behaviours, including stable hysteresis loops under fixed strain or stress amplitudes, work hardening stagnation, and cyclic hardening or softening, providing an alternative concise approach to constitutive modelling of metals.
+These capabilities are illustrated through numerical examples.
 \section{Background}
 \subsection{The Basic Framework}
 To lay the foundation for subsequent discussions, we briefly summarise the general framework of subloading surface theory in this section, primarily following the formulation of \citet{Chang2025}, which is more concise yet mathematically equivalent to the original by \citet{Hashiguchi2023a}.
