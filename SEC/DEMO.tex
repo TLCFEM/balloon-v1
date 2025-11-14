@@ -206,13 +206,14 @@ Hysteresis loops stabilise immediately.
 One can simply set $F_c=0$.
 Calibration is relatively straightforward.
 The parameters/expressions used in this example are summarised in \tabref{tab:q345}.
+Instead of using the mean value of recent a few $z$ values at load reversals, in this example, the maximum is used.
 \begin{table}[htb]
     \footnotesize\centering
     \caption{model parameters/expressions for Q345}\label{tab:q345}
     \begin{tabular}{ll}
         \toprule
         evolution of $z$          & $u=100+3900\exp{\left(-1000q_m\right)}$                 \\
-        isotropic hardening $F_m$ & $F_m=0.33+2q_m$ (\si{\giga\pascal})                     \\
+        isotropic hardening $F_m$ & $F_m=0.33+q_m$ (\si{\giga\pascal})                     \\
         isotropic hardening $F_c$ & $F_c=0$ (\si{\giga\pascal})                             \\
         kinematic hardening       & linear (Prager type) + exponential (AF type) saturation \\
         similarity                & $H_d=0.8F$                                              \\\bottomrule
@@ -223,13 +224,13 @@ The parameters/expressions used in this example are summarised in \tabref{tab:q3
     \begin{subfigure}[b]{.49\textwidth}
         \centering
         \includegraphics{PIC/q345.pdf}
-        \caption{hysteresis response}
+        \caption{CAA loading protocol}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{.49\textwidth}
         \centering
-        \includegraphics{PIC/q345.cycle.pdf}
-        \caption{stress amplitude per cycle}
+        \includegraphics{PIC/q345.p1.pdf}
+        \caption{CAA-P1 loading protocol}
     \end{subfigure}
     \caption{hysteresis loops of Q345 \citep[cf.][Fig. 5]{Zheng2026}}\label{fig:q345.hysteresis}
 \end{figure}
