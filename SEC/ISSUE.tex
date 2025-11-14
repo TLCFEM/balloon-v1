@@ -14,12 +14,19 @@ Subloading surface theory circumvents these issues.
 Nevertheless, like other conventional and non-conventional plasticity models, it remains limited in its ability to describe several key cyclic phenomena.
 
 For instance, hysteresis loops inherently lead to the accumulation of plastic strain.
-As a result, stable loops (plastic shakedown) cannot form \textit{unless} the size of the active plasticity surface --- whether the subloading surface, the classical yield surface, or an analogous surface in alternative formulations --- saturates to a constant value.
+As a result, stable loops (plastic shakedown) cannot form \textit{unless} the size of the active plasticity surface --- whether the subloading surface, the classical yield surface, or an analogous surface in alternative formulations --- has saturated to a constant value.
 This is understandable since \textit{`the \textnormal{(unbounded)} isotropic hardening model suggests that the specimen will `shake down' to an elastic state'} \citep[][pg. 103]{Suresh1998}.
 However, experimental observations \citep[e.g.,][]{Yoshida2002a,Kang2002,Kang2006} show that additional hardening can still occur even after stable hysteresis loops develop under fixed strain or stress amplitudes.
-This behaviour, known as work hardening stagnation \citep{Yoshida2002a,Chaboche2008}, is necessary but not sufficient for accurate modelling.
+% This behaviour, known as work hardening stagnation \citep{Yoshida2002a,Chaboche2008}, is necessary but not sufficient for accurate modelling.
 Some metals exhibit further cyclic hardening or softening under continued cyclic loading \citep{Hassan1994}.
 Consequently, reproducing experimental results \citep[e.g.,][]{Hassan1992,Hassan1994,Hassan2008} can be difficult, if not impossible, without additional refinements.
+
+To simulate various cyclic phenomena, a mechanism that conditionally activates or deactivates isotropic hardening (a process also referred to as hardening stagnation, non-hardening region) must be introduced.
+\citet[][see, \S~2.4]{Yoshida2002} introduced an additional \textit{non-isotropic-hardening} surface in the stress space, such that isotropic hardening can be activated or deactivated based on the size of the back stress, and thus the kinematic hardening.
+One should be aware that this approach does not work if kinematic hardening is not defined, although the absence of kinematic hardening is not practically useful.
+Since the evolution of the back stress is ultimately driven by the plastic strain, such an approach can be equivalently formulated in the strain space.
+\citet{Ohno1982,Chaboche2008,Hashiguchi2023a} all adopt a strain space formulation.
+Such an approach is widely used in the literature as a basic building block for more complex models \citep[see, e.g.,][]{Xu2016,Xie2021,Zheng2026}.
 Although recent efforts typically incorporate both isotropic and kinematic hardening \citep[e.g.,][]{Yang2023}, improvements in cyclic response have often relied primarily on increasingly complex kinematic hardening rules.
 
 In this work, we introduce a flexible isotropic hardening rule based on an additive decomposition of plastic strain.
@@ -27,7 +34,7 @@ Combined with targeted modifications to subloading surface theory, the resulting
 These capabilities are illustrated through numerical examples.
 
 The rest of this paper is organised as follows.
-In \secref{sec:background}, we briefly summarise the general framework of subloading surface theory and discuss its limitations in simulating cyclic plasticity.
+In \secref{sec:background}, we briefly summarise the general framework of subloading surface theory.
 In \secref{sec:proposal}, the proposed enhancements to the model are presented, including a split of plastic strain based on load reversals, a refined isotropic hardening rule that accounts for contributions from different plastic strain components, and other necessary modifications that further improve the model's flexibility.
 In \secref{sec:example}, we first demonstrate the model's capabilities through several simple examples, followed by a few more complex cases that simulate experimental results from the literature.
 \section{Background}\label{sec:background}
@@ -50,7 +57,7 @@ f_s=\norm{\beeta}-zF=\norm{\bs-H_\alpha\balpha+\left(z-1\right)H_d\bd}-zF,
 where $\beeta$ is the shifted stress tensor, $\bs=\bs\left(\bsigma\right)$ is some measure of the stress tensor $\bsigma$, in von Mises models, it is often taken as the deviatoric stress tensor $\bs=\dev{\bsigma}$, $\balpha$ is the back stress tensor normalised by $H_\alpha$, and $\bd$ is the similarity tensor \citep{Chang2025}.
 Both $\balpha$ and $\bd$ are internal history variables that evolve in stress space, with their magnitudes bounded by unity.
 Those two tensors are further scaled by the scalar fields $H_\alpha$ and $H_d$ respectively, which may also evolve with the development of plasticity.
-For simplicity, $H_\alpha$ and $H_d$ can be taken as constant fractions of $F$, a scalar that characterises the size of the subloading surface and may be interpreted as the yield stress.
+For simplicity, $H_\alpha$ and $H_d$ can be taken as fractions of $F$, a scalar that characterises the size of the subloading surface and may be interpreted as the (reference) yield stress.
 \figref{fig:subloading_surface} presents a graphical illustration of each term.
 \begin{figure}[htb]
     \centering\includegraphics[page=1]{PICCOLLECTION}
@@ -75,7 +82,7 @@ These two back stress like terms have different effects.
 One shall note that the normal yield ratio $z$ serves a similar purpose to the variable $\delta$ in bounding surface formulations \citep{Dafalias1975,Mahan2011}.
 Both variables quantify the proximity of the active plasticity surface to a reference surface, though different terminologies are used in each formulation.
 \subsubsection{Flow and Evolution Rules}
-Assuming von Mises framework (thus $\bs=\dev{\bsigma}$) and associative plasticity, the flow rule takes the well--known form,
+Assuming von Mises framework (thus $\bs=\dev{\bsigma}$) and associative plasticity, the flow rule takes the following form,
 \begin{gather}
     \dot{\bvarepsilon^p}=\gamma{}\pdfrac{f_s}{\bsigma}=\gamma{}\pdfrac{f_s}{\beeta}:\pdfrac{\beeta}{\bsigma}=\gamma\dfrac{\beeta}{\norm{\beeta}}=\gamma{}\bn,
 \end{gather}
@@ -85,7 +92,7 @@ A common choice is to track the magnitude of $\dot{\bvarepsilon^p}$, thus,
 \begin{gather}\label{eq:q_original}
     \dot{q}=\norm{\dot{\bvarepsilon^p}}=\gamma.
 \end{gather}
-For the von Mises yield criterion as expressed in \eqsref{eq:fs_original}, $\pdfrac{f_s}{\bsigma}$ happens to be normalised.
+For the yield function expressed in \eqsref{eq:fs_original}, $\pdfrac{f_s}{\bsigma}$ happens to be normalised.
 This is not always the case for other yield criteria, where further normalisation may be required to obtain the simplification $\dot{q}=\gamma$.\footnote{Such normalisation is advantageous for both formulation and implementation: a) the increment $\dot{q}$ does not depend on other tensors, making the computation of derivatives much simpler; and 2) the plastic multiplier $\gamma$ is bounded, since $\gamma=\norm{\dot{\bvarepsilon^p}}\leqslant\norm{\dot{\bvarepsilon}}$, which can help stabilise the numerical implementation.}
 With the above, the following evolution rule is introduced for $z$,
 \begin{gather}\label{eq:z_evolution}
@@ -94,30 +101,14 @@ With the above, the following evolution rule is introduced for $z$,
 where $U=U\left(z\right)$ is a function of $z$.
 Furthermore, the scalar bounds $H_\alpha=H_\alpha\left(q\right)$, $H_d=H_d\left(q\right)$ and $F=F\left(q\right)$ are defined as functions of $q$.
 It is further required that $H_d<F$ under all circumstances, which ensures that the subloading surface is always inside the yield surface.
-The tensor fields $\balpha$ and $\bd$ evolve according to Armstrong--Frederick type rules \citep{Frederick2007}.
+The tensor fields $\balpha$ and $\bd$ evolve according to Armstrong--Frederick type rules \citep{Frederick2007}, thus,
 \begin{gather}
     \dot{\balpha}=b_\alpha\left(\bn-\balpha\right)\gamma,\qquad
     \dot{\bd}=b_d\left(\bn-\bd\right)\gamma,
 \end{gather}
-where $b_\alpha$ and $b_d$ are material parameters that control the rate of evolution.
+where $b_\alpha$ and $b_d$ are material parameters.
 For the normalised back stress $\balpha$, alternatively, the linear variant can also be adopted, for example,
 \begin{gather}
     \dot{\balpha}=b_\alpha\dot{\bvarepsilon^p}=b_\alpha\bn\gamma.
 \end{gather}
-\subsection{Limitations of Existing Formulation}
-The most distinctive feature of the subloading surface theory is that the normal yield ratio $z$ gradually approaches unity from zero during the loading process.
-Thus, there is no elastic region during this process, as $z$ accumulates with plastic deformation since it is driven by $q$ as defined in \eqsref{eq:z_evolution}.
-\eqsref{eq:z_evolution} can be rearranged and integrated to obtain the change of $q$ due to the change of $z$, say, for example, from $z=0$ to some $z=z^*<1$,
-\begin{gather}\label{eq:int_z}
-    \Delta{}q=\int_{0}^{z^*}\dfrac{1}{U}~\md{z}.
-\end{gather}
-Noting that regardless of the specific form of $U\left(z\right)$, the right-hand side is always deterministic (a constant), meaning that loading from $z=0$ to $z=z^*$ always requires the same amount of plastic strain accumulation $\Delta{}q$.
-As in conventional models, stable hysteresis loops cannot form unless isotropic hardening saturates to a constant value.
-
-To simulate various cyclic phenomena \citep[see, e.g.,][]{Hassan1992,Hassan1994}, a mechanism that conditionally activates or deactivates isotropic hardening (a process also referred to as hardening stagnation, non-hardening region) must be introduced.
-
-\citet[][see, \S~2.4]{Yoshida2002} introduce an additional \textit{non-isotropic-hardening} surface in the stress space, such that isotropic hardening can be activated or deactivated based on the size of the back stress, and thus the kinematic hardening.
-One should be aware that this approach does not work if kinematic hardening is not defined.
-Since the evolution of the back stress is ultimately driven by the plastic strain, such an approach can be equivalently formulated in the strain space.
-\citet{Ohno1982,Chaboche2008,Hashiguchi2023a} all adopt a strain space formulation.
-Such an approach is widely used in the literature as a basic building block for more complex models \citep[see, e.g.,][]{Xu2016,Xie2021,Zheng2026}.
+A combination of both types is also possible \citep[e.g.,][]{Yoshida2000}.

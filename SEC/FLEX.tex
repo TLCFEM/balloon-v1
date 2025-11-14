@@ -50,7 +50,15 @@ Assuming an additive decomposition, it can be expressed as
 \end{gather}
 In the following, we elaborate the two components $F_m$ and $F_c$ and their effects on isotropic hardening respectively.
 \subsubsection{Work/Isotropic Hardening Stagnation}
-Noting that there is deterministic mapping between $\Delta{}z$ and $\Delta{}q$ (see discussions around \eqsref{eq:int_z}), those aforementioned strain space formulations for isotropic hardening stagnation can be equivalently reformulated in the $z$ space, thus the stress space.
+The most distinctive feature of the subloading surface theory is that the normal yield ratio $z$ gradually approaches unity from zero during the loading process.
+Thus, there is no elastic region during this process, as $z$ accumulates with plastic deformation since it is driven by $q$ as defined in \eqsref{eq:z_evolution}.
+\eqsref{eq:z_evolution} can be rearranged and integrated to obtain the change of $q$ due to the change of $z$, say, for example, from $z=0$ to some $z=z^*<1$,
+\begin{gather}\label{eq:int_z}
+    \Delta{}q=\int_{0}^{z^*}\dfrac{1}{U}~\md{z}.
+\end{gather}
+Noting that regardless of the specific form of $U\left(z\right)$, the right-hand side is always deterministic (a constant), meaning that loading from $z=0$ to $z=z^*$ always requires the same amount of plastic strain accumulation $\Delta{}q$.
+
+Due to this deterministic mapping between $\Delta{}z$ and $\Delta{}q$, those aforementioned strain space formulations for isotropic hardening stagnation can be equivalently reformulated in the $z$ space, thus the stress space.
 We assume
 \begin{gather}\label{eq:isotropic_stagnation}
     F_m=F_m\left(q_m\right)
