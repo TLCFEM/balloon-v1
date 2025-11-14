@@ -35,13 +35,13 @@ plainrecorder 3 Element E 1
 fix2 1 1 1
 fix2 2 2 1 2
 
-expression SimpleScalar 1 t t<5?2.5sin(2pi*t):t<10?5sin(2pi*t):t<15?7.5sin(2pi*t):10sin(2pi*t)
+expression SimpleScalar 1 t t<5?10sin(2pi*t):t<10?2.5sin(2pi*t):t<15?5sin(2pi*t):t<20?7.5sin(2pi*t):10sin(2pi*t)
 
 amplitude Custom 3 1
 
 disp 1 3 1e-2 1 2
 
-step static 1 20
+step static 1 25
 set fixed_step_size 1
 set ini_step_size {dt}
 set symm_mat 0
@@ -72,7 +72,7 @@ if __name__ == "__main__":
         )
         ax.set_xlabel("strain ($10^{-3}$)")
         ax.set_ylabel("stress (MPa)")
-        fig.savefig(prefix / "../q345.pdf")
+        fig.savefig(prefix / "../q345.p1.pdf")
 
         turning_points = stress[interval :: 2 * interval, 1]
         fig, ax = gplot(
@@ -84,7 +84,7 @@ if __name__ == "__main__":
         )
         ax.set_xlabel("cycles")
         ax.set_ylabel("stress (MPa)")
-        fig.savefig(prefix / "../q345.cycle.pdf")
+        fig.savefig(prefix / "../q345.p1.cycle.pdf")
 
         for idx, label, filename in [
             (4, "qm", "qm"),
