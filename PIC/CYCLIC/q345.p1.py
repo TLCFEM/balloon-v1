@@ -12,17 +12,17 @@ node 1 0 0
 node 2 1 0
 
 material Balloon1D 1 \
-200 1e1 20 \
-4E3 0 -3.9E3 1e3 \ ! u
+200 1e1 2 \
+4E3 0 -3.8E3 1e3 \ ! u
 .33 1 0 0 \ ! hfm
 0 0 0 0 \ ! hfc
-.05 0 0 0 \ ! ham
-0 0 .1 5e1 \ ! hac
+0.05 0 0 0 \ ! ham
+0 0 .05 5e1 \ ! hac
 0 \ ! density
 -fc 2E1 1. \ ! fc
 -ac 1E1 1. \ ! ac
 -na 1E2 1. \ ! na
--na 0 4. \
+-na 0 3. \
 -nd 1E2 .8 \ ! nd
 -memory maximum
 
