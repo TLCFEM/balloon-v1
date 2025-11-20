@@ -68,11 +68,12 @@ This behaviour may be different if $z_r$ is defined differently.
 \caption{graduate isotropic hardening stagnation}\label{fig:ex2.gradual}
 \end{figure}
 \subsection{Cyclic Hardening and Softening}
+The $F_c$ component is dedicated to modelling cyclic hardening/softening.
 \figref{fig:cyclic_hardening} shows an example of cyclic hardening using the following expression for $H_c$.
 \begin{gather}
     H_c=0.05q_m.
 \end{gather}
-Since $F_c$ does not evolve when $z<z_r$, the very first cycle sets an anchor value.
+Since $F_c$ does not evolve when $z<z_r$, the very first cycle thus sets an anchor value.
 Subsequent loops would mostly contribute to $q_c$ that gradually saturates $F_c$ to $H_c$.
 This process repeats whenever a new maximum $q_m$ is reached and the hysteresis loops stabilise eventually.
 \begin{figure}[htb]
