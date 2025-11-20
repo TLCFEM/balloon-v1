@@ -4,7 +4,7 @@ For brevity, we mostly use normalised quantities in the following examples.
 In specific, stresses are normalised by the initial yield stress, which is often the initial size of the conventional yield surface; strains are normalised by the initial yield strain, which is the initial yield stress divided by the elastic modulus.
 By such, the conventional yield point is always located at $(1,1)$.
 
-For $z_r$, the average of the most recent a few (\num{2} to \num{10}) values is used unless otherwise specified.
+For $z_r$, the average of the most recent a few (\num{2} to \num{10}) $z_r^j$ values is used unless otherwise specified.
 This choice appears to be random and ad hoc, but it works well in the numerical examples presented here.
 \subsection{Stiffness Degradation}
 \figref{fig:ex1} demonstrates the gradual degradation of stiffness controlled by $u$.
@@ -24,13 +24,15 @@ Alternatively, it is also possible to associate $u$ with $q$.
     \caption{stiffness degradation controlled by $u$}\label{fig:ex1}
 \end{figure}
 \subsection{Isotropic Hardening Stagnation}
-The degree of isotropic hardening stagnation can be controlled by $k_r$.
+In the example shown in \figref{fig:ex2}, isotropic hardening is fully deactivated during cyclic loading.
+As a result, hysteresis loops stabilise immediately.
+The following configurations are used,
 \begin{gather}
     k_r=100,\qquad
-    F=F_m=1.
+    F=F_m=1+0.05q_m.
 \end{gather}
-In the following example, isotropic hardening is fully deactivated during cyclic loading.
-As a result, the hysteresis loops stabilise immediately.
+In terms of $z_r$, the most recent $z_r^j$ value at load reversal is used.
+
 \begin{figure}[htb]
 \centering
 \begin{subfigure}[b]{.49\textwidth}
@@ -44,7 +46,26 @@ As a result, the hysteresis loops stabilise immediately.
     \includegraphics{PIC/ex2.stagnation.cycle}
     \caption{stress amplitude per cycle}
 \end{subfigure}
-\caption{isotropic hardening stagnation controlled by $k_r$}
+\caption{isotropic hardening stagnation}\label{fig:ex2}
+\end{figure}
+
+If one allows $z_r$ to gradually increase by defining it to be the average of recent \textbf{a few} $z_r^j$ values at load reversals, even if under cyclical loadings with a fixed $z$ magnitude, hysteresis loops would stabilise gradually.
+This behaviour may be different if $z_r$ is defined differently.
+\figref{fig:ex2.gradual} demonstrates such an example by averaging the most recent \num{8} values.
+\begin{figure}[htb]
+\centering
+\begin{subfigure}[b]{.49\textwidth}
+    \centering
+    \includegraphics{PIC/ex2.alt}
+    \caption{hysteresis response}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{.49\textwidth}
+    \centering
+    \includegraphics{PIC/ex2.alt.cycle}
+    \caption{stress amplitude per cycle}
+\end{subfigure}
+\caption{graduate isotropic hardening stagnation}\label{fig:ex2.gradual}
 \end{figure}
 \subsection{Cyclic Hardening and Softening}
 \figref{fig:cyclic_hardening} shows an example of cyclic hardening using the following expression for $H_c$.

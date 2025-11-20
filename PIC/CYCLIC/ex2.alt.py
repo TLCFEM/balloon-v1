@@ -12,7 +12,7 @@ node 1 0 0
 node 2 1 0
 
 material Balloon1D 1 \
-1 1E2 1 \
+1 1E2 8 \
 1E1 0 0 0 \ ! u
 1 5e-2 0 0 \ ! hfm
 0 0 0 0 \ ! hfc
@@ -30,7 +30,7 @@ fix2 1 1 1
 fix2 2 2 1 2
 
 # expression SimpleScalar 1 t 1-cos(2pi*t)
-expression SimpleScalar 1 t sin(2pi*t)
+expression SimpleScalar 1 t t<10?sin(2pi*t):2sin(2pi*t)
 
 amplitude Custom 3 1
 
@@ -64,7 +64,7 @@ if __name__ == "__main__":
         fig, ax = gplot(strain[:, 1], stress[:, 1], cmap="rainbow", size=size)
         ax.set_xlabel("normalised strain (1)")
         ax.set_ylabel("normalised stress (1)")
-        fig.savefig(prefix / "../ex2.stagnation.pdf")
+        fig.savefig(prefix / "../ex2.alt.pdf")
 
         turning_points = stress[interval :: 2 * interval, 1]
         fig, ax = gplot(
@@ -76,4 +76,4 @@ if __name__ == "__main__":
         )
         ax.set_xlabel("cycles")
         ax.set_ylabel("normalised stress (1)")
-        fig.savefig(prefix / "../ex2.stagnation.cycle.pdf")
+        fig.savefig(prefix / "../ex2.alt.cycle.pdf")
