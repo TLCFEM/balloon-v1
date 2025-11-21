@@ -8,8 +8,6 @@ For $z_r$, the average of the most recent a few (\num{2} to \num{10}) $z_r^j$ va
 This choice appears to be random and ad hoc, but it works well in the numerical examples presented here.
 \subsection{Stiffness Degradation}
 \figref{fig:ex1} demonstrates the gradual degradation of stiffness controlled by $u$.
-In other models, it is typically achieved by introducing a reduction factor for elastic modulus, or even turning elastic modulus itself into a history variable \citep[e.g.,][]{Zheng2026}.
-
 The following parameters/functions are used.
 \begin{gather}
     F=F_m=1,\qquad
@@ -17,12 +15,13 @@ The following parameters/functions are used.
 \end{gather}
 Since $u$ effectively controls how fast $z$ increases to unity, a smaller $u$ leads to a slower transition.
 The proposal \secref{sec:obj_trans} does not rely on additional history variable, and implementing such a degradation is straightforward.
-Alternatively, it is also possible to associate $u$ with $q$.
+Alternatively, it is also possible to associate $u$ with $q$, in which case such a degradation would occur under cyclic loading as well.
 \begin{figure}[htb]
     \centering
     \includegraphics{PIC/ex1.reduction}
     \caption{stiffness degradation controlled by $u$}\label{fig:ex1}
 \end{figure}
+In other models, it is typically achieved by introducing a reduction factor for elastic modulus, or directly turning elastic modulus itself into a history variable \citep[e.g.,][]{Zheng2026}.
 \subsection{Isotropic Hardening Stagnation}
 In the example shown in \figref{fig:ex2}, isotropic hardening is fully deactivated during cyclic loading.
 As a result, hysteresis loops stabilise immediately.
@@ -50,7 +49,7 @@ In terms of $z_r$, the most recent $z_r^j$ value at load reversal is used.
 \end{figure}
 
 If one allows $z_r$ to gradually increase by defining it to be the average of recent \textbf{a few} $z_r^j$ values at load reversals, even if under cyclical loadings with a fixed $z$ magnitude, hysteresis loops would stabilise gradually.
-This behaviour may be different if $z_r$ is defined differently.
+This behaviour may vary if $z_r$ is defined differently.
 \figref{fig:ex2.gradual} demonstrates such an example by averaging the most recent \num{8} values.
 \begin{figure}[htb]
 \centering
@@ -106,13 +105,15 @@ This process repeats whenever a new maximum $q_m$ is reached and the hysteresis 
 \end{subfigure}
 \caption{cyclic softening}\label{fig:cyclic_softening}
 \end{figure}
-If $H_c$ decreases with $q_m$, cyclic softening can be observed as shown in
+Noting that there is no restriction on how $H_c$ evolves, if $H_c$ decreases with $q_m$, cyclic softening can be observed as shown in
 \figref{fig:cyclic_softening}, in which the following expression is used.
 \begin{gather}
     H_c=-0.05q_m.
 \end{gather}
 However, for softening, $z_r$ may stay unchanged after reaching unity, making subsequent softening difficult if not impossible to achieve since \eqsref{eq:km} only accounts for the `relative' load level instead of the absolute one.
-It is possible to refine the definitions of $K_m$ and $K_c$ to account for additional factors, but this is not pursued here for brevity.
+If $z_r$ has a short memory, e.g., depends on a limited number of recent $z_r^j$ values, it is possible to re-trigger softening by cycling at a relatively lower load level before returning to a higher load level.
+However, whether such a behaviour is physically meaningful remains to be investigated.
+It is also possible to refine the definitions of $K_m$ and $K_c$ to account for additional factors, but this is not pursued here for brevity.
 \subsection{SS304}
 The parameters/expressions used in this example are summarised in \tabref{tab:ss304}.
 \begin{table}[htb]
@@ -127,6 +128,8 @@ The parameters/expressions used in this example are summarised in \tabref{tab:ss
     similarity                & $H_d=0.8F$                                                  \\\bottomrule
 \end{tabular}
 \end{table}
+
+The same set of parameters can also capture satisfactory results for ratcheting under fixed stress amplitude.
 \begin{figure}[htb]
 \centering
 \begin{subfigure}[b]{.49\textwidth}
@@ -157,10 +160,8 @@ The parameters/expressions used in this example are summarised in \tabref{tab:ss
 \end{subfigure}
 \caption{multistep strain--symmetric cycling on SS304 \citep[cf.][Fig.~11]{Hassan1994}}\label{fig:ss304.multi}
 \end{figure}
-
-The same set of parameters can also capture satisfactory results for ratcheting under fixed stress amplitude.
-\begin{figure}
-    \centering
+\begin{figure}[htb]
+\centering
 \begin{subfigure}[b]{.49\textwidth}
 \centering
     \includegraphics{PIC/ss304.ratcheting.pdf}
