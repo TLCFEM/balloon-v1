@@ -75,7 +75,7 @@ The $F_c$ component is dedicated to modelling cyclic hardening/softening.
 Since $F_c$ does not evolve when $z<z_r$, the very first cycle thus sets an anchor value.
 Subsequent loops would mostly contribute to $q_c$ that gradually saturates $F_c$ to $H_c$.
 This process repeats whenever a new maximum $q_m$ is reached and the hysteresis loops stabilise eventually.
-\begin{figure}[htb]
+\begin{figure}[h!]
 \centering
 \begin{subfigure}[b]{.49\textwidth}
 \centering
@@ -90,7 +90,7 @@ This process repeats whenever a new maximum $q_m$ is reached and the hysteresis 
 \end{subfigure}
 \caption{cyclic hardening}\label{fig:cyclic_hardening}
 \end{figure}
-\begin{figure}[htb]
+\begin{figure}[h!]
 \centering
 \begin{subfigure}[b]{.49\textwidth}
     \centering
@@ -117,20 +117,19 @@ It is also possible to refine the definitions of $K_m$ and $K_c$ to account for 
 \subsection{SS304}
 The parameters/expressions used in this example are summarised in \tabref{tab:ss304}.
 \begin{table}[htb]
-\footnotesize\centering
-\caption{model parameters/expressions for SS304}\label{tab:ss304}
-\begin{tabular}{ll}
+    \footnotesize\centering
+    \caption{model parameters/expressions for SS304}\label{tab:ss304}
+    \begin{tabular}{ll}
     \toprule
     evolution of $z$          & $u=200+3800\exp{\left(-2000q_m\right)}$                     \\
     isotropic hardening $F_m$ & $F_m=0.2+2q_m$ (\si{\giga\pascal})                          \\
     isotropic hardening $F_c$ & $F_c=0.1-0.1\exp{\left(-100q_m\right)}$ (\si{\giga\pascal}) \\
-    kinematic hardening       & linear (Prager type) + exponential (AF type) saturation                                \\
-    similarity                & $H_d=0.8F$                                                  \\\bottomrule
-\end{tabular}
+        kinematic hardening       & linear (Prager type) + exponential (AF type) saturation     \\
+        similarity                & $H_d=0.8F$                                                  \\\bottomrule
+        \end{tabular}
 \end{table}
-
 The same set of parameters can also capture satisfactory results for ratcheting under fixed stress amplitude.
-\begin{figure}[htb]
+\begin{figure}[h!]
 \centering
 \begin{subfigure}[b]{.49\textwidth}
     \centering
@@ -145,7 +144,7 @@ The same set of parameters can also capture satisfactory results for ratcheting 
 \end{subfigure}
 \caption{single step strain--symmetric cycling on SS304 \citep[cf.][Fig.~2]{Hassan1994}}\label{fig:ss304.single}
 \end{figure}
-\begin{figure}[htb]
+\begin{figure}[h!]
 \centering
 \begin{subfigure}[b]{.49\textwidth}
     \centering
@@ -160,7 +159,7 @@ The same set of parameters can also capture satisfactory results for ratcheting 
 \end{subfigure}
 \caption{multistep strain--symmetric cycling on SS304 \citep[cf.][Fig.~11]{Hassan1994}}\label{fig:ss304.multi}
 \end{figure}
-\begin{figure}[htb]
+\begin{figure}[h!]
 \centering
 \begin{subfigure}[b]{.49\textwidth}
 \centering
@@ -191,7 +190,6 @@ The parameters/expressions used in this example are summarised in \tabref{tab:cs
 \end{table}
 The experimental results \citep{Hassan1994} show a significant correlation between the centre of stabilised hysteresis loops and plastic history for CS1018 material.
 Thus, in this example, the kinematic hardening rule adopts a combination of linear (Prager type) component and exponential (Armstrong--Frederick type) saturation component.
-
 By choosing a negative $F_c$, cycling within a fixed strain range leads to cyclic softening.
 \begin{figure}[htb]
 \centering
@@ -229,7 +227,6 @@ Hysteresis loops stabilise immediately.
 One can simply set $F_c=0$.
 Calibration is relatively straightforward.
 The parameters/expressions used in this example are summarised in \tabref{tab:q345}.
-Instead of using the mean value of recent a few $z$ values at load reversals, in this example, the maximum is used.
 \begin{table}[htb]
     \footnotesize\centering
     \caption{model parameters/expressions for Q345}\label{tab:q345}
@@ -242,6 +239,8 @@ Instead of using the mean value of recent a few $z$ values at load reversals, in
         similarity                & $H_d=0.8F$                                              \\\bottomrule
     \end{tabular}
 \end{table}
+Instead of using the mean value of recent a few $z$ values at load reversals, in this example, the maximum is used.
+\figref{fig:q345.hysteresis} shows the hysteresis loops under two different loading protocols.
 \begin{figure}[htb]
     \centering
     \begin{subfigure}[b]{.49\textwidth}
