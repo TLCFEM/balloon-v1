@@ -129,7 +129,7 @@ To fulfil these, the following expression is chosen for $K_m$ in this work.
 in which $k_r$ is a material parameter that controls the transition.
 \eqsref{eq:km} provides a smooth transition of $K_m$ from zero at $z=z_r$ to unity at $z=1$.
 The function is illustrated in \figref{fig:km}.
-\begin{figure}[htb]
+\begin{figure}[ht!]
     \centering
     \includegraphics{PIC/illustration_km}
     \caption{illustration of $K_m$ defined in \eqsref{eq:km}}\label{fig:km}
@@ -139,7 +139,7 @@ It is assumed that $K_c=1-K_m$.
 The proposed formulation is summarised in \tabref{tab:summary}.
 It should be emphasised that the formulation presented in this work is general.
 For specific applications, minor changes, for example, accounting for extra constants $\sqrt{\dfrac{2}{3}}$ in von Mises models \citep[see][]{Chang2025}, may be made.
-\begin{table}[htb]
+\begin{table}[ht!]
     \centering\footnotesize
     \caption{summary of the proposed formulation}\label{tab:summary}
     \begin{tabular}{rl}
@@ -172,3 +172,26 @@ In specific, the following can be observed.
 Without introducing any additional (memory) surfaces, \tabref{tab:summary} shows that the subloading surface theory can be deemed as a generalisation of conventional plasticity, and it is effectively a single surface theory.
 The proposed model mimics a balloon, expanding during loading and contracting during unloading.
 It is thus denoted as the \texttt{balloon} model.
+\subsection{Local System}
+The overall implementation procedure follows the previous work \citep{Chang2025}.
+Here we only emphasis the changes brought by the proposed formulation.
+The local system consists of two residuals, $f_s$ and $z$.
+\begin{gather}
+    \mb{R}=\left\{
+    \begin{array}{l}
+        \norm{\beeta}-zF, \\[2mm]
+        F\left(z-z_n\right)-U\gamma.
+    \end{array}
+    \right.
+\end{gather}
+Taking the local variable as $\mb{x}=\begin{bmatrix}
+        \gamma & z
+    \end{bmatrix}^\mT$, the Jacobian $\mb{J}$ shall be written as
+\begin{gather}
+    \mb{J}=\begin{bmatrix}
+        \pdfrac{\norm{\beeta}}{\gamma}-z\pdfrac{F}{\gamma}              & \pdfrac{\norm{\beeta}}{z}-F-z\pdfrac{F}{z}            \\[4mm]
+        \pdfrac{F}{\gamma}\left(z-z_n\right)-U-\gamma\pdfrac{U}{\gamma} & \pdfrac{F}{z}\left(z-z_n\right)-F-\gamma\pdfrac{U}{z}
+    \end{bmatrix}.
+\end{gather}
+In the above, both $F$ and $U$ are functions of both $z$ and $\gamma$ via $q_m$ and $q_c$.
+This differs from the previous implementation \citep{Chang2025}.

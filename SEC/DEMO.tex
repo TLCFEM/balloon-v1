@@ -6,6 +6,9 @@ By such, the conventional yield point is always located at $(1,1)$.
 
 For $z_r$, the average of the most recent a few (\num{2} to \num{10}) $z_r^j$ values is used unless otherwise specified.
 This choice appears to be random and ad hoc, but it works well in the numerical examples presented here.
+
+It's important to highlight that there is no goal to accurately adjust the model to match the experimental data perfectly in the following examples.
+Rather, the emphasis is on showcasing the adaptability of the suggested model in qualitatively representing different cyclic behaviours.
 \subsection{Stiffness Degradation}
 \figref{fig:ex1} demonstrates the gradual degradation of stiffness controlled by $u$.
 The following parameters/functions are used.
@@ -16,7 +19,7 @@ The following parameters/functions are used.
 Since $u$ effectively controls how fast $z$ increases to unity, a smaller $u$ leads to a slower transition.
 The proposal \secref{sec:obj_trans} does not rely on additional history variable, and implementing such a degradation is straightforward.
 Alternatively, it is also possible to associate $u$ with $q$, in which case such a degradation would occur under cyclic loading as well.
-\begin{figure}[htb]
+\begin{figure}[ht!]
     \centering
     \includegraphics{PIC/ex1.reduction}
     \caption{stiffness degradation controlled by $u$}\label{fig:ex1}
@@ -32,7 +35,7 @@ The following configurations are used,
 \end{gather}
 In terms of $z_r$, the most recent $z_r^j$ value at load reversal is used.
 
-\begin{figure}[htb]
+\begin{figure}[ht!]
 \centering
 \begin{subfigure}[b]{.49\textwidth}
 \centering
@@ -51,7 +54,7 @@ In terms of $z_r$, the most recent $z_r^j$ value at load reversal is used.
 If one allows $z_r$ to gradually increase by defining it to be the average of recent \textbf{a few} $z_r^j$ values at load reversals, even if under cyclical loadings with a fixed $z$ magnitude, hysteresis loops would stabilise gradually.
 This behaviour may vary if $z_r$ is defined differently.
 \figref{fig:ex2.gradual} demonstrates such an example by averaging the most recent \num{8} values.
-\begin{figure}[htb]
+\begin{figure}[ht!]
 \centering
 \begin{subfigure}[b]{.49\textwidth}
     \centering
@@ -75,7 +78,7 @@ The $F_c$ component is dedicated to modelling cyclic hardening/softening.
 Since $F_c$ does not evolve when $z<z_r$, the very first cycle thus sets an anchor value.
 Subsequent loops would mostly contribute to $q_c$ that gradually saturates $F_c$ to $H_c$.
 This process repeats whenever a new maximum $q_m$ is reached and the hysteresis loops stabilise eventually.
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering
 \begin{subfigure}[b]{.49\textwidth}
 \centering
@@ -90,7 +93,7 @@ This process repeats whenever a new maximum $q_m$ is reached and the hysteresis 
 \end{subfigure}
 \caption{cyclic hardening}\label{fig:cyclic_hardening}
 \end{figure}
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering
 \begin{subfigure}[b]{.49\textwidth}
     \centering
@@ -116,7 +119,7 @@ However, whether such a behaviour is physically meaningful remains to be investi
 It is also possible to refine the definitions of $K_m$ and $K_c$ to account for additional factors, but this is not pursued here for brevity.
 \subsection{SS304}
 The parameters/expressions used in this example are summarised in \tabref{tab:ss304}.
-\begin{table}[htb]
+\begin{table}[ht!]
     \footnotesize\centering
     \caption{model parameters/expressions for SS304}\label{tab:ss304}
     \begin{tabular}{ll}
@@ -128,8 +131,9 @@ The parameters/expressions used in this example are summarised in \tabref{tab:ss
         similarity                & $H_d=0.8F$                                                  \\\bottomrule
         \end{tabular}
 \end{table}
-The same set of parameters can also capture satisfactory results for ratcheting under fixed stress amplitude.
-\begin{figure}[h!]
+SS304 exhibits cyclic hardening behaviour that is well captured by a saturating $F_c$ component.
+\figref{fig:ss304.single} and \figref{fig:ss304.multi} show the results of single step and multistep strain--symmetric cycling, respectively.
+\begin{figure}[ht!]
 \centering
 \begin{subfigure}[b]{.49\textwidth}
     \centering
@@ -144,7 +148,7 @@ The same set of parameters can also capture satisfactory results for ratcheting 
 \end{subfigure}
 \caption{single step strain--symmetric cycling on SS304 \citep[cf.][Fig.~2]{Hassan1994}}\label{fig:ss304.single}
 \end{figure}
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering
 \begin{subfigure}[b]{.49\textwidth}
     \centering
@@ -159,12 +163,15 @@ The same set of parameters can also capture satisfactory results for ratcheting 
 \end{subfigure}
 \caption{multistep strain--symmetric cycling on SS304 \citep[cf.][Fig.~11]{Hassan1994}}\label{fig:ss304.multi}
 \end{figure}
-\begin{figure}[h!]
+The same set of parameters can also capture satisfactory results for ratcheting under fixed stress/strain amplitude.
+\figref{fig:ss304.ratcheting} shows both cases.
+As shown in \figref{fig:ss304.ratcheting.stress}, the initial creep is overestimated relative to the experimental data, indicating that further calibration may be required for improved accuracy.
+\begin{figure}[ht!]
 \centering
 \begin{subfigure}[b]{.49\textwidth}
 \centering
     \includegraphics{PIC/ss304.ratcheting.pdf}
-    \caption{fixed stress amplitude \citep[cf.][Fig.~8]{Hassan1994}}
+    \caption{fixed stress amplitude \citep[cf.][Fig.~8]{Hassan1994}}\label{fig:ss304.ratcheting.stress}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{.49\textwidth}
@@ -176,7 +183,7 @@ The same set of parameters can also capture satisfactory results for ratcheting 
 \end{figure}
 \subsection{CS1018}
 The parameters/expressions used in this example are summarised in \tabref{tab:cs1018}.
-\begin{table}[htb]
+\begin{table}[ht!]
 \footnotesize\centering
 \caption{model parameters/expressions for CS1018}\label{tab:cs1018}
 \begin{tabular}{ll}
@@ -191,7 +198,7 @@ The parameters/expressions used in this example are summarised in \tabref{tab:cs
 The experimental results \citep{Hassan1994} show a significant correlation between the centre of stabilised hysteresis loops and plastic history for CS1018 material.
 Thus, in this example, the kinematic hardening rule adopts a combination of linear (Prager type) component and exponential (Armstrong--Frederick type) saturation component.
 By choosing a negative $F_c$, cycling within a fixed strain range leads to cyclic softening.
-\begin{figure}[htb]
+\begin{figure}[ht!]
 \centering
 \begin{subfigure}[b]{.49\textwidth}
 \centering
@@ -206,7 +213,7 @@ By choosing a negative $F_c$, cycling within a fixed strain range leads to cycli
 \end{subfigure}
 \caption{cyclic softening of CS1018 \citep[cf.][Fig. 3]{Hassan1994}}
 \end{figure}
-\begin{figure}[htb]
+\begin{figure}[ht!]
 \centering
 \begin{subfigure}[b]{.49\textwidth}
 \centering
@@ -227,7 +234,7 @@ Hysteresis loops stabilise immediately.
 One can simply set $F_c=0$.
 Calibration is relatively straightforward.
 The parameters/expressions used in this example are summarised in \tabref{tab:q345}.
-\begin{table}[htb]
+\begin{table}[ht!]
     \footnotesize\centering
     \caption{model parameters/expressions for Q345}\label{tab:q345}
     \begin{tabular}{ll}
@@ -241,7 +248,7 @@ The parameters/expressions used in this example are summarised in \tabref{tab:q3
 \end{table}
 Instead of using the mean value of recent a few $z$ values at load reversals, in this example, the maximum is used.
 \figref{fig:q345.hysteresis} shows the hysteresis loops under two different loading protocols.
-\begin{figure}[htb]
+\begin{figure}[ht!]
     \centering
     \begin{subfigure}[b]{.49\textwidth}
         \centering
