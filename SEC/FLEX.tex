@@ -30,7 +30,7 @@ The rationale behind this split is straightforward: the accumulated plastic stra
 The split \eqsref{eq:split_ep} allows one to distinguish between the plastic strain accumulated during monotonic loading (according to an appropriate definition of `monotonic') and that accumulated during load reversals.
 This distinction makes it possible to account for various microstructural effects, such as the rearrangement/annihilation of dislocations.
 It is reasonable to assume that the plastic strain increment $\dot{\bvarepsilon}^p$ within a given (sub-)step would be distributed between two parts according to some rule, which may depend on the current loading level $z$, and/or its history $z_r$.
-Without loss of generality, one can thus define
+Without loss of generality, one can then define
 \begin{gather}\label{eq:split_q_definition}
     \dot{\bvarepsilon}^p_m=K_m\dot{\bvarepsilon}^p,\qquad\dot{\bvarepsilon}^p_c=K_c\dot{\bvarepsilon}^p,
 \end{gather}
@@ -44,7 +44,7 @@ A similar split can be applied to $q$ such that
 It is possible to propose a more sophisticated definition of $K_m$ that may further account for other history variables, such as plastic strain.
 We are refrained from doing so in this work to keep the formulation simple.
 \subsection{Proposed Isotropic Hardening}
-With \eqsref{eq:split_q}, the isotropic bound $F$ can be defined as a function of both $q_m$ and $q_c$ instead of $q$.
+With \eqsref{eq:split_q}, the isotropic bound $F$ can be defined as a function of both $q_m$ and $q_c$ instead of $q$ alone.
 Assuming an additive decomposition, it can be expressed as
 \begin{gather}\label{eq:f_revised}
     F=F_m+F_c.

@@ -47,13 +47,13 @@ That is, the stress tensor $\bsigma$ can be expressed as the double contraction 
 \end{gather}
 where $\bvarepsilon$ is the total strain tensor and $\bvarepsilon^p$ is the plastic strain tensor.
 \subsubsection{Subloading Surface}
-The subloading surface differs from the conventional yield surface by an additional scalar field $z$, referred to as the normal yield ratio in the existing literature.
+The subloading surface differs from the conventional yield surface by an additional scalar field $z$, ranging from zero to unity, referred to as the normal yield ratio in the existing literature.
 It can be expressed as
 \begin{gather}\label{eq:fs_original}
 f_s=\norm{\beeta}-zF=\norm{\bs-H_\alpha\balpha+\left(z-1\right)H_d\bd}-zF,
 \end{gather}
 where $\beeta$ is the shifted stress tensor, $\bs=\bs\left(\bsigma\right)$ is some measure of the stress tensor $\bsigma$, in von Mises models, it is often taken as the deviatoric stress tensor $\bs=\dev{\bsigma}$, $\balpha$ is the back stress tensor normalised by $H_\alpha$, and $\bd$ is the similarity tensor \citep{Chang2025}.
-Both $\balpha$ and $\bd$ are internal history variables that evolve in stress space, with their magnitudes bounded by unity.
+Both $\balpha$ and $\bd$ are internal history variables that evolve in the stress space, with their magnitudes bounded by unity.
 Those two tensors are further scaled by the scalar fields $H_\alpha$ and $H_d$ respectively, which may also evolve with the development of plasticity.
 For simplicity, $H_\alpha$ and $H_d$ can be taken as fractions of $F$, a scalar that characterises the size of the subloading surface and may be interpreted as the (reference) yield stress.
 \figref{fig:subloading_surface} presents a graphical illustration of each term.
