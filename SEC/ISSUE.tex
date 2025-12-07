@@ -11,9 +11,9 @@ Despite differences in nomenclature, the two theories share a fundamental basis,
 In both frameworks, the surfaces undergo isotropic and kinematic hardening, while the evolution of the inner surface is governed by its proximity to the outer boundary.
 However, the bounding surface theory \citep{Dafalias1975,Dafalias1977,Mahan2011} is conceptually limited by its non-shrinking elastic domain/core, which inhibits the accurate simulation of hysteresis during small one-sided cycles and prevents the guarantee of smooth stiffness continuity at the elastic--plastic transition \citep[][see \S 8.2.3]{Hashiguchi2017}.
 In contrast, the subloading surface theory successfully overcomes these issues while providing a more straightforward mathematical framework and much simplified numerical implementation \citep{Chang2025}.
-Nevertheless, the capability to describe all key cyclic phenomena is still subject to limitations shared by other conventional and non-conventional plasticity models.
 
-Hysteresis loops intrinsically lead to the accumulation of plastic strain, meaning plastic shakedown (the formation of stable loops) requires that the active loading surface --- whether the classical yield surface or subloading surface --- has saturated to a fixed size.
+Despite the benefits, its capability to describe all key cyclic phenomena is still subject to limitations shared by other conventional and non-conventional plasticity models.
+For example, hysteresis loops intrinsically lead to the accumulation of plastic strain, meaning plastic shakedown (the formation of stable loops) requires that the active loading surface --- whether the classical yield surface or subloading surface --- has saturated to a fixed size.
 This requirement stems from the theoretical premise that \textit{`the \textnormal{(unbounded)} isotropic hardening model suggests that the specimen will `shake down' to an elastic state'} \citep[][pg. 103]{Suresh1998}.
 However, experimental observations \citep[e.g.,][]{Yoshida2002a,Kang2002,Kang2006} consistently show that continued cyclic hardening or softening can occur even after hysteresis loops have stabilized under fixed stress/strain amplitude cycling.
 Consequently, reproducing the full range of experimental results \citep[e.g.,][]{Hassan1992,Hassan1994,Hassan2008} proves extremely challenging, if not impossible, without additional model refinements.
@@ -29,12 +29,12 @@ Although recent efforts typically incorporate both isotropic and kinematic harde
 In response to these challenges, the present work introduces a novel and efficient constitutive framework.
 This framework is achieved by incorporating a flexible isotropic hardening rule, grounded in the additive decomposition of plastic strain, with targeted enhancements to the subloading surface theory.
 The resulting model demonstrates the capability to accurately reproduce a broad spectrum of complex cyclic behaviors, including stable hysteresis loops, cyclic hardening or softening, and the previously intractable phenomenon of work hardening stagnation.
-This approach offers a streamlined constitutive methodology for metallic materials, the effectiveness of which is comprehensively illustrated through numerical examples.
+
 
 The rest of this paper is organised as follows.
 In \secref{sec:background}, we briefly summarise the general framework of subloading surface theory.
 In \secref{sec:proposal}, the proposed enhancements to the model are presented, including a split of plastic strain based on load reversals, a refined isotropic hardening rule that accounts for contributions from different plastic strain components, and other necessary modifications that further improve the model's flexibility.
-In \secref{sec:example}, we first demonstrate the model's capabilities through several simple examples, followed by a few more complex cases that simulate experimental results from the literature.
+In \secref{sec:example}, we first demonstrate the model's capabilities through several simple examples, followed by a few more complex cases that simulate experimental results from the literature, demonstrating the effectiveness of the proposed model.
 \section{Background}\label{sec:background}
 \subsection{Basic Framework}
 To lay the foundation for subsequent discussions, we briefly summarise the general framework of subloading surface theory in this section, primarily following the formulation of \citet{Chang2025}, which is more concise yet mathematically equivalent to the original by \citet{Hashiguchi2023a}.

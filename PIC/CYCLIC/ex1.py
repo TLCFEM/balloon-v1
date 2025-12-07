@@ -51,15 +51,16 @@ if __name__ == "__main__":
     prefix = Path(__file__).parent
     sys.path.insert(0, str(prefix.resolve()))
 
+    size = (3.1, 2)
     with AutoSwitch(model=model):
         strain = np.loadtxt("R3-E1.txt")
         stress = np.loadtxt("R2-S1.txt")
 
-        fig, ax = gplot(strain[:, 1], stress[:, 1], color="#ca0020", size=(4, 2.5))
+        fig, ax = gplot(strain[:, 1], stress[:, 1], color="#ca0020", size=size)
         ax.annotate(
             r"$q_m\uparrow\rightarrow{}u\downarrow$",
             xy=(1, -0.875),
-            xytext=(8.5, -0.875),
+            xytext=(7.5, -0.875),
             arrowprops=dict(arrowstyle="<|-", lw=1, color="#0571b0"),
         )
         ax.set_xlabel("normalised strain (1)")
