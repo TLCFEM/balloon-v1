@@ -19,8 +19,8 @@ material Balloon1D 1 \
 1e-2 0 0 0 \ ! ham
 0 0 0 0 \ ! hac
 0 \ ! density
--fc 5E-1 1. \ ! fc
--na 1e0 1.
+-fc 1. 5E-1 \ ! fc
+-na 1. 1e0
 
 element T2D2 1 1 2 1 1
 
