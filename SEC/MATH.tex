@@ -1,0 +1,45 @@
+\section{Miscellaneous Mathematical Notes}
+Noting that $\dot{\balpha}$ is a linear function of $\balpha$, taking advantage of the implicit Euler method, $\balpha$ can be expressed in its explicit form.
+\begin{gather}\label{eq:explicit_alpha}
+    \balpha_n+b_\alpha\left(\bn-\balpha\right)\gamma=\balpha\qquad\rightarrow\qquad
+    \balpha=\dfrac{\gamma{}b_\alpha\bn+\balpha_n}{1+\gamma{}b_\alpha}.
+\end{gather}
+Similarly, $\bd$ can be expressed as
+\begin{gather}\label{eq:explicit_d}
+    \bd_n+b_d\left(\bn-\bd\right)\gamma=\bd\qquad\rightarrow\qquad
+    \bd=\dfrac{\gamma{}b_d\bn+\bd_n}{1+\gamma{}b_d}.
+\end{gather}
+On the other hand, the deviatoric stress $\bs$ shall be computed via the trial stress $\bsigma^\text{trial}$,
+\begin{gather}
+    \bs=\dev{\bsigma}=\dev{\bsigma^\text{trial}-\gamma2G\bn}=\dev{\bsigma^\text{trial}}-\gamma2G\bn=\bs^\text{trial}-\gamma2G\bn.
+\end{gather}
+The shifted stress $\beeta$ is then
+\begin{gather}\label{eq:explicit_eta}
+    \begin{split}
+        \beeta & =\bs-H_\alpha\balpha+\left(z-1\right)H_d\bd                                                                                                                     \\
+               & =\bs^\text{trial}-\gamma2G\bn-H_\alpha\dfrac{\gamma{}b_\alpha\bn+\balpha_n}{1+\gamma{}b_\alpha}+\left(z-1\right)H_d\dfrac{\gamma{}b_d\bn+\bd_n}{1+\gamma{}b_d}.
+    \end{split}
+\end{gather}
+Rearranging gives
+\begin{multline}
+    \beeta+\gamma2G\bn+H_\alpha\dfrac{\gamma{}b_\alpha}{1+\gamma{}b_\alpha}\bn+\left(1-z\right)H_d\dfrac{\gamma{}b_d}{1+\gamma{}b_d}\bn=\\
+    \bs^\text{trial}-\dfrac{H_\alpha}{1+\gamma{}b_\alpha}\balpha_n+\left(z-1\right)\dfrac{H_d}{1+\gamma{}b_d}\bd_n.
+\end{multline}
+The right hand side can be denoted as
+\begin{gather}\label{eq:zeta}
+    \bzeta=\bs^\text{trial}-\dfrac{H_\alpha}{1+\gamma{}b_\alpha}\balpha_n+\left(z-1\right)\dfrac{H_d}{1+\gamma{}b_d}\bd_n,
+\end{gather}
+such that
+\begin{gather}
+    \left(\norm{\beeta}+\gamma2G+H_\alpha\dfrac{\gamma{}b_\alpha}{1+\gamma{}b_\alpha}+\left(1-z\right)H_d\dfrac{\gamma{}b_d}{1+\gamma{}b_d}\right)\bn=\bzeta.
+\end{gather}
+It can be noted that each term in the bracket is non-negative by definition, thus it is correct to conclude that
+\begin{gather}\label{eq:zeta_norm}
+    \norm{\beeta}+\gamma2G+H_\alpha\dfrac{\gamma{}b_\alpha}{1+\gamma{}b_\alpha}+\left(1-z\right)H_d\dfrac{\gamma{}b_d}{1+\gamma{}b_d}=\norm{\bzeta},
+\end{gather}
+and
+\begin{gather}
+    \bn=\dfrac{\beeta}{\norm{\beeta}}=\dfrac{\bzeta}{\norm{\bzeta}}.
+\end{gather}
+The above simplifications are valid under the assumption of associative plasticity flow.
+Although it is not possible to simplify more, one shall realise that $\bzeta$ is a function of $\bvarepsilon$, $\gamma$ and $z$ only.
