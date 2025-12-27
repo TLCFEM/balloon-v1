@@ -181,7 +181,7 @@ The local system consists of two residuals, $f_s$ and $z$.
     \mb{R}=\left\{
     \begin{array}{l}
         \norm{\beeta}-zF, \\[2mm]
-        F\left(z-z_n\right)-U\gamma.
+        F\left(z-z_n\right)-U\dot{q}.
     \end{array}
     \right.
 \end{gather}
@@ -191,7 +191,7 @@ Taking the local variable as $\mb{x}=\begin{bmatrix}
 \begin{gather}
     \mb{J}=\begin{bmatrix}
         \pdfrac{\norm{\beeta}}{\gamma}-z\pdfrac{F}{\gamma}              & \pdfrac{\norm{\beeta}}{z}-F-z\pdfrac{F}{z}            \\[4mm]
-        \pdfrac{F}{\gamma}\left(z-z_n\right)-U-\gamma\pdfrac{U}{\gamma} & \pdfrac{F}{z}\left(z-z_n\right)-F-\gamma\pdfrac{U}{z}
+        \pdfrac{F}{\gamma}\left(z-z_n\right)-U\pdfrac{\dot{q}}{\gamma}-\dot{q}\pdfrac{U}{\gamma} & \pdfrac{F}{z}\left(z-z_n\right)+F-\dot{q}\pdfrac{U}{z}
     \end{bmatrix}.
 \end{gather}
 In the above, both $F$ and $U$ are functions of both $z$ and $\gamma$ via $q_m$ and $q_c$.
