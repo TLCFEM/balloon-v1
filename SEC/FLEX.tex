@@ -89,12 +89,12 @@ With \eqsref{eq:f_revised}, the size of the subloading surface (isotropic harden
 Stable hysteresis loops would eventually saturate $F$ to this value via the accumulation of $q_c$.
 In principle, a similar definition can be applied to bounds $H_\alpha$ and $H_d$.
 However, there is no strong experimental evidence indicating that these bounds exhibit hardening or softening behaviour.
-To avoid unnecessary complexity, they are defined solely as functions of $q_m$, i.e., $H_d=H_d\left(q_m\right)$ and $H_\alpha=H_\alpha\left(q_m\right)$.
+To avoid unnecessary complexity, they are defined solely as functions of $q_m$, i.e., $H_\alpha=H_\alpha\left(q_m\right)$ and $H_d=H_d\left(q_m\right)$.
 \subsection{Objective Transition}\label{sec:obj_trans}
 As shown in \eqsref{eq:int_z}, for a given interval of $z$, the corresponding change in $q$ is always constant, regardless of the specific form of $U(z)$ --- as long as it is given.
 However, $z$ only measures the relative loading level.
 As a result, the response curve becomes steeper when the yield stress is larger, and less so when it is smaller.
-To make this transition more objective and less dependent on material parameters, we propose the following enhancement.
+To make this transition more objective and less dependent on material parameters, we propose the following revision.
 \begin{gather}\label{eq:z_evolution_revised}
     \boxed{\dot{z}=\dfrac{U}{F}\dot{q}.}
 \end{gather}
@@ -154,12 +154,13 @@ For specific applications, minor changes, for example, accounting for extra cons
                            & $F\dot{z}=U\dot{q}$                                                      \\[2mm]
                            & $\dot{q}_m=K_m\dot{q}$                                                    \\[2mm]
                            & $\dot{F_c}=b_f\left(H_c-F_c\right)K_c\dot{q}$                                                    \\[2mm]
-                           & $\dot{\balpha}=b_\alpha\left(\bn-\balpha\right)\dot{q}$                   \\[2mm]
-                           & $\dot{\bd}=b_d\left(\bn-\bd\right)\dot{q}$                                \\ \bottomrule
+                           & $\dot{\balpha}=b_\alpha\left(\bn-\balpha\right)\dot{q}_m$                   \\[2mm]
+                           & $\dot{\bd}=b_d\left(\bn-\bd\right)\dot{q}_m$                                \\ \bottomrule
     \end{tabular}
 \end{table}
 For scalar bounds $H_\alpha=H_\alpha(q_m)$, $H_d=H_d(q_m)$,  $H_c=H_c(q_m)$ and $F_m=F_m(q_m)$, any suitable univariate functions can be chosen, so we keep the corresponding expressions general.
 Popular options may include a liner component, an exponential component that saturates, and/or a power term.
+For the 3D formulation, those scalar bounds, along with $\dot{q}$, shall be further multiplied by $\sqrt{\dfrac{2}{3}}$ to obtain consistent results.
 
 A careful examination shows the boundary between subloading surface theory and conventional plasticity is blurred.
 In specific, the following can be observed.
