@@ -1,0 +1,43 @@
+\documentclass[a4paper,11pt]{letter}
+\usepackage{siunitx,hyperref,mathpazo,setspace,indentfirst,booktabs}
+\usepackage[margin=20mm]{geometry}
+\usepackage{newfloat}
+\DeclareFloatingEnvironment[fileext=lot]{table}
+\hypersetup{colorlinks}
+\begin{document}\onehalfspacing
+% \pagestyle{headings}
+\begin{letter}{}
+    \address{IRIS Adlershof\\Humboldt-Universität zu Berlin\\Zum Großen Windkanal 2\\12489 Berlin, Germany}
+    
+    \opening{Dear Editor,}
+    
+    I am writing to submit the manuscript entitled `\textit{The Balloon-v1 Model for Metals With Improved Cyclic Response}' for consideration for publication in your journal.
+    
+    Accurate prediction of cyclic material behaviour is fundamental to various engineering applications.
+    Despite decades of research, capturing the full spectrum of cyclic phenomena, including cyclic hardening/softening, ratcheting, and stress relaxation, within a single, versatile constitutive framework remains a significant challenge in computational mechanics.
+    
+    The manuscript attempts to address this challenge by proposing a novel constitutive model that builds upon the subloading surface theory.
+    The key innovation lies in a new isotropic hardening formulation that leverages loading reversal information embedded in the normal yield ratio offered by the subloading surface theory.
+    This approach provides an alternative (simpler and better) approach to capture complex cyclic responses compared to existing approaches.
+    
+    The proposed Balloon-v1 model offers:
+    \begin{enumerate}
+        \item a unified framework for diverse cyclic phenomena without requiring separate formulations for different loading scenarios,
+        \item a physically motivated approach based on revised subloading surface theory, and
+        \item validation against experimental data demonstrating its versatility and accuracy.
+    \end{enumerate}
+    
+    This work aligns well with the scope of \texttt{Acta Mechanica} in computational mechanics and constitutive modelling.
+    The combination of theoretical development, numerical implementation, and experimental validation makes it suitable for your readership of researchers and practitioners in plasticity and constitutive modelling for metallic materials.
+    
+    The manuscript is a continuation of the previous work \href{https://link.springer.com/article/10.1007/s00707-025-04339-0}{10.1007/s00707-025-04339-0}.
+    Please feel free to appoint reviewers as there are no conflicts of interest.
+    Reviewers who reviewed the previous manuscript are preferable since they are familiar with the background of this work.    
+    Thank you for considering our manuscript.
+    
+    \signature{Dr. Theodore Chang}
+    
+    \closing{Warm regards,}
+\end{letter}
+\clearpage
+\end{document}
