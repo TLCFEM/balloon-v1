@@ -26,7 +26,8 @@ Alternatively, it is also possible to associate $u$ with $q$, in which case such
 \end{figure}
 In other models, it is typically achieved by introducing a reduction factor for elastic modulus, or directly turning elastic modulus itself into a history variable \citep[e.g.,][]{Zheng2026}.
 
-\add{It is also worth noting that $H_d$ is defaulted to zero in this example to highlight the difference between this proposal and other models, hence unloading phrases where $z$ decreases are similar to conventional models and exhibit a constant stiffness, viz., the initial elastic modulus.}
+\add{It is also worth noting that $H_d$ is defaulted to zero in this example to highlight the difference between this proposal and other models, hence unloading phrases where $z$ decreases are similar to conventional models and exhibit a constant stiffness, viz., the initial elastic modulus.
+    For real--world implementations, setting $H_d$ close to $F$ effectively moves the similarity center toward the boundary, thereby reducing the visual prominence of unloading regions.}
 \subsection{Isotropic Hardening Stagnation}
 In the example shown in \figref{fig:ex2}, isotropic hardening is fully deactivated during cyclic loading.
 As a result, hysteresis loops stabilise immediately.
