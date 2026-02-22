@@ -1,6 +1,7 @@
 import sys
 from pathlib import Path
 
+from matplotlib.patches import Rectangle
 import numpy as np
 from runner import AutoSwitch, gplot
 
@@ -63,6 +64,26 @@ if __name__ == "__main__":
             xytext=(7.5, -0.875),
             arrowprops=dict(arrowstyle="<|-", lw=1, color="#0571b0"),
         )
+
+        ax.add_patch(
+            Rectangle(
+                (0.5, 0),
+                1.5,
+                0.75,
+                facecolor="#4daf4a",
+                edgecolor="#4daf4a",
+                linewidth=1,
+                alpha=0.3,
+            )
+        )
+        for x in (2, 5, 7, 9):
+            ax.annotate(
+                "degradation in\nloading phase",
+                xy=(x, -0.1),
+                xytext=(7.5, -0.6),
+                alpha=1 if x == 9 else 0,
+                arrowprops=dict(arrowstyle="-|>", lw=1, color="#4daf4a"),
+            )
         ax.set_xlabel("normalised strain (1)")
         ax.set_ylabel("normalised stress (1)")
         fig.savefig(prefix / "../ex1.reduction.pdf")
