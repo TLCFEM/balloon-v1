@@ -16,13 +16,34 @@ In contrast, the subloading surface theory successfully overcomes these issues w
 Despite the benefits, its capability to describe all key cyclic phenomena is still subject to limitations shared by other conventional and non-conventional plasticity models.
 For example, hysteresis loops intrinsically lead to the accumulation of plastic strain, meaning plastic shakedown (the formation of stable loops) requires that the active loading surface --- whether the classical yield surface or subloading surface --- has saturated to a fixed size.
 This requirement stems from the theoretical premise that \textit{`the \textnormal{(unbounded)} isotropic hardening model suggests that the specimen will `shake down' to an elastic state'} \citep[][pg. 103]{Suresh1998}.
+\add{\begin{figure}[ht!]
+        \centering
+        \begin{subfigure}[b]{.49\textwidth}
+            \centering
+            \includegraphics{PIC/af.no.iso.pdf}
+            \caption{with a bounded isotropic hardening rule}\label{fig:af.no.iso}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{.49\textwidth}
+            \centering
+            \includegraphics{PIC/af.iso.pdf}
+            \caption{with an unbounded isotropic hardening rule}\label{fig:af.iso}
+        \end{subfigure}
+        \caption{conventional isotropic hardening lacks flexibility in terms of capturing complex plastic phenomena}\label{fig:af.single}
+    \end{figure}
+    This can be best demonstrated by the example depicted in \figref{fig:af.single}, where the most elementary model \citep[c.f.,][\S~1.2.2]{Simo1998} is adopted with only isotropic hardening defined.
+    In \figref{fig:af.no.iso}, an exponential saturation function (the Voce type) is used for isotropic hardening.
+    Since it is bounded, the hysteresis loop eventually stabilizes, and once stabilized, it remains unchanged with further cycling, all plastic phenomena (e.g., ratcheting) can only be captured by others, such as kinematic hardening.
+    In \figref{fig:af.iso}, an unbounded linear function is used for isotropic hardening.
+    In this case, the hysteresis loop continues to expand with further cycling, and eventually reduces to an elastic response.
+}
 However, experimental observations \citep[e.g.,][]{Yoshida2002a,Kang2002,Kang2006} consistently show that continued cyclic hardening or softening can occur even after hysteresis loops have stabilized under fixed stress/strain amplitude cycling.
 Consequently, reproducing the full range of experimental results \citep[e.g.,][]{Hassan1992,Hassan1994,Hassan2008} proves extremely challenging, if not impossible, without additional model refinements.
 
 To simulate various cyclic phenomena, a mechanism that conditionally activates or deactivates isotropic hardening (a process also referred to as hardening stagnation, non-hardening region) must be introduced.
 \citet[][see, \S~2.4]{Yoshida2002} introduced an additional \textit{non-isotropic-hardening} surface in the stress space, such that isotropic hardening can be activated or deactivated based on the size of the back stress, and thus the kinematic hardening.
 One should be aware that this approach does not work if kinematic hardening is not defined, although the absence of kinematic hardening is not practically useful.
-\add{Although this formulation is effective in certain cases, it still has limitations and cannot capture certain material behaviour \citep{Meyer2023}.}
+\add{Despite this formulation is effective in certain cases, it still has limitations and cannot capture certain material behaviour \citep{Meyer2023}.}
 Since the evolution of the back stress is ultimately driven by the plastic strain, such an approach can be equivalently formulated in the strain space.
 \citet{Ohno1982,Chaboche2008,Hashiguchi2023a} all adopt a strain space formulation.
 Such an approach is widely used in the literature as a basic building block for more complex models \citep[see, e.g.,][]{Xu2016,Xie2021,Zheng2026}.
