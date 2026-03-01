@@ -1,8 +1,9 @@
 \documentclass[3p,sort&compress,11pt,fleqn,review]{elsarticle}
 \bibliographystyle{elsarticle-num-names}
-\usepackage{amsmath,amsfonts,amssymb,siunitx,float,subcaption,setspace,booktabs,bm,mathtools,url,algorithm,algpseudocode,lineno,lmodern}
+\usepackage{amsmath,amsfonts,amssymb,siunitx,float,subcaption,setspace,booktabs,bm,mathtools,url,algorithm,algpseudocode,lineno,lmodern,tikz}
 \usepackage[fixed]{fontawesome5}
 \journal{}
+\usetikzlibrary{decorations.pathmorphing,shapes.geometric,spy,calc}
 \newcommand{\balpha}{\mb{\alpha}}
 \newcommand{\bbeta}{\mb{\beta}}
 \newcommand{\bc}{\mb{c}}
@@ -31,6 +32,12 @@
 \newcommand*{\secref}[1]{\S~\ref{#1}}
 \newcommand*{\sign}[1]{\text{sign}\left(#1\right)}
 \newcommand*{\tabref}[1]{Table~\ref{#1}}
+\definecolor{d73027}{HTML}{d73027}
+\definecolor{fc8d59}{HTML}{fc8d59}
+\definecolor{fee090}{HTML}{fee090}
+\definecolor{e0f3f8}{HTML}{e0f3f8}
+\definecolor{91bfdb}{HTML}{91bfdb}
+\definecolor{4575b4}{HTML}{4575b4}
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}
 \makeatletter
