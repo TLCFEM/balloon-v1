@@ -10,7 +10,7 @@ This choice appears to be random and ad hoc, but it works well in the numerical 
 It's important to highlight that there is no goal to accurately adjust the model to match the experimental data perfectly in the following examples.
 Rather, the emphasis is on showcasing the adaptability of the suggested model in qualitatively representing different cyclic behaviour.
 \subsection{Stiffness Degradation}
-\figref{fig:ex1} demonstrates the gradual degradation of stiffness controlled by $u$ \add{during loading phases where $z$ increases}.
+\figref{fig:ex1} demonstrates the gradual degradation of stiffness controlled by $u$ during loading phases where $z$ increases.
 The following parameters/functions are used.
 \begin{gather}
     F=F_m=1,\qquad
@@ -26,8 +26,8 @@ Alternatively, it is also possible to associate $u$ with $q$, in which case such
 \end{figure}
 In other models, it is typically achieved by introducing a reduction factor for elastic modulus, or directly turning elastic modulus itself into a history variable \citep[e.g.,][]{Zheng2026}.
 
-\add{It is also worth noting that $H_d$ is defaulted to zero in this example to highlight the difference between this proposal and other models, hence unloading phrases where $z$ decreases are similar to conventional models and exhibit a constant stiffness, viz., the initial elastic modulus.
-    For real--world implementations, setting $H_d$ close to $F$ effectively moves the similarity center toward the boundary, thereby reducing the visual prominence of unloading regions.}
+It is also worth noting that $H_d$ is defaulted to zero in this example to highlight the difference between this proposal and other models, hence unloading phrases where $z$ decreases are similar to conventional models and exhibit a constant stiffness, viz., the initial elastic modulus.
+For real--world implementations, setting $H_d$ close to $F$ effectively moves the similarity center toward the boundary, thereby reducing the visual prominence of unloading regions.
 \subsection{Isotropic Hardening Stagnation}
 In the example shown in \figref{fig:ex2}, isotropic hardening is fully deactivated during cyclic loading.
 As a result, hysteresis loops stabilise immediately.
@@ -168,7 +168,7 @@ SS304 exhibits cyclic hardening behaviour that is well captured by a saturating 
 \end{figure}
 The same set of parameters can also capture satisfactory results for ratcheting under fixed stress/strain amplitude.
 \figref{fig:ss304.ratcheting} shows both cases.
-\add{Although the model succssfully captures the overall characteristics of the experimental data, }the initial \add{accumulation of plastic strain (or ratcheting strain)} is overestimated relative to the experimental data \add{as shown in \figref{fig:ss304.ratcheting.stress}}, indicating that further calibration may be required for improved accuracy.
+Although the model succssfully captures the overall characteristics of the experimental data, the initial accumulation of plastic strain (or ratcheting strain) is overestimated relative to the experimental data as shown in \figref{fig:ss304.ratcheting.stress}, indicating that further calibration may be required for improved accuracy.
 \begin{figure}[ht!]
 \centering
 \begin{subfigure}[b]{.49\textwidth}
