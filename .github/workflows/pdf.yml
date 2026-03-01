@@ -15,7 +15,6 @@ jobs:
           scheme: full
           run: |
             mkdir tmp
-            latexmk -pdf PICCOLLECTION.tex
             latexmk -pdf BALLOON.tex
       - name: Release
         if: github.event_name == 'push'
