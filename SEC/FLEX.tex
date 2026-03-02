@@ -21,6 +21,9 @@ For example, $z_r$ can take the maximum/minimum value of the most recent $M$ val
 When $M=1$, $z_r$ is the most recent value $z_r^N$.
 When $M\geqslant{}N$, $z_r$ is simply the maximum/minimum value of all $z_r^j$.
 By such an ansatz, it is effectively assumed that the material has a limited memory of load reversals.
+Since by definition $z$ is the ratio between the size of the current subloading surface and that of the yield surface, stress information is inherently embedded in $z$, thus $z_r$.
+This allows one to account for some key parameters such as stress magnitude and mean stress (of the cyclic loading protocol) in a either direct or indirect way.
+For brevity, we do not explore different possibilities in this work.
 \subsection{Additive Decomposition of Plastic Strain}
 It is possible to split the plastic strain $\bvarepsilon^p$ into at least two parts,
 \begin{gather}\label{eq:split_ep}
