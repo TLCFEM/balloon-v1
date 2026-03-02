@@ -19,7 +19,10 @@ Through a comprehensive set of numerical examples, including simulations of SS30
     \item improved ratcheting response.
 \end{itemize}
 
-By providing an alternative to increasingly complex kinematic--style approaches, the \texttt{Balloon-v1} model offers a powerful and numerically efficient tool for predictive simulations in metal plasticity.
+By providing an alternative to increasingly complex kinematic hardening law based approaches, the \texttt{Balloon-v1} model offers a powerful and numerically efficient tool for predictive simulations in metal plasticity.
 Future research will focus on extending the model's application to multiaxial loading conditions and other complex cyclic phenomena such as the multi-stage `tertiary evolution of ratcheting' \citep{Kang2008}.
+Furthermore, the history of load reversals, as embedded in $z_r$, only adopts simple functions for the purpose of demonstration in this work.
+More sophisticated definitions can be explored to account for fatigue related phenomena in future studies.
+
 Both the uniaxial (1D) and multiaxial (3D) versions of the proposed model are implemented in the open-source finite element analysis framework \texttt{suanPan} \citep{Chang2024}.
 All numerical models and the relevant scripts are available in this repository\footnote{https://github.com/TLCFEM/balloon-v1}.
