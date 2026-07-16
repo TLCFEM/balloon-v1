@@ -1,0 +1,86 @@
+\documentclass[3p,sort&compress,11pt,fleqn,review]{elsarticle}
+\bibliographystyle{elsarticle-num-names}
+\usepackage{amsmath,amsfonts,amssymb,siunitx,float,subcaption,setspace,booktabs,bm,mathtools,url,algorithm,algpseudocode,lineno,lmodern,tikz}
+\usepackage[fixed]{fontawesome5}
+\journal{}
+\usetikzlibrary{decorations.pathmorphing,shapes.geometric,spy,calc}
+\newcommand{\balpha}{\mb{\alpha}}
+\newcommand{\bbeta}{\mb{\beta}}
+\newcommand{\bc}{\mb{c}}
+\newcommand{\bd}{\mb{d}}
+\newcommand{\be}{\mb{e}}
+\newcommand{\beeta}{\mb{\eta}}
+\newcommand{\bgamma}{\mb{\gamma}}
+\newcommand{\bn}{\mb{n}}
+\newcommand{\bq}{\mb{q}}
+\newcommand{\bs}{\mb{s}}
+\newcommand{\bsigma}{\mb{\sigma}}
+\newcommand{\bv}{\mb{v}}
+\newcommand{\bvarepsilon}{\mb{\varepsilon}}
+\newcommand{\bzeta}{\mb{\zeta}}
+\newcommand*{\algoref}[1]{Algorithm~\ref{#1}}
+\newcommand*{\ddfrac}[2]{\dfrac{\md{#1}}{\md{#2}}}
+\newcommand*{\dev}[1]{\text{dev}\left(#1\right)}
+\newcommand*{\diag}[1]{\text{diag}\left(#1\right)}
+\newcommand*{\eqsref}[1]{Eq.~(\ref{#1})}
+\newcommand*{\figref}[1]{Fig.~\ref{#1}}
+\newcommand*{\mb}[1]{\bm{#1}}
+\newcommand*{\md}[1]{\mathrm{d}#1}
+\newcommand*{\mdd}[1]{\mathrm{d}^2#1}
+\newcommand*{\mT}{\mathrm{T}}
+\newcommand*{\pdfrac}[2]{\dfrac{\partial{#1}}{\partial{#2}}}
+\newcommand*{\secref}[1]{\S~\ref{#1}}
+\newcommand*{\sign}[1]{\text{sign}\left(#1\right)}
+\newcommand*{\tabref}[1]{Table~\ref{#1}}
+\definecolor{d73027}{HTML}{d73027}
+\definecolor{fc8d59}{HTML}{fc8d59}
+\definecolor{fee090}{HTML}{fee090}
+\definecolor{e0f3f8}{HTML}{e0f3f8}
+\definecolor{91bfdb}{HTML}{91bfdb}
+\definecolor{4575b4}{HTML}{4575b4}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+\makeatletter
+\let\oldabs\abs\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+\let\oldnorm\norm\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\newenvironment{breakablealgorithm}{\begin{center}\refstepcounter{algorithm}\hrule height.8pt depth0pt \kern2pt
+\renewcommand{\caption}[2][\relax]{
+{\raggedright\textbf{\ALG@name~\thealgorithm} ##2\par}
+\ifx\relax##1\relax
+\addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##2}
+\else
+\addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##1}
+\fi
+\kern2pt\hrule\kern2pt}}{\kern2pt\hrule\relax\end{center}}
+\makeatother
+\begin{document}
+\linenumbers
+\begin{abstract}
+    \begin{linenumbers}
+        A versatile constitutive model is proposed for modelling complex cyclic response of metals.
+        Within the framework of a revised subloading surface theory, the proposed model incorporates a novel isotropic hardening formulation based on the loading reversal information embedded in the normal yield ratio defined in the subloading surface theory.
+        This formulation enables the model to capture a wide range of cyclic phenomena including cyclic hardening/softening, ratcheting, and stress relaxation under cyclic loading.
+        The versatility of the proposed model is demonstrated through numerical examples involving various cyclic loading scenarios, and the results are compared with experimental data from the literature.
+    \end{linenumbers}
+\end{abstract}
+\begin{keyword}
+    constitutive modelling\sep
+    plasticity\sep
+    metal\sep
+    ratcheting\sep
+    cyclic response
+\end{keyword}
+\begin{frontmatter}
+    \title{The \texttt{Balloon}-v1 Model for Metals With Improved Cyclic Response}
+    \author[add1]{Theodore~L.~Chang\corref{tlc}}\ead{tlcfem@gmail.com}
+    \cortext[tlc]{corresponding author}
+    \address[add1]{IRIS Adlershof, Humboldt-Universität zu Berlin, Berlin, Germany, 12489.}
+\end{frontmatter}
+\input{SEC/ISSUE}
+\input{SEC/FLEX}
+\input{SEC/DEMO}
+\input{SEC/CONCLUSION}
+% \input{SEC/MATH}
+\clearpage
+\bibliography{BIB}
+\end{document}

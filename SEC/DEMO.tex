@@ -1,0 +1,268 @@
+\section{Numerical Examples}\label{sec:example}
+We present a few numerical examples to demonstrate the capabilities of the proposed model.
+For brevity, we mostly use normalised quantities in the following examples.
+In specific, stresses are normalised by the initial yield stress, which is often the initial size of the conventional yield surface; strains are normalised by the initial yield strain, which is the initial yield stress divided by the elastic modulus.
+By such, the conventional yield point is always located at $(1,1)$.
+
+For $z_r$, the average of the most recent a few (\num{2} to \num{10}) $z_r^j$ values is used unless otherwise specified.
+This choice appears to be random and ad hoc, but it works well in the numerical examples presented here.
+
+It's important to highlight that there is no goal to accurately adjust the model to match the experimental data perfectly in the following examples.
+Rather, the emphasis is on showcasing the adaptability of the suggested model in qualitatively representing different cyclic behaviour.
+\subsection{Stiffness Degradation}
+\figref{fig:ex1} demonstrates the gradual degradation of stiffness controlled by $u$ during loading phases where $z$ increases.
+The following parameters/functions are used.
+\begin{gather}
+    F=F_m=1,\qquad
+    u=100\exp{\left(-0.2q_m\right)}.
+\end{gather}
+Since $u$ effectively controls how fast $z$ increases to unity, a smaller $u$ leads to a slower transition.
+The proposal \secref{sec:obj_trans} does not rely on additional history variable, and implementing such a degradation is straightforward.
+Alternatively, it is also possible to associate $u$ with $q$, in which case such a degradation would occur under cyclic loading as well.
+\begin{figure}[ht!]
+    \centering
+    \includegraphics{PIC/ex1.reduction}
+    \caption{stiffness degradation controlled by $u$}\label{fig:ex1}
+\end{figure}
+In other models, it is typically achieved by introducing a reduction factor for elastic modulus, or directly turning elastic modulus itself into a history variable \citep[e.g.,][]{Zheng2026}.
+
+It is also worth noting that $H_d$ is defaulted to zero in this example to highlight the difference between this proposal and other models, hence unloading phrases where $z$ decreases are similar to conventional models and exhibit a constant stiffness, viz., the initial elastic modulus.
+For real--world implementations, setting $H_d$ close to $F$ effectively moves the similarity center toward the boundary, thereby reducing the visual prominence of unloading regions.
+\subsection{Isotropic Hardening Stagnation}
+In the example shown in \figref{fig:ex2}, isotropic hardening is fully deactivated during cyclic loading.
+As a result, hysteresis loops stabilise immediately.
+The following configurations are used,
+\begin{gather}
+    k_r=100,\qquad
+    F=F_m=1+0.05q_m.
+\end{gather}
+In terms of $z_r$, the most recent $z_r^j$ value at load reversal is used.
+
+\begin{figure}[ht!]
+\centering
+\begin{subfigure}[b]{.49\textwidth}
+\centering
+\includegraphics{PIC/ex2.stagnation}
+\caption{hysteresis response}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{.49\textwidth}
+    \centering
+    \includegraphics{PIC/ex2.stagnation.cycle}
+    \caption{stress amplitude per cycle}
+\end{subfigure}
+\caption{isotropic hardening stagnation}\label{fig:ex2}
+\end{figure}
+
+If one allows $z_r$ to gradually increase by defining it to be the average of recent \textbf{a few} $z_r^j$ values at load reversals, even if under cyclical loadings with a fixed $z$ magnitude, hysteresis loops would stabilise gradually.
+This behaviour may vary if $z_r$ is defined differently.
+\figref{fig:ex2.gradual} demonstrates such an example by averaging the most recent \num{8} values.
+\begin{figure}[ht!]
+\centering
+\begin{subfigure}[b]{.49\textwidth}
+    \centering
+    \includegraphics{PIC/ex2.alt}
+    \caption{hysteresis response}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{.49\textwidth}
+    \centering
+    \includegraphics{PIC/ex2.alt.cycle}
+    \caption{stress amplitude per cycle}
+\end{subfigure}
+\caption{graduate isotropic hardening stagnation}\label{fig:ex2.gradual}
+\end{figure}
+\subsection{Cyclic Hardening and Softening}
+The $F_c$ component is dedicated to modelling cyclic hardening/softening.
+\figref{fig:cyclic_hardening} shows an example of cyclic hardening using the following expression for $H_c$.
+\begin{gather}
+    H_c=0.05q_m.
+\end{gather}
+Since $F_c$ does not evolve when $z<z_r$, the very first cycle thus sets an anchor value.
+Subsequent loops would mostly contribute to $q_c$ that gradually saturates $F_c$ to $H_c$.
+This process repeats whenever a new maximum $q_m$ is reached and the hysteresis loops stabilise eventually.
+\begin{figure}[ht!]
+\centering
+\begin{subfigure}[b]{.49\textwidth}
+\centering
+\includegraphics{PIC/ex3.hardening.pdf}
+\caption{hysteresis response}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{.49\textwidth}
+\centering
+\includegraphics{PIC/ex3.hardening.cycle.pdf}
+\caption{stress amplitude per cycle}
+\end{subfigure}
+\caption{cyclic hardening}\label{fig:cyclic_hardening}
+\end{figure}
+\begin{figure}[ht!]
+\centering
+\begin{subfigure}[b]{.49\textwidth}
+    \centering
+    \includegraphics{PIC/ex4.softening.pdf}
+    \caption{hysteresis response}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{.49\textwidth}
+    \centering
+    \includegraphics{PIC/ex4.softening.cycle.pdf}
+    \caption{stress amplitude per cycle}
+\end{subfigure}
+\caption{cyclic softening}\label{fig:cyclic_softening}
+\end{figure}
+Noting that there is no restriction on how $H_c$ evolves, if $H_c$ decreases with $q_m$, cyclic softening can be observed as shown in
+\figref{fig:cyclic_softening}, in which the following expression is used.
+\begin{gather}
+    H_c=-0.05q_m.
+\end{gather}
+However, for softening, $z_r$ may stay unchanged after reaching unity, making subsequent softening difficult if not impossible to achieve since \eqsref{eq:km} only accounts for the `relative' load level instead of the absolute one.
+If $z_r$ has a short memory, e.g., depends on a limited number of recent $z_r^j$ values, it is possible to re-trigger softening by cycling at a relatively lower load level before returning to a higher load level.
+However, whether such a behaviour is physically meaningful remains to be investigated.
+It is also possible to refine the definitions of $K_m$ and $K_c$ to account for additional factors, but this is not pursued here for brevity.
+\subsection{SS304}
+The parameters/expressions used in this example are summarised in \tabref{tab:ss304}.
+\begin{table}[ht!]
+    \footnotesize\centering
+    \caption{model parameters/expressions for SS304}\label{tab:ss304}
+    \begin{tabular}{ll}
+    \toprule
+    evolution of $z$          & $u=200+3800\exp{\left(-2000q_m\right)}$                     \\
+    isotropic hardening $F_m$ & $F_m=0.2+2q_m$ (\si{\giga\pascal})                          \\
+    isotropic hardening $F_c$ & $F_c=0.1-0.1\exp{\left(-100q_m\right)}$ (\si{\giga\pascal}) \\
+        kinematic hardening       & linear (Prager type) + exponential (AF type) saturation     \\
+        similarity                & $H_d=0.8F$                                                  \\\bottomrule
+        \end{tabular}
+\end{table}
+SS304 exhibits cyclic hardening behaviour that is well captured by a saturating $F_c$ component.
+\figref{fig:ss304.single} and \figref{fig:ss304.multi} show the results of single step and multistep strain--symmetric cycling, respectively.
+\begin{figure}[ht!]
+\centering
+\begin{subfigure}[b]{.49\textwidth}
+    \centering
+    \includegraphics{PIC/ss304.single.pdf}
+    \caption{hysteresis response}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{.49\textwidth}
+    \centering
+    \includegraphics{PIC/ss304.single.cycle.pdf}
+    \caption{stress amplitude per cycle}
+\end{subfigure}
+\caption{single step strain--symmetric cycling on SS304 \citep[cf.][Fig.~2]{Hassan1994}}\label{fig:ss304.single}
+\end{figure}
+\begin{figure}[ht!]
+\centering
+\begin{subfigure}[b]{.49\textwidth}
+    \centering
+    \includegraphics{PIC/ss304.multi.pdf}
+    \caption{hysteresis response}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{.49\textwidth}
+    \centering
+    \includegraphics{PIC/ss304.multi.cycle.pdf}
+    \caption{stress amplitude per cycle}
+\end{subfigure}
+\caption{multistep strain--symmetric cycling on SS304 \citep[cf.][Fig.~11]{Hassan1994}}\label{fig:ss304.multi}
+\end{figure}
+The same set of parameters can also capture satisfactory results for ratcheting under fixed stress/strain amplitude.
+\figref{fig:ss304.ratcheting} shows both cases.
+Although the model succssfully captures the overall characteristics of the experimental data, the initial accumulation of plastic strain (or ratcheting strain) is overestimated relative to the experimental data as shown in \figref{fig:ss304.ratcheting.stress}, indicating that further calibration may be required for improved accuracy.
+\begin{figure}[ht!]
+\centering
+\begin{subfigure}[b]{.49\textwidth}
+\centering
+    \includegraphics{PIC/ss304.ratcheting.pdf}
+    \caption{fixed stress amplitude \citep[cf.][Fig.~8]{Hassan1994}}\label{fig:ss304.ratcheting.stress}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{.49\textwidth}
+        \centering
+        \includegraphics{PIC/ss304.one.side.pdf}
+        \caption{fixed strain amplitude \citep[cf.][Fig.~13]{Hassan1994}}
+    \end{subfigure}
+    \caption{ratcheting of SS304}\label{fig:ss304.ratcheting}
+\end{figure}
+\subsection{CS1018}
+The parameters/expressions used in this example are summarised in \tabref{tab:cs1018}.
+\begin{table}[ht!]
+\footnotesize\centering
+\caption{model parameters/expressions for CS1018}\label{tab:cs1018}
+\begin{tabular}{ll}
+    \toprule
+    evolution of $z$          & $u=400+3600\exp{\left(-1000q_m\right)}$                      \\
+    isotropic hardening $F_m$ & $F_m=0.6+q_m$ (\si{\giga\pascal})                            \\
+    isotropic hardening $F_c$ & $F_c=-0.1+0.1\exp{\left(-100q_m\right)}$ (\si{\giga\pascal}) \\
+    kinematic hardening       & linear (Prager type) + exponential (AF type) saturation                                \\
+    similarity                & $H_d=0.8F$                                                   \\\bottomrule
+\end{tabular}
+\end{table}
+The experimental results \citep{Hassan1994} show a significant correlation between the centre of stabilised hysteresis loops and plastic history for CS1018 material.
+Thus, in this example, the kinematic hardening rule adopts a combination of linear (Prager type) component and exponential (Armstrong--Frederick type) saturation component.
+By choosing a negative $F_c$, cycling within a fixed strain range leads to cyclic softening.
+\begin{figure}[ht!]
+\centering
+\begin{subfigure}[b]{.49\textwidth}
+\centering
+\includegraphics{PIC/cs1018.symm.pdf}
+\caption{hysteresis response}\label{fig:cs1018.symm}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{.49\textwidth}
+    \centering
+    \includegraphics{PIC/cs1018.symm.cycle.pdf}
+    \caption{stress amplitude per cycle}\label{fig:cs1018.symm.cycle}
+\end{subfigure}
+\caption{cyclic softening of CS1018 \citep[cf.][Fig. 3]{Hassan1994}}
+\end{figure}
+\begin{figure}[ht!]
+\centering
+\begin{subfigure}[b]{.49\textwidth}
+\centering
+\includegraphics{PIC/cs1018.single.pdf}
+\caption{single step}\label{fig:cs1018.single}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{.49\textwidth}
+    \centering
+    \includegraphics{PIC/cs1018.multi.pdf}
+    \caption{multistep}\label{fig:cs1018.multi}
+\end{subfigure}
+\caption{strain controlled cycling of CS1018 \citep[cf.][Figs. 4 and 12]{Hassan1994}}
+\end{figure}
+\subsection{Q345}
+The Q345 steel \citep[see][]{Xie2021a,Zheng2026} exhibits little to no cyclic hardening/softening.
+Hysteresis loops stabilise immediately.
+One can simply set $F_c=0$.
+Calibration is relatively straightforward.
+The parameters/expressions used in this example are summarised in \tabref{tab:q345}.
+\begin{table}[ht!]
+    \footnotesize\centering
+    \caption{model parameters/expressions for Q345}\label{tab:q345}
+    \begin{tabular}{ll}
+        \toprule
+        evolution of $z$          & $u=100+3900\exp{\left(-1000q_m\right)}$                 \\
+        isotropic hardening $F_m$ & $F_m=0.33+q_m$ (\si{\giga\pascal})                     \\
+        isotropic hardening $F_c$ & $F_c=0$ (\si{\giga\pascal})                             \\
+        kinematic hardening       & linear (Prager type) + exponential (AF type) saturation \\
+        similarity                & $H_d=0.8F$                                              \\\bottomrule
+    \end{tabular}
+\end{table}
+Instead of using the mean value of recent a few $z$ values at load reversals, in this example, the maximum is used.
+\figref{fig:q345.hysteresis} shows the hysteresis loops under two different loading protocols.
+\begin{figure}[ht!]
+    \centering
+    \begin{subfigure}[b]{.49\textwidth}
+        \centering
+        \includegraphics{PIC/q345.pdf}
+        \caption{CAA loading protocol}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{.49\textwidth}
+        \centering
+        \includegraphics{PIC/q345.p1.pdf}
+        \caption{CAA-P1 loading protocol}
+    \end{subfigure}
+    \caption{hysteresis loops of Q345 \citep[cf.][Fig. 5]{Zheng2026}}\label{fig:q345.hysteresis}
+\end{figure}
