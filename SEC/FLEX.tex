@@ -1,12 +1,12 @@
 \section{The \texttt{Balloon}-v1 Model}\label{sec:proposal}
-In this section, we present a novel isotropic hardening rule based on the framework introduced in \secref{sec:background}, along with other relevant changes, to formulate a versatile constitutive model named as the \texttt{Balloon}-v1 model.
+In this section, we present a novel isotropic hardening rule based on the framework introduced in \secref{sec:background}, along with other relevant changes, to formulate a versatile constitutive model named the \texttt{Balloon}-v1 model.
 \subsection{History of Load Reversals}
 In conventional plasticity models, local reversals cannot be easily detected.
 A common criterion for detecting reversals is the double contraction $\beeta:\dot{\beeta}$.
 For example, in the multi-surface theory \citep{Semenov2022}, the exact criterion is used to identify the initiation of a load reversal, which further controls the activation of a new surface.
 
 The normal yield ratio $z$ effectively represents the current `loading level' at any given moment.
-By definition, this loading level is normalised between \num{0} and \num{1} thus does not depend on the current size of the yield surface: when it increases, the subloading surface expands, indicating a loading process; when it decreases, the subloading surface contracts, indicating an unloading process.
+By definition, this loading level is normalised between \num{0} and \num{1} and thus does not depend on the current size of the yield surface: when it increases, the subloading surface expands, indicating a loading process; when it decreases, the subloading surface contracts, indicating an unloading process.
 Thus, load reversals can be detected with ease by checking whether $z$ ever decreases within the given (sub-)step.
 
 For a material (point) that has experienced up to $N$ load reversals, let the normal yield ratio at each load reversal be denoted as $z_r^j$ with $j=1,2,3,\cdots,N$ standing for the $j$-th reversal.
@@ -20,9 +20,9 @@ Depending on the specific choice of function $Z$, $z_r$ embodies different memor
 For example, $z_r$ can take the maximum/minimum value of the most recent $M$ values.
 When $M=1$, $z_r$ is the most recent value $z_r^N$.
 When $M\geqslant{}N$, $z_r$ is simply the maximum/minimum value of all $z_r^j$.
-By such an ansatz, it is effectively assumed that the material has a limited memory of load reversals.
+With this ansatz, it is effectively assumed that the material has a limited memory of load reversals.
 Since by definition $z$ is the ratio between the size of the current subloading surface and that of the yield surface, stress information is inherently embedded in $z$, thus $z_r$.
-This allows one to account for some key parameters such as stress magnitude and mean stress (of the cyclic loading protocol) in a either direct or indirect way.
+This allows one to account for key parameters such as stress magnitude and the mean stress of the cyclic loading protocol, either directly or indirectly.
 For brevity, we do not explore different possibilities in this work.
 \subsection{Additive Decomposition of Plastic Strain}
 It is possible to split the plastic strain $\bvarepsilon^p$ into at least two parts,
@@ -30,7 +30,7 @@ It is possible to split the plastic strain $\bvarepsilon^p$ into at least two pa
     \bvarepsilon^p=\bvarepsilon^p_m+\bvarepsilon^p_c+\cdots,
 \end{gather}
 with $\bvarepsilon^p_m$ denoting the `monotonic' part and $\bvarepsilon^p_c$ denoting the `cyclic' part.
-The rationale behind this split is straightforward: the accumulated plastic strain $q$ defined in \eqsref{eq:q_original} only tracks the total amount of plastic deformation, although it is non-decreasing, there is no way to infer further details of the corresponding loading process.
+The rationale behind this split is straightforward: the accumulated plastic strain $q$ defined in \eqsref{eq:q_original} only tracks the total amount of plastic deformation. Although it is non-decreasing, it provides no way to infer further details of the corresponding loading process.
 As also investigated by \citet{Meyer2023}, experiments show that $q$ alone `\textit{cannot describe the axial yield stress evolution}' for certain types of metals.
 The split \eqsref{eq:split_ep} allows one to distinguish between the plastic strain accumulated during monotonic loading (according to an appropriate definition of `monotonic') and that accumulated during load reversals.
 This distinction makes it possible to account for various microstructural effects, such as the rearrangement/annihilation of dislocations.
@@ -40,21 +40,21 @@ Without loss of generality, one can then define
     \dot{\bvarepsilon}^p_m=K_m\dot{\bvarepsilon}^p,\qquad\dot{\bvarepsilon}^p_c=K_c\dot{\bvarepsilon}^p,
 \end{gather}
 where $K_m=K_m\left(z,z_r\right)$ and $K_c=K_c\left(z,z_r\right)$ are functions of $z$ and $z_r$ (or equivalently, $\left\{z_r^j\right\}_{j=0}^N$) that yield ratios between zero and unity.
-It is possible to further impose the constraint $K_m+K_c=1$ such that there are exactly two components $\bvarepsilon^p=\bvarepsilon^p_m+\bvarepsilon^p_c$, however, this is not strictly necessary.
+It is possible to impose the additional constraint $K_m+K_c=1$, such that there are exactly two components, $\bvarepsilon^p=\bvarepsilon^p_m+\bvarepsilon^p_c$; however, this is not strictly necessary.
 A similar split can be applied to $q$ such that
 \begin{gather}\label{eq:split_q}
 \boxed{\dot{q}_m=K_m\dot{q},\qquad\dot{q}_c=K_c\dot{q}.}
 \end{gather}
 
 It is possible to propose a more sophisticated definition of $K_m$ that may further account for other history variables, such as plastic strain.
-We are refrained from doing so in this work to keep the formulation simple.
+We refrain from doing so in this work to keep the formulation simple.
 \subsection{Proposed Isotropic Hardening}
 With \eqsref{eq:split_q}, the isotropic bound $F$ can be defined as a function of both $q_m$ and $q_c$ instead of $q$ alone.
 Assuming an additive decomposition, it can be expressed as
 \begin{gather}\label{eq:f_revised}
     F=F_m+F_c.
 \end{gather}
-In the following, we elaborate the two components $F_m$ and $F_c$ and their effects on isotropic hardening respectively.
+In the following, we elaborate on the two components, $F_m$ and $F_c$, and their respective effects on isotropic hardening.
 \subsubsection{Work/Isotropic Hardening Stagnation}
 The most distinctive feature of the subloading surface theory is that the normal yield ratio $z$ gradually approaches unity from zero during the loading process.
 Thus, there is no elastic region during this process, as $z$ accumulates with plastic deformation since it is driven by $q$ as defined in \eqsref{eq:z_evolution}.
@@ -70,7 +70,7 @@ We assume
     F_m=F_m\left(q_m\right)
 \end{gather}
 is a function of $q_m$ solely.
-By choosing a proper $K_m$, for example, $K_m=0$ for $0\leqslant{}z\leqslant{}z_r$, it is possible to fully deactivate the evolution of $q_m$, thus $F_m$, during cyclic loading phase.
+By choosing an appropriate $K_m$, for example, $K_m=0$ for $0\leqslant{}z\leqslant{}z_r$, it is possible to fully deactivate the evolution of $q_m$, and thus $F_m$, during the cyclic loading phase.
 
 This type of stagnation is similar to the approach proposed by \citet{Ucak2011,Ucak2012}, who used a certain set of criteria based on the same memory surface \citep{Ohno1982} to distinguish between two distinct regions/phases: the plateau region where isotropic hardening stagnates, and the hardening region where isotropic hardening evolves normally.
 A recent application of this idea can be found in the work by \citet{Hu2018}.
@@ -87,7 +87,7 @@ In the above, $b_f$ is a material parameter that controls the rate of saturation
 It is possible to associate $H_c$ with $F_m$ such that the former is a fraction of the latter.
 With the evolution of $q_c$, $F_c$ would gradually saturate to $H_c$.
 Meanwhile, since $H_c=H_c\left(q_m\right)$ depends on $q_m$, it would also evolve during monotonic loading phases.
-\eqsref{eq:fc} thus allows multi-stage saturation that allows cyclic hardening/softening under various loading histories.
+\eqsref{eq:fc} thus allows multi-stage saturation and cyclic hardening/softening under various loading histories.
 This differs from other models in the literature \citep[e.g.,][]{Ohno1982,Zheng2026} in which similar saturation can only occur once.
 \subsubsection{Other Relevant Changes}
 With \eqsref{eq:f_revised}, the size of the subloading surface (isotropic hardening) is bounded by $F_m+H_c$ which is governed by $q_m$ solely.
@@ -111,7 +111,7 @@ A typical choice can be
 \begin{gather}
     U\left(q_m,z\right)=-u\ln{z}
 \end{gather}
-with $u=u\left(q_m\right)$ being a varying parameter that graudally decreases with $q_m$ instead of a constant.
+with $u=u\left(q_m\right)$ being a varying parameter that gradually decreases with $q_m$, rather than a constant.
 Or, following the suggestion by \citet{Chang2025}, a power function can be used,
 \begin{gather}
     U\left(q_m,z\right)=u\left(z^{-n}-1\right)\qquad\text{for}\qquad0<n\leqslant1,
@@ -119,11 +119,11 @@ Or, following the suggestion by \citet{Chang2025}, a power function can be used,
 again, with $u=u\left(q_m\right)$.
 \subsection{Choice of $K_m$ and $K_c$}
 As explained earlier, the introduction of $z_r$ allows one to identify two distinct loading phases: monotonic loading when $z$ increases from $z_r$ to \num{1}, and cyclic loading when $z$ increases from \num{0} to $z_r$.
-The split functions $K_m$ and $K_c$ shall meet the following requirements.
+The split functions $K_m$ and $K_c$ should meet the following requirements.
 \begin{enumerate}
     \item For $0\leqslant{}z<z_r$, $\dot{q}$ mostly distributes to $\dot{q}_c$.
     \item For $z_r\leqslant{}z\leqslant{}1$, $\dot{q}$ mostly distributes to $\dot{q}_m$.
-    \item The amount of $\dot{q}_m$ accumulated during cyclic loading phase shall be inversely proportional to $z_r$.
+    \item The amount of $\dot{q}_m$ accumulated during the cyclic loading phase should be inversely proportional to $z_r$.
 \end{enumerate}
 To fulfil these, the following expression is chosen for $K_m$ in this work.
 \begin{gather}\label{eq:km}
@@ -138,7 +138,7 @@ The function is illustrated in \figref{fig:km}.
 \begin{figure}[ht!]
     \centering
     \includegraphics{PIC/illustration_km}
-    \caption{illustration of $K_m$ defined in \eqsref{eq:km}}\label{fig:km}
+    \caption{Illustration of $K_m$ defined in \eqsref{eq:km}}\label{fig:km}
 \end{figure}
 It is assumed that $K_c=1-K_m$.
 \subsection{Summary}
@@ -147,7 +147,7 @@ It should be emphasised that the formulation presented in this work is general.
 For specific applications, minor changes, for example, accounting for extra constants $\sqrt{\dfrac{2}{3}}$ in von Mises models \citep[see][]{Chang2025}, may be made.
 \begin{table}[ht!]
     \centering\footnotesize
-    \caption{summary of the proposed formulation}\label{tab:summary}
+    \caption{Summary of the proposed formulation}\label{tab:summary}
     \begin{tabular}{rl}
         \toprule
           Constitutive Law & $\bsigma=\mb{D}_e:\left(\bvarepsilon-\bvarepsilon^p\right)$              \\ \midrule
@@ -165,10 +165,10 @@ For specific applications, minor changes, for example, accounting for extra cons
 \end{table}
 For scalar bounds $H_\alpha=H_\alpha(q_m)$, $H_d=H_d(q_m)$,  $H_c=H_c(q_m)$ and $F_m=F_m(q_m)$, any suitable univariate functions can be chosen, so we keep the corresponding expressions general.
 Popular options may include a linear component, an exponential component that saturates, and/or a power term.
-For the 3D formulation, those scalar bounds, along with $\dot{q}$, shall be further multiplied by $\sqrt{\dfrac{2}{3}}$ to obtain consistent results.
+For the 3D formulation, those scalar bounds, along with $\dot{q}$, should be further multiplied by $\sqrt{\dfrac{2}{3}}$ to obtain consistent results.
 
-A careful examination shows the boundary between subloading surface theory and conventional plasticity is blurred.
-In specific, the following can be observed.
+A careful examination shows that the boundary between subloading surface theory and conventional plasticity is blurred.
+Specifically, the following can be observed.
 \begin{enumerate}
     \item The term $zF$ controls the effective size of the yield surface: during loading $zF$ grows from $0$ to $F$, so there is no initial elastic domain.
           It is possible to define a similar loading behaviour in conventional plasticity by using an isotropic hardening function that starts from zero.
@@ -176,12 +176,12 @@ In specific, the following can be observed.
           This can also be achieved in conventional plasticity by simply adjusting isotropic hardening.
     \item The term $\left(1-z\right)H_d\bd$ acts as an additional, generalised back stress contribution, complementing the conventional $H_\alpha\balpha$ term.
 \end{enumerate}
-Without introducing any additional (memory) surfaces, \tabref{tab:summary} shows that the subloading surface theory can be deemed as a generalisation of conventional plasticity, and it is effectively a single surface theory.
+Without introducing any additional (memory) surfaces, \tabref{tab:summary} shows that the subloading surface theory can be regarded as a generalisation of conventional plasticity and is effectively a single-surface theory.
 The proposed model mimics a balloon, expanding during loading and contracting during unloading.
 It is thus denoted as the \texttt{balloon} model.
 \subsection{Local System}
 The overall implementation procedure follows the previous work \citep{Chang2025}.
-Here we only emphasis the changes brought by the proposed formulation.
+Here, we emphasise only the changes introduced by the proposed formulation.
 The local system consists of two residuals, $f_s$ and $z$.
 \begin{gather}
     \mb{R}=\left\{
@@ -193,7 +193,7 @@ The local system consists of two residuals, $f_s$ and $z$.
 \end{gather}
 Taking the local variable as $\mb{x}=\begin{bmatrix}
         \gamma & z
-    \end{bmatrix}^\mT$, the Jacobian $\mb{J}$ shall be written as
+    \end{bmatrix}^\mT$, the Jacobian $\mb{J}$ can be written as
 \begin{gather}
     \mb{J}=\begin{bmatrix}
         \pdfrac{\norm{\beeta}}{\gamma}-z\pdfrac{F}{\gamma}              & \pdfrac{\norm{\beeta}}{z}-F-z\pdfrac{F}{z}            \\[4mm]

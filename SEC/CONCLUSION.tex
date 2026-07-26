@@ -1,13 +1,13 @@
 \section{Conclusions}
-In this work, we introduced the \texttt{Balloon-v1} model, a versatile constitutive framework for accurately modeling the complex cyclic response of metallic materials.
-Built upon the foundation of the subloading surface theory, the model achieves its enhanced capabilities without the need for additional, computationally demanding memory surfaces.
+In this work, we introduced the \texttt{Balloon-v1} model, a versatile constitutive framework for accurately modelling the complex cyclic response of metallic materials.
+Built on subloading surface theory, the model achieves its enhanced capabilities without the need for additional, computationally demanding memory surfaces.
 
 The core innovation lies in a novel isotropic hardening formulation that is driven by an additive decomposition of the plastic strain.
 This split allows the model to distinguish between plastic strain accumulated during monotonic loading and that accumulated during cyclic loading.
 Leveraging the loading reversal information inherently embedded in the normal yield ratio, $z$, this framework enables the following key features.
 \begin{itemize}
-    \item \textbf{Work/Isotropic Hardening Stagnation} By conditionally deactivating the evolution of the monotonic hardening component ($F_m$) based on the current loading level relative to the history of load reversals ($z_r$), the model effectively captures the stabilization of hysteresis loops.
-    \item \textbf{Controllable Cyclic Hardening/Softening} The cyclic isotropic hardening component ($F_c$) is dedicated to modeling this transient behaviour and can saturate in multiple stages, offering a refined response compared to other literature models.
+    \item \textbf{Work/Isotropic Hardening Stagnation} By conditionally deactivating the evolution of the monotonic hardening component ($F_m$) based on the current loading level relative to the history of load reversals ($z_r$), the model effectively captures the stabilisation of hysteresis loops.
+    \item \textbf{Controllable Cyclic Hardening/Softening} The cyclic isotropic hardening component ($F_c$) is dedicated to modelling this transient behaviour and can saturate in multiple stages, offering a refined response compared with other models in the literature.
 \end{itemize}
 
 The result is a streamlined and efficient formulation that is close to the original subloading surface model.
@@ -19,10 +19,10 @@ Through a comprehensive set of numerical examples, including simulations of SS30
     \item improved ratcheting response.
 \end{itemize}
 
-By providing an alternative to increasingly complex kinematic hardening law based approaches, the \texttt{Balloon-v1} model offers a powerful and numerically efficient tool for predictive simulations in metal plasticity.
+By providing an alternative to approaches based on increasingly complex kinematic hardening laws, the \texttt{Balloon-v1} model offers a powerful and numerically efficient tool for predictive simulations in metal plasticity.
 Future research will focus on extending the model's application to multiaxial loading conditions and other complex cyclic phenomena such as the multi-stage `tertiary evolution of ratcheting' \citep{Kang2008}.
 Furthermore, the history of load reversals, as embedded in $z_r$, only adopts simple functions for the purpose of demonstration in this work.
-More sophisticated definitions can be explored to account for fatigue related phenomena in future studies.
+More sophisticated definitions can be explored to account for fatigue-related phenomena in future studies.
 
 Both the uniaxial (1D) and multiaxial (3D) versions of the proposed model are implemented in the open-source finite element analysis framework \texttt{suanPan} \citep{Chang2024}.
 All numerical models and the relevant scripts are available in this repository\footnote{https://github.com/TLCFEM/balloon-v1}.
